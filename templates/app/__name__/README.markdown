@@ -3,21 +3,10 @@
 
 This is the Montage app template.
 
-Note: Before working on your app you will need to add montage to it. You can
-do this various ways depending on your version control preferences:
-
-Add Montage as a submodule of the Git repository containing your app:
+Note: Before working on your app you will need to add Montage. Inside this directory run:
 
 ```
-cd {{name}}
-git init
-git submodule add git@github.com:Motorola-Mobility/montage.git node_modules/montage
-```
-
-or just clone Montage to your app:
-
-```
-git clone git@github.com:Motorola-Mobility/montage.git bob/node_modules/montage
+npm install
 ```
 
 Layout
