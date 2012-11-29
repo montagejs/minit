@@ -29,7 +29,8 @@ ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 POSSIBILITY OF SUCH DAMAGE.
 </copyright> */
 
-var TemplateBase = require("../lib/template-base.js").TemplateBase;
+var TemplateBase = require("../lib/template-base.js").TemplateBase,
+    fs = require("fs"),
     path = require("path");
 
 exports.Template = Object.create(TemplateBase, {
@@ -44,7 +45,7 @@ exports.Template = Object.create(TemplateBase, {
             TemplateBase.processArguments.apply(this, arguments);
             this.variables.author = args[1];
             this.variables.montagePath = args[2];
-            if (!path.existsSync(path.join(this.variables.montagePath, "montage.js"))) {
+            if (!fs.existsSync(path.join(this.variables.montagePath, "montage.js"))) {
                 console.error("Error: " + path.join(this.variables.montagePath, "montage.js") + " does not exist. Exiting.");
                 process.exit();
             }

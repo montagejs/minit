@@ -40,7 +40,7 @@ options.templateName = process.argv[2];
 options.minitHome = __dirname + "/";
 options.packageHome = ".";
 while (true) {
-    if (path.existsSync(path.join(options.packageHome, "package.json"))) {
+    if (fs.existsSync(path.join(options.packageHome, "package.json"))) {
         break;
     }
     options.packageHome = path.resolve(path.join(options.packageHome, ".."));
