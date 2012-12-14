@@ -29,46 +29,52 @@ ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 POSSIBILITY OF SUCH DAMAGE.
 </copyright> */
 
-var TemplateBase = require("../lib/template-base.js").TemplateBase;
+var fs = require("fs");
 var path = require("path");
-var exec = require('child_process').exec;
-var fs = require('fs');
 
-exports.Template = Object.create(TemplateBase, {
+var Command = require("commander").Command;
 
-    usage: {
-        value: function() {
-            return TemplateBase.usage.apply(this, arguments) + " [copyright file]";
+var config = require("./package.json");
+var create = require("./lib/create");
+
+var main = new Command();
+
+main.version(config.version)
+    .option('-p, --package-home [path]', 'package home', String, findPackageHome())
+    .option('-t, --templates-dir [path]', 'templates directory', String, path.join(__dirname, "templates"))
+;
+
+create.addCommands(main);
+
+main.command('serve')
+    .description('serve current directory with minit server.')
+    .action(function(env){
+        var args = this.args.slice(0);
+        args.unshift(null,null);
+        console.log('serving "%s"', env);
+    });
+main.command('test')
+    .description('run tests')
+    .action(function(env){
+        require("./run-test");
+    });
+exports.command = main;
+
+//extras
+main.minitHome = __dirname + "/";
+
+
+function findPackageHome() {
+    var packageHome = process.cwd();
+    while (true) {
+        if (fs.existsSync(path.join(packageHome, "package.json"))) {
+            break;
         }
-    },
-
-    commandDescription: {
-        value: "application"
-    },
-
-    addOptions: {
-        value:function (command) {
-            command.option('-c, --copyright [path]', 'copyright file', function(path) {
-                return fs.readFileSync(path, "utf-8");
-            });
-            return command;
-        }
-    },
-
-    finish: {
-        value: function() {
-            return TemplateBase.finish.call(this).then(function(result) {
-                // TODO: Do something automatically
-                // This is nowhere near the most user friendly way of adding Montage
-                // to the user's app. We could init a Git repo and submodule it
-                // for them, but that might be a bit presumptuous. To think about.
-                console.log("* Install Montage from npm:");
-                console.log("npm install .");
-                console.log();
-                return result;
-            });
-
+        packageHome = path.resolve(path.join(packageHome, ".."));
+        if (packageHome === "/") {
+            packageHome = process.cwd();
+            break;
         }
     }
-
-});
+    return packageHome
+}

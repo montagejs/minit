@@ -31,10 +31,10 @@ POSSIBILITY OF SUCH DAMAGE.
 var Montage = require("montage").Montage,
     TestController = require("support/test-controller").TestController;
 
-var Test = exports.TestController = Montage.create(TestController, {
+exports.Test = Montage.create(TestController, {
 
     testedComponent: {
         value: null
     }
+
 });
-exports.theTest = Test.create();

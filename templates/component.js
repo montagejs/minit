@@ -33,6 +33,22 @@ var TemplateBase = require("../lib/template-base.js").TemplateBase;
 var childProcess = require('child_process'),
     fs = require('fs');
 
+var Command = require("commander").Command;
+
+exports.commandDescription = "component";
+
+exports.command = function(parentCommand) {
+    var program = Object.create(parentCommand);
+    Command.call(program);
+
+    program
+        .option('-d, --jsdoc [module]', 'jsdoc module')
+        .option('-c, --copyright [path]', 'copyright file')
+    ;
+
+    return program;
+};
+
 var _firstCapRe = new RegExp('(.)([A-Z][a-z]+)'),
     _allCapRe = new RegExp('([a-z0-9])([A-Z])'),
     _fromCamelToDashes = function (name){
@@ -48,36 +64,66 @@ exports.Template = Object.create(TemplateBase, {
         }
     },
 
+    commandDescription: {
+        value: "component"
+    },
 
-    processArguments: {
-        value: function(args) {
-            TemplateBase.processArguments.apply(this, arguments);
+    addOptions: {
+        value:function (command) {
+            command.option('-n, --name <name>', 'module name', function(name) {
+                // We accept the name in any format, dashed, spaced or camelcased
+                // We then convert to to camelcase and back to get the consistent
+                // naming used in Montage
+                // remove spaces
+                name = name.replace(" ", "-");
+                // convert to camelcase
+                var exportedName = name.replace(/(?:^|-)([^\-])/g, function(_, g1) { return g1.toUpperCase(); });
+                if (!command.exportedName) {
+                    command.exportedName = exportedName;
+                }
+                // convert back from camelcase to dashes
+                return _fromCamelToDashes(exportedName);
+            });
+            command.option('-e, --exported-name [name]', 'exported name');
+            command.option('-d, --jsdoc [module]', 'jsdoc module', function(jsdocModule) {
+                if (jsdocModule && jsdocModule.length && jsdocModule.substring(jsdocModule.length - 1) !== "/") {
+                    return jsdocModule += "/";
+                }
+            });
+            command.option('-c, --copyright [path]', 'copyright file', function(path) {
+                return fs.readFileSync(path, "utf-8");
+            });
+            return command;
+        }
+    },
+
+    validateName: {
+        value: function(name) {
 
             // We accept the name in any format, dashed, spaced or camelcased
             // We then convert to to camelcase and back to get the consistent
             // naming used in Montage
-            var name = this.variables.name;
             // remove spaces
             name = name.replace(" ", "-");
             // convert to camelcase
             var exportedName = name.replace(/(?:^|-)([^\-])/g, function(_, g1) { return g1.toUpperCase(); });
             // convert back from camelcase to dashes
-            name = _fromCamelToDashes(exportedName);
+            return _fromCamelToDashes(exportedName);
+        }
+    },
 
-            var jsdocModule = args[1];
-            if (jsdocModule && jsdocModule.length && jsdocModule.substring(jsdocModule.length - 1) !== "/") {
-                jsdocModule += "/";
-            }
+    validateExport: {
+        value: function(name) {
 
-            var copyright, copyrightFile = args[2];
-            if (copyrightFile) {
-                copyright = fs.readFileSync(copyrightFile, "utf-8");
-            }
-
-            this.variables.name = name;
-            this.variables.exportedName = exportedName;
-            this.variables.jsdocModule = jsdocModule;
-            this.variables.copyright = copyright;
+            // We accept the name in any format, dashed, spaced or camelcased
+            // We then convert to to camelcase and back to get the consistent
+            // naming used in Montage
+            // remove spaces
+            name = name.replace(" ", "-");
+            // convert to camelcase
+            var exportedName = name.replace(/(?:^|-)([^\-])/g, function(_, g1) { return g1.toUpperCase(); });
+            // convert back from camelcase to dashes
+            return _fromCamelToDashes(exportedName);
         }
     },
 
@@ -87,8 +133,11 @@ exports.Template = Object.create(TemplateBase, {
 
     finish: {
         value: function() {
-            TemplateBase.finish.apply(this, arguments);
-            console.log(this.variables.name + ".reel created.");
+            var self = this;
+            return TemplateBase.finish.apply(this, arguments).then(function(result) {
+                console.log(self.options.name + ".reel created.");
+                return result;
+            });
         }
     }
 

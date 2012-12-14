@@ -52,4 +52,16 @@ exports.Template = Object.create(TemplateBase, {
         }
     },
 
+    commandDescription: {
+        value: "package.json"
+    },
+
+    addOptions: {
+        value:function (command) {
+            command.option('-a, --author [name]', 'author');
+            command.option('-m, --montage-path [name]', 'path to montage', 'node_modules/montage/montage.js');
+            return command;
+        }
+    }
+
 });

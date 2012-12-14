@@ -31,6 +31,7 @@ POSSIBILITY OF SUCH DAMAGE.
 
 var TemplateBase = require("../lib/template-base.js").TemplateBase;
 var childProcess = require('child_process');
+var Q = require("q");
 
 exports.Template = Object.create(TemplateBase, {
 
@@ -41,14 +42,16 @@ exports.Template = Object.create(TemplateBase, {
         }
     },
 
-
-    processArguments: {
-        value: function(args) {
-            TemplateBase.processArguments.apply(this, arguments);
-            this.variables.title = args[1];
-            if (!this.variables.title) {
-                this.variables.title = this.variables.name.replace(/(?:^|-)([^-])/g, function(_, g1) { return g1.toUpperCase() });
-            }
+    addOptions: {
+        value:function (command) {
+            command.option('-n, --name <name>', 'module name', function(name) {
+                if (!command.title) {
+                    command.title = name.replace(/(?:^|-)([^-])/g, function(_, g1) { return g1.toUpperCase() });
+                }
+                return name;
+            });
+            command.option('-t, --title [name]', 'title of the test');
+            return command;
         }
     },
 
@@ -58,10 +61,17 @@ exports.Template = Object.create(TemplateBase, {
 
     finish: {
         value: function() {
-            TemplateBase.finish.apply(this, arguments);
-            console.log("Direct Link:");
-            console.log("http://localhost:8081/montage/test/run.html?spec=ui%2F" + this.variables.name + "-spec");
-            childProcess.exec("open http://localhost:8081/montage/test/run.html?spec=ui%2F" + this.variables.name + "-spec");
+            return TemplateBase.finish.call(this).then(function(result) {
+                console.log("Direct Link:");
+                var url = "http://localhost:8081/montage/test/run.html?spec=ui%2F" + this.options.name + "-spec";
+                console.log(url);
+                // intentionally ignore failure
+                var done = Q.defer();
+                childProcess.exec("open " + url, function () {
+                    done.resolve("open " + url);
+                });
+                return done.promise;
+            });
         }
     }
 
