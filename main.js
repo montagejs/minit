@@ -44,7 +44,7 @@ main.version(config.version)
     .option('-t, --templates-dir [path]', 'templates directory', String, path.join(__dirname, "templates"))
 ;
 
-create.addCommands(main);
+create.addCommandsTo(main);
 
 main.command('serve')
     .description('serve current directory with minit server.')

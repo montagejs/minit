@@ -4,50 +4,55 @@ var SandboxedModule = require('sandboxed-module');
 
 describe("minit", function () {
 
-    describe("create", function () {
+    describe("argv program", function () {
+        var mockCreate;
+        var main;
+        var mainSandbox;
 
-        it("should call command method ", function () {
+        beforeEach(function() {
+            mockCreate = {};
+            mockCreate.addCommandsTo = function (program) { return program; };
+            mockCreate.create = function (templateName, config, template) {};
 
-            var mockModule = {};
-            mockModule.command = function () {
-                var command = {};
-                command.parse = function () {};
-                return command;
+            main = null;
+
+            mainSandbox = {
+                requires: {'./lib/create': mockCreate}
             };
-            var commandSpy = spyOn(mockModule, "command").andCallThrough();
+       });
 
-            var main = SandboxedModule.require('../main', {
-              requires: {'./lib/create': mockModule}
-            });
+        it("should add creation commands", function () {
+            var addCommandsToSpy = spyOn(mockCreate, "addCommandsTo");
+            main = SandboxedModule.require('../main', mainSandbox);
 
-            main.command.parse([null,null, "create"]);
-
-            expect(commandSpy).toHaveBeenCalled();
+            expect(addCommandsToSpy).toHaveBeenCalled();
         });
 
-    });
+        it("should have serve command", function () {
+            main = SandboxedModule.require('../main', mainSandbox);
 
-    xdescribe("serve", function () {
-
-        it("should call command method ", function () {
-
-            var mockModule = {};
-            mockModule.command = function () {
-                var command = {};
-                command.parse = function () {};
-                return command;
-            };
-            var commandSpy = spyOn(mockModule, "command").andCallThrough();
-
-            var main = SandboxedModule.require('../main', {
-              requires: {'./lib/serve': mockModule}
-            });
-
-            main.command.parse([null,null, "serve"]);
-
-            expect(commandSpy).toHaveBeenCalled();
+            expect(main.command.listeners("serve").length).not.toEqual(0);
         });
 
+        it("should have test command", function () {
+            main = SandboxedModule.require('../main', mainSandbox);
+
+            expect(main.command.listeners("test").length).not.toEqual(0);
+        });
+
+        it("should have --package-home option", function () {
+            main = SandboxedModule.require('../main', mainSandbox);
+
+            expect(main.command.optionFor("-p")).toBeDefined();
+            expect(main.command.optionFor("--package-home")).toBeDefined();
+        });
+
+        it("should have --templates-dir option", function () {
+            main = SandboxedModule.require('../main', mainSandbox);
+
+            expect(main.command.optionFor("-t")).toBeDefined();
+            expect(main.command.optionFor("--templates-dir")).toBeDefined();
+        });
     });
 
 });
