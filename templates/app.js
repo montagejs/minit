@@ -30,17 +30,9 @@ POSSIBILITY OF SUCH DAMAGE.
 </copyright> */
 
 var TemplateBase = require("../lib/template-base.js").TemplateBase;
-var path = require("path");
-var exec = require('child_process').exec;
 var fs = require('fs');
 
 exports.Template = Object.create(TemplateBase, {
-
-    usage: {
-        value: function() {
-            return TemplateBase.usage.apply(this, arguments) + " [copyright file]";
-        }
-    },
 
     commandDescription: {
         value: "application"

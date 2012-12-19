@@ -30,28 +30,13 @@ POSSIBILITY OF SUCH DAMAGE.
 </copyright> */
 
 var TemplateBase = require("../lib/template-base.js").TemplateBase;
-var childProcess = require('child_process'),
-    fs = require('fs');
+var fs = require('fs');
 
 var Command = require("commander").Command;
 
-exports.commandDescription = "component";
-
-exports.command = function(parentCommand) {
-    var program = Object.create(parentCommand);
-    Command.call(program);
-
-    program
-        .option('-d, --jsdoc [module]', 'jsdoc module')
-        .option('-c, --copyright [path]', 'copyright file')
-    ;
-
-    return program;
-};
-
-var _firstCapRe = new RegExp('(.)([A-Z][a-z]+)'),
-    _allCapRe = new RegExp('([a-z0-9])([A-Z])'),
-    _fromCamelToDashes = function (name){
+var _firstCapRe = new RegExp('(.)([A-Z][a-z]+)');
+var _allCapRe = new RegExp('([a-z0-9])([A-Z])');
+var _fromCamelToDashes = function (name){
         var s1 = name.replace(_firstCapRe, "$1-$2");
         return s1.replace(_allCapRe, "$1-$2").toLowerCase();
     };
@@ -85,7 +70,7 @@ exports.Template = Object.create(TemplateBase, {
                 return _fromCamelToDashes(exportedName);
             });
             command.option('-e, --exported-name [name]', 'exported name');
-            command.option('-d, --jsdoc [module]', 'jsdoc module', function(jsdocModule) {
+            command.option('-j, --jsdoc [module]', 'jsdoc module', function(jsdocModule) {
                 if (jsdocModule && jsdocModule.length && jsdocModule.substring(jsdocModule.length - 1) !== "/") {
                     return jsdocModule += "/";
                 }

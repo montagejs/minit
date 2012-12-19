@@ -35,11 +35,8 @@ var Q = require("q");
 
 exports.Template = Object.create(TemplateBase, {
 
-
-    usage: {
-        value: function() {
-            return TemplateBase.usage.apply(this, arguments) + " <title>";
-        }
+    commandDescription: {
+        value: "jasmine spec"
     },
 
     addOptions: {
