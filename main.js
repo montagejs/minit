@@ -37,6 +37,8 @@ var Command = require("commander").Command;
 var config = require("./package.json");
 var create = require("./lib/create");
 
+exports.create = create;
+
 var main = new Command();
 
 main.version(config.version)
@@ -53,11 +55,11 @@ main.command('serve')
         args.unshift(null,null);
         console.log('serving "%s"', env);
     });
-main.command('test')
-    .description('run tests')
-    .action(function(env){
-        require("./run-test");
-    });
+//main.command('test')
+//    .description('run tests')
+//    .action(function(env){
+//        require("./run-test");
+//    });
 exports.command = main;
 
 //extras
