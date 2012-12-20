@@ -14,7 +14,7 @@
         "mocks": "0.0.10"
     },
     "bin": {
-        "minit": "main.js"
+        "minit": "minit"
     },
     "preferGlobal": true
 }
