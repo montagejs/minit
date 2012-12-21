@@ -32,50 +32,43 @@ POSSIBILITY OF SUCH DAMAGE.
 var fs = require("fs");
 var path = require("path");
 
-var templatesDir = path.join(__dirname, "../templates/");
+var Command = require("commander").Command;
 
-var create = exports = module.exports = function(templateName, config, template) {
+var config = require("./package.json");
+var create = require("./lib/create");
 
-    config.templateName = templateName;
+var cli = new Command();
 
-    if(!template) {
-        template = require(path.join("../templates/" + config.templateName))
-    }
-    var Template = template.Template;
-    config.destination = Template.destination;
+cli.version(config.version)
+    .option('-p, --package-home [path]', 'package home', String, findPackageHome())
+;
 
-    if (! config.parent) {
-        config.minitHome = path.join(__dirname, "..");
-        config.templatesDir = templatesDir;
-    } else {
-        config.minitHome = config.parent.minitHome;
-        config.packageHome = config.parent.packageHome;
-        //config.templatesDir = config.parent.templatesDir;
-        config.templatesDir = templatesDir;
-    }
+create.addCommandsTo(cli);
 
-
-    var aTemplate = Template.newWithNameAndOptions(path.join(config.templatesDir,templateName), config);
-
-    return aTemplate.process(config);
-};
-exports.create = create;
-
-exports.addCommandsTo = function(program) {
-    var fileNames = fs.readdirSync(templatesDir);
-    fileNames.forEach(function(filename) {
-        var stats = fs.statSync(path.join(templatesDir,filename));
-        if (stats.isDirectory()) {
-            var template = require("../templates/" + filename);
-            var command = program.command("create:" + filename)
-            .description(template.commandDescription)
-            .action(function(env){
-                exports.create(filename, command, template).done();
-            });
-            template.Template.addOptions(command);
-        }
+cli.command('serve')
+    .description('serve current directory with minit server.')
+    .action(function(env){
+        var args = this.args.slice(0);
+        args.unshift(null,null);
+        console.log('serving "%s"', env);
     });
-    return program;
-};
+exports.command = cli;
+
+//extras
+cli.minitHome = __dirname + "/";
 
 
+function findPackageHome() {
+    var packageHome = process.cwd();
+    while (true) {
+        if (fs.existsSync(path.join(packageHome, "package.json"))) {
+            break;
+        }
+        packageHome = path.resolve(path.join(packageHome, ".."));
+        if (packageHome === "/") {
+            packageHome = process.cwd();
+            break;
+        }
+    }
+    return packageHome
+}

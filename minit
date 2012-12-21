@@ -1,4 +1,4 @@
 #!/usr/bin/env node
 
 
-require("./main").command.parse(process.argv);
+require("./cli").command.parse(process.argv);
