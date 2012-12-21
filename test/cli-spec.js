@@ -21,19 +21,19 @@ describe("minit", function () {
 
     it("should add creation commands", function () {
         var addCommandsToSpy = spyOn(mockCreate, "addCommandsTo");
-        main = SandboxedModule.require('../main', mainSandbox);
+        main = SandboxedModule.require('../cli', mainSandbox);
 
         expect(addCommandsToSpy).toHaveBeenCalled();
     });
 
     it("should have serve command", function () {
-        main = SandboxedModule.require('../main', mainSandbox);
+        main = SandboxedModule.require('../cli', mainSandbox);
 
         expect(main.command.listeners("serve").length).not.toEqual(0);
     });
 
     it("should have --package-home option", function () {
-        main = SandboxedModule.require('../main', mainSandbox);
+        main = SandboxedModule.require('../cli', mainSandbox);
 
         expect(main.command.optionFor("-p")).toBeDefined();
         expect(main.command.optionFor("--package-home")).toBeDefined();
@@ -41,7 +41,7 @@ describe("minit", function () {
 
     //disabled feature till I figure out how to require modules in a custom directory
     xit("should have --templates-dir option", function () {
-        main = SandboxedModule.require('../main', mainSandbox);
+        main = SandboxedModule.require('../cli', mainSandbox);
 
         expect(main.command.optionFor("-t")).toBeDefined();
         expect(main.command.optionFor("--templates-dir")).toBeDefined();

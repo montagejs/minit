@@ -38,13 +38,12 @@ var config = require("./package.json");
 var create = require("./lib/create");
 
 var cli = new Command();
-
-cli.version(config.version)
-    .option('-p, --package-home [path]', 'package home', String, findPackageHome())
-;
-
+//extras
+cli.minitHome = __dirname + "/";
+//
+cli.version(config.version);
+cli.option('-p, --package-home [path]', 'package home', String, findPackageHome());
 create.addCommandsTo(cli);
-
 cli.command('serve')
     .description('serve current directory with minit server.')
     .action(function(env){
@@ -52,10 +51,8 @@ cli.command('serve')
         args.unshift(null,null);
         console.log('serving "%s"', env);
     });
-exports.command = cli;
 
-//extras
-cli.minitHome = __dirname + "/";
+exports.command = cli;
 
 
 function findPackageHome() {
