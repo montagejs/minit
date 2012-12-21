@@ -43,7 +43,6 @@ var main = new Command();
 
 main.version(config.version)
     .option('-p, --package-home [path]', 'package home', String, findPackageHome())
-    .option('-t, --templates-dir [path]', 'templates directory', String, path.join(__dirname, "templates"))
 ;
 
 create.addCommandsTo(main);
@@ -55,11 +54,6 @@ main.command('serve')
         args.unshift(null,null);
         console.log('serving "%s"', env);
     });
-//main.command('test')
-//    .description('run tests')
-//    .action(function(env){
-//        require("./run-test");
-//    });
 exports.command = main;
 
 //extras
