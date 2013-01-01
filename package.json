@@ -16,5 +16,8 @@
     "bin": {
         "minit": "minit"
     },
+    "scripts": {
+      "test": "node run-test.js"
+    },
     "preferGlobal": true
 }

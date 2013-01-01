@@ -2,6 +2,7 @@
 
 var jasmine = require('jasmine-node');
 var sys = require('sys');
+var path = require('path');
 var Q = require("q");
 
 //for(var key in jasmine) {
@@ -10,12 +11,19 @@ var Q = require("q");
 
 var isVerbose = true;
 var showColors = true;
+var junitreport = {
+    report: false,
+    savePath: path.join(__dirname, "junitreport/"),
+    consolidate: true,
+    useDotNotation: false
+};
 
 process.argv.forEach(function(arg){
     switch(arg) {
           case '--color': showColors = true; break;
           case '--noColor': showColors = false; break;
           case '--verbose': isVerbose = true; break;
+          case '--junit': junitreport.report = true; break;
       }
 });
 
@@ -57,5 +65,6 @@ jasmine.executeSpecsInFolder({
       }
     },
     "isVerbose": isVerbose,
-    "showColors": showColors
+    "showColors": showColors,
+    "junitreport": junitreport
 });
