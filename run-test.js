@@ -47,7 +47,7 @@ jasmine.Block.prototype.execute = function (onComplete) {
 
 
 jasmine.executeSpecsInFolder({
-    "specFolder": __dirname+ "/test",
+    "specFolder": __dirname+ "/spec",
     "onComplete": function(runner, log){
       if (runner.results().failedCount == 0) {
         process.exit(0);

@@ -3,11 +3,13 @@ var jasmine = require("jasmine-node");
 var SandboxedModule = require('sandboxed-module');
 var Command = require("commander").Command;
 
+var mockFS = require("mocks").fs;
+
 describe("create", function () {
     var mocks = {};
 
     beforeEach(function() {
-        mocks.blankFS = require("mocks").fs.create({
+        mocks.blankFS = mockFS.create({
             'minit_home': {
                 'templates': {
                 }
@@ -16,11 +18,10 @@ describe("create", function () {
                 'package.json': 1
             }
         });
-        mocks.simpleFS = require("mocks").fs.create({
+        mocks.simpleFS = mockFS.create({
             'minit_home': {
                 'templates': {
                     'testTemplate': {
-
                     },
                     'testTemplate.js': 1
                 }
@@ -71,5 +72,4 @@ describe("create", function () {
         });
 
     });
-
 });
