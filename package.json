@@ -2,6 +2,16 @@
     "name": "minit",
     "version": "0.0.2",
     "title": "Montage Assistant",
+    "homepage": "http://www.montage.org",
+    "bugs": {
+      "url": "http://github.com/montagejs/minit/issues"
+    },
+    "licenses": [
+      {
+        "type": "BSD",
+        "url": "http://github.com/montagejs/minit/raw/master/LICENSE.md"
+      }
+    ],
     "main": "main.js",
     "dependencies": {
         "commander": ">=1.1.1",
@@ -12,6 +22,9 @@
         "jasmine-node": "1.0.28",
         "sandboxed-module": "0.1.4",
         "mocks": "0.0.10"
+    },
+    "engines": {
+      "node": ">=0.8.0"
     },
     "bin": {
         "minit": "minit"
