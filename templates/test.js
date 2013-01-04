@@ -41,14 +41,17 @@ exports.Template = Object.create(TemplateBase, {
 
     addOptions: {
         value:function (command) {
-            command.option('-n, --name <name>', 'module name', function(name) {
-                if (!command.title) {
-                    command.title = name.replace(/(?:^|-)([^-])/g, function(_, g1) { return g1.toUpperCase() });
-                }
-                return name;
-            });
+            command.option('-n, --name <name>', 'module name');
             command.option('-t, --title [name]', 'title of the test');
             return command;
+        }
+    },
+
+    didSetOptions: {
+        value:function (options) {
+            if (!options.title && options.name) {
+                options.title = options.name.replace(/(?:^|-)([^-])/g, function(_, g1) { return g1.toUpperCase() });
+            }
         }
     },
 

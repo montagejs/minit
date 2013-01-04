@@ -43,55 +43,41 @@ var _fromCamelToDashes = function (name){
 
 exports.Template = Object.create(TemplateBase, {
 
-    usage: {
-        value: function() {
-            return TemplateBase.usage.apply(this, arguments) + " [jsdoc module] [copyright file]";
-        }
-    },
-
     commandDescription: {
         value: "component"
     },
 
     addOptions: {
         value:function (command) {
-            command.option('-n, --name <name>', 'module name', function(name) {
-                // We accept the name in any format, dashed, spaced or camelcased
-                // We then convert to to camelcase and back to get the consistent
-                // naming used in Montage
-                // remove spaces
-                name = name.replace(" ", "-");
-                // convert to camelcase
-                var exportedName = name.replace(/(?:^|-)([^\-])/g, function(_, g1) { return g1.toUpperCase(); });
-                if (!command.exportedName) {
-                    command.exportedName = exportedName;
-                }
-                // convert back from camelcase to dashes
-                return _fromCamelToDashes(exportedName);
-            });
+            command.option('-n, --name <name>', 'module name');
             command.option('-e, --exported-name [name]', 'exported name');
-            command.option('-j, --jsdoc [module]', 'jsdoc module', function(jsdocModule) {
-                if (jsdocModule && jsdocModule.length && jsdocModule.substring(jsdocModule.length - 1) !== "/") {
-                    return jsdocModule += "/";
-                }
-            });
-            command.option('-c, --copyright [path]', 'copyright file', function(path) {
-                return fs.readFileSync(path, "utf-8");
-            });
+            command.option('-j, --jsdoc [module]', 'jsdoc module');
+            command.option('-c, --copyright [path]', 'copyright file');
             return command;
+        }
+    },
+
+    didSetOptions: {
+        value:function (options) {
+            if (options.name) {
+                options.name = this.validateName(options.name);
+            }
+            if (!options.exportedName) {
+                options.exportedName = this.validateExport(options.name);
+            }
+            if (options.jsdoc) {
+                options.jsdoc = this.validateJsdoc(options.jsdoc);
+            }
+            if (options.copyright) {
+                options.copyright = this.validateCopyright(options.copyright);
+            }
+
         }
     },
 
     validateName: {
         value: function(name) {
-
-            // We accept the name in any format, dashed, spaced or camelcased
-            // We then convert to to camelcase and back to get the consistent
-            // naming used in Montage
-            // remove spaces
-            name = name.replace(" ", "-");
-            // convert to camelcase
-            var exportedName = name.replace(/(?:^|-)([^\-])/g, function(_, g1) { return g1.toUpperCase(); });
+           var exportedName = this.validateExport(name);
             // convert back from camelcase to dashes
             return _fromCamelToDashes(exportedName);
         }
@@ -99,16 +85,28 @@ exports.Template = Object.create(TemplateBase, {
 
     validateExport: {
         value: function(name) {
-
             // We accept the name in any format, dashed, spaced or camelcased
             // We then convert to to camelcase and back to get the consistent
             // naming used in Montage
             // remove spaces
             name = name.replace(" ", "-");
             // convert to camelcase
-            var exportedName = name.replace(/(?:^|-)([^\-])/g, function(_, g1) { return g1.toUpperCase(); });
-            // convert back from camelcase to dashes
-            return _fromCamelToDashes(exportedName);
+            return name.replace(/(?:^|-)([^\-])/g, function(_, g1) { return g1.toUpperCase(); });
+        }
+    },
+
+    validateJsdoc: {
+        value: function(jsdocModule) {
+            if (jsdocModule.length && jsdocModule.substring(jsdocModule.length - 1) !== "/") {
+                return jsdocModule += "/";
+            }
+            return jsdocModule;
+        }
+    },
+
+    validateCopyright: {
+        value: function(path) {
+            return fs.readFileSync(path, "utf-8");
         }
     },
 

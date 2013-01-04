@@ -41,10 +41,23 @@ exports.Template = Object.create(TemplateBase, {
     addOptions: {
         value:function (command) {
             command.option('-n, --name <name>', 'application name');
-            command.option('-c, --copyright [path]', 'copyright file', function(path) {
-                return fs.readFileSync(path, "utf-8");
-            });
+            command.option('-c, --copyright [path]', 'copyright file');
             return command;
+        }
+    },
+
+    didSetOptions: {
+        value:function (options) {
+            if (options.copyright) {
+                options.copyright = this.validateCopyright(options.copyright);
+            }
+
+        }
+    },
+
+    validateCopyright: {
+        value: function(path) {
+            return fs.readFileSync(path, "utf-8");
         }
     },
 

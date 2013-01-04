@@ -41,8 +41,16 @@ exports.Template = Object.create(TemplateBase, {
         value:function (command) {
             command.option('-n, --name <name>', 'package name');
             command.option('-a, --author [name]', 'author');
-            command.option('-m, --montage-path [name]', 'path to montage', 'node_modules/montage/montage.js');
+            command.option('-m, --montage-path [name]', 'path to montage');
             return command;
+        }
+    },
+
+    didSetOptions: {
+        value:function (options) {
+            if (!options.montagePath) {
+                options.montagePath = 'node_modules/montage/montage.js';
+            }
         }
     }
 

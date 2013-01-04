@@ -57,6 +57,39 @@ describe("component template", function () {
             expect(command.optionFor("-c")).toBeDefined();
             expect(command.optionFor("--copyright")).toBeDefined();
         });
+
+    });
+
+    describe("option validation", function () {
+        var template;
+        var options;
+        beforeEach(function () {
+            template = Object.create(Template);
+            options = {};
+        });
+        it("should accept name with dashes", function () {
+            options.name = "my-component";
+            template.didSetOptions(options);
+            expect(options.name).toEqual("my-component");
+        });
+        it("should accept name with spaces", function () {
+            options.name = "my component";
+            template.didSetOptions(options);
+            expect(options.name).toEqual("my-component");
+            expect(options.exportedName).toEqual("MyComponent");
+        });
+        it("should accept camelCased name", function () {
+            options.name = "MyComponent";
+            template.didSetOptions(options);
+            expect(options.name).toEqual("my-component");
+            expect(options.exportedName).toEqual("MyComponent");
+        });
+        it("should transform name to exported name", function () {
+            options.name = "my-component";
+            template.didSetOptions(options);
+            expect(options.name).toEqual("my-component");
+            expect(options.exportedName).toEqual("MyComponent");
+        });
     });
 
 });
