@@ -45,4 +45,20 @@ describe("test template", function () {
         });
     });
 
+    describe("option validation", function () {
+        var template;
+        var options;
+        beforeEach(function () {
+            template = Object.create(Template);
+            options = {};
+        });
+        it("should accept name with dashes", function () {
+            options.name = "my-component";
+            template.didSetOptions(options);
+            expect(options.name).toEqual("my-component");
+            expect(options.title).toEqual("MyComponent");
+            expect(options.propertyName).toEqual("myComponent");
+        });
+    });
+
 });
