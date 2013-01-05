@@ -50,27 +50,25 @@ exports.Template = Object.create(TemplateBase, {
     didSetOptions: {
         value:function (options) {
             if (!options.title && options.name) {
-                options.title = options.name.replace(/(?:^|-)([^-])/g, function(_, g1) { return g1.toUpperCase() });
+                options.title = options.name.replace(/(?:^|-)([^-])/g, function(match, g1) { return g1.toUpperCase() });
+            }
+            if (options.name) {
+                options.propertyName = options.name.replace(/(?:-)([^-])/g, function(match, g1) { return g1.toUpperCase() });
             }
         }
     },
 
     destination: {
-        value: "test/ui/"
+        value: "test/"
     },
 
     finish: {
         value: function() {
+            var self = this;
             return TemplateBase.finish.call(this).then(function(result) {
-                console.log("Direct Link:");
-                var url = "http://localhost:8081/montage/test/run.html?spec=ui%2F" + this.options.name + "-spec";
-                console.log(url);
-                // intentionally ignore failure
-                var done = Q.defer();
-                childProcess.exec("open " + url, function () {
-                    done.resolve("open " + url);
-                });
-                return done.promise;
+                var message = 'add "test/' + self.options.name + "/" + self.options.name + '-spec" to test/all.js ';
+                console.log(message);
+                return Q.resolve(message);
             });
         }
     }
