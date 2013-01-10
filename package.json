@@ -16,7 +16,8 @@
     "dependencies": {
         "commander": ">=1.1.1",
         "q": ">=0.8.11",
-        "q-io": "~1.5.1"
+        "q-io": "~1.5.1",
+        "npm": "1.1.70"
     },
     "devDependencies": {
         "jasmine-node": "1.0.28",
