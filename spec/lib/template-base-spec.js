@@ -20,6 +20,7 @@ describe("template-base", function () {
         var testTemplate;
         var templateConfig;
         var aMockQFS;
+        var osMock;
 
         beforeEach(function() {
             aMockQFS = QMock({
@@ -34,6 +35,12 @@ describe("template-base", function () {
                 }
             });
 
+            osMock = {
+                tmpDir: function() {
+                    return "/minit_home"
+                }
+            }
+
             templateConfig = {};
             templateConfig.minitHome = "/minit_home";
             templateConfig.packageHome = "/package_home";
@@ -41,7 +48,8 @@ describe("template-base", function () {
 
             var TemplateBase = SandboxedModule.require("../../lib/template-base", {
                 requires: {
-                    "q-io/fs": aMockQFS
+                    "q-io/fs": aMockQFS,
+                    "os": osMock
                 }
             }).TemplateBase;
 
