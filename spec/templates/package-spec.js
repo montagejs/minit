@@ -11,7 +11,11 @@ describe("package template", function () {
         Template = SandboxedModule.require('../../templates/package', {
             requires: {
                 '../lib/template-base': {
-                    TemplateBase: {}
+                    TemplateBase: {
+                        addOptions: function(command) {
+                            return command;
+                        }
+                    }
                 }
             }
         }).Template;

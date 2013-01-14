@@ -9,6 +9,7 @@ exports.Template = Object.create(TemplateBase, {
 
     addOptions: {
         value:function (command) {
+            command = TemplateBase.addOptions.call(this, command);
             command.option('-n, --name <name>', 'module name');
             command.option('-t, --title [name]', 'title of the test');
             return command;

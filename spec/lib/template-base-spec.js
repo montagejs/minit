@@ -1,5 +1,6 @@
 var jasmine = require("jasmine-node");
 var SandboxedModule = require('sandboxed-module');
+var Command = require("commander").Command;
 
 var TemplateBase = require("../../lib/template-base").TemplateBase;
 
@@ -15,6 +16,26 @@ describe("template-base", function () {
         expect(base.directory).toBe(directory);
 
      });
+
+    describe("default template options", function () {
+        var testCommand;
+        var Template;
+        beforeEach(function() {
+
+            Template = SandboxedModule.require('../../lib/template-base').TemplateBase;
+
+            testCommand = new Command();
+
+        });
+        it("should have a --destination option", function () {
+
+                var command = Object.create(Template).addOptions(testCommand);
+
+                expect(command.optionFor("-d")).toBeDefined();
+                expect(command.optionFor("--destination")).toBeDefined();
+
+        });
+    });
 
     describe("generate files based on template", function () {
         var testTemplate;
@@ -65,6 +86,18 @@ describe("template-base", function () {
             return testTemplate.process(templateConfig)
                 .then(function() {
                     return aMockQFS.exists("/package_home/mine-test.js");
+                })
+                .then(function(exists) {
+                    expect(exists).toBe(true);
+                });
+        });
+
+        it("should expand the template at the specified destination", function () {
+            templateConfig.name = "mine";
+            templateConfig.destination = "destination";
+            return testTemplate.process(templateConfig)
+                .then(function() {
+                    return aMockQFS.exists("/package_home/destination/mine-test.js");
                 })
                 .then(function(exists) {
                     expect(exists).toBe(true);

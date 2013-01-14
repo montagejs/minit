@@ -39,6 +39,7 @@ exports.Template = Object.create(TemplateBase, {
 
     addOptions: {
         value:function (command) {
+            command = TemplateBase.addOptions.call(this, command);
             command.option('-n, --name <name>', 'package name');
             command.option('-a, --author [name]', 'author');
             command.option('-m, --montage-path [name]', 'path to montage');
