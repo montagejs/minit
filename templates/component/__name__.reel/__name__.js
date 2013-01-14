@@ -1,7 +1,7 @@
 {{#copyright}}/* {{{copyright}}} */
 
 {{/copyright}}/**
-    @module "{{jsdocModule}}ui/{{name}}.reel"
+    @module "{{jsdocModule}}{{destination}}/{{name}}.reel"
     @requires montage
     @requires montage/ui/component
 */
@@ -10,9 +10,9 @@ var Montage = require("montage").Montage,
 
 /**
     Description TODO
-    @class module:"{{jsdocModule}}ui/{{name}}.reel".{{exportedName}}
+    @class module:"{{jsdocModule}}{{destination}}/{{name}}.reel".{{exportedName}}
     @extends module:montage/ui/component.Component
 */
-exports.{{exportedName}} = Montage.create(Component, /** @lends module:"{{jsdocModule}}ui/{{name}}.reel".{{exportedName}}# */ {
+exports.{{exportedName}} = Montage.create(Component, /** @lends module:"{{jsdocModule}}{{destination}}/{{name}}.reel".{{exportedName}}# */ {
 
 });
