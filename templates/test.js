@@ -30,7 +30,6 @@ POSSIBILITY OF SUCH DAMAGE.
 </copyright> */
 
 var TemplateBase = require("../lib/template-base.js").TemplateBase;
-var childProcess = require('child_process');
 var Q = require("q");
 
 exports.Template = Object.create(TemplateBase, {

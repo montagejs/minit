@@ -42,7 +42,7 @@ var cli = new Command();
 cli.minitHome = __dirname + "/";
 //
 cli.version(config.version);
-cli.option('-p, --package-home [path]', 'package home', String, findPackageHome());
+cli.option('-p, --package-home [path]',"absolute path to the packages's home directory", String, findPackageHome());
 create.addCommandsTo(cli);
 cli.command('serve')
     .description('serve current directory with minit server.')
