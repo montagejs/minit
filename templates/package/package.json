@@ -1,11 +1,10 @@
 {
     "name": "{{name}}",
     "description": "TODO",
-    "version": "0.0.0",
+    "version": "0.1.0",
     "author": "{{author}}",
 
-    "mappings": {
-        "montage": "{{montagePath}}"
+    "dependencies": {
+        "montage": "*"
     }
 }
-
