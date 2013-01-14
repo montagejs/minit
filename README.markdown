@@ -39,6 +39,7 @@ Run `minit --help` for details of the templates available and their usages. The 
 
     -h, --help              output usage information
     -n, --name <name>       application name
+    -d, --destination [path]    where the template will be expanded relative to the package-home
     -c, --copyright [path]  copyright file
 ```
 
@@ -51,6 +52,7 @@ Run `minit --help` for details of the templates available and their usages. The 
 
     -h, --help                  output usage information
     -n, --name <name>           module name
+    -d, --destination [path]    where the template will be expanded relative to the package-home
     -e, --exported-name [name]  exported name
     -j, --jsdoc [module]        jsdoc module
     -c, --copyright [path]      copyright file
@@ -65,6 +67,7 @@ Run `minit --help` for details of the templates available and their usages. The 
 
     -h, --help                 output usage information
     -n, --name <name>          package name
+    -d, --destination [path]    where the template will be expanded relative to the package-home
     -a, --author [name]        author
     -m, --montage-path [name]  path to montage
 ```
@@ -78,6 +81,7 @@ Run `minit --help` for details of the templates available and their usages. The 
 
     -h, --help          output usage information
     -n, --name <name>   module name
+    -d, --destination [path]    where the template will be expanded relative to the package-home
     -t, --title [name]  title of the test
 ```
 
