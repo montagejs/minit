@@ -12,6 +12,7 @@ exports.Template = Object.create(TemplateBase, {
 
     addOptions: {
         value:function (command) {
+            command = TemplateBase.addOptions.call(this, command);
             command.option('-n, --name <name>', 'application name');
             command.option('-c, --copyright [path]', 'copyright file');
             return command;
