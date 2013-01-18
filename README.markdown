@@ -44,6 +44,19 @@ Run `minit --help` for details of the templates available and their usages. The 
 ```
 
 ```bash
+~$ minit create:app --help
+
+  Usage: create:package [options]
+
+  Options:
+
+    -h, --help              output usage information
+    -n, --name <name>       package name
+    -d, --destination [path]    where the template will be expanded relative to the package-home
+    -c, --copyright [path]  copyright file
+```
+
+```bash
 ~$ minit create:component --help
 
   Usage: create:component [options]

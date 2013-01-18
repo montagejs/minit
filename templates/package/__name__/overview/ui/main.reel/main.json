@@ -1,0 +1,17 @@
+{
+    "owner": {
+        "properties": {
+            "element": {"#": "main"}
+        }
+    },
+
+    "exampleText": {
+        "prototype": "montage/ui/dynamic-text.reel",
+        "properties": {
+            "element": {"#": "exampleText"}
+        },
+        "bindings": {
+            "value": {"<-": "@owner.thing"}
+        }
+    }
+}
