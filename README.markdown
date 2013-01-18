@@ -59,9 +59,9 @@ Run `minit --help` for details of the templates available and their usages. The 
 ```
 
 ```bash
-~$ minit create:package --help
+~$ minit create:package-json --help
 
-  Usage: create:package [options]
+  Usage: create:package-json [options]
 
   Options:
 
