@@ -35,6 +35,15 @@ describe("template-base", function () {
                 expect(command.optionFor("--destination")).toBeDefined();
 
         });
+
+        it("should have --package-home option", function () {
+
+            var command = Object.create(Template).addOptions(testCommand);
+
+            expect(command.optionFor("-p")).toBeDefined();
+            expect(command.optionFor("--package-home")).toBeDefined();
+        });
+
     });
 
     describe("generate files based on template", function () {

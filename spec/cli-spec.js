@@ -32,13 +32,6 @@ describe("minit", function () {
         expect(main.command.listeners("serve").length).not.toEqual(0);
     });
 
-    it("should have --package-home option", function () {
-        main = SandboxedModule.require('../cli', mainSandbox);
-
-        expect(main.command.optionFor("-p")).toBeDefined();
-        expect(main.command.optionFor("--package-home")).toBeDefined();
-    });
-
     //disabled feature till I figure out how to require modules in a custom directory
     xit("should have --templates-dir option", function () {
         main = SandboxedModule.require('../cli', mainSandbox);
