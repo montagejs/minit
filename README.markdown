@@ -20,14 +20,13 @@ Run `minit --help` for details of the templates available and their usages. The 
     create:app [options]
     create:component [options]
     create:package [options]
+    create:package-json [options]
     create:test [options]
 
   Options:
 
     -h, --help                  output usage information
     -V, --version               output the version number
-    -p, --package-home [path]   package home
-    -t, --templates-dir [path]  templates directory
 ```
 
 ```bash
@@ -39,6 +38,7 @@ Run `minit --help` for details of the templates available and their usages. The 
 
     -h, --help              output usage information
     -n, --name <name>       application name
+    -p, --package-home [path]   package home
     -d, --destination [path]    where the template will be expanded relative to the package-home
     -c, --copyright [path]  copyright file
 ```
@@ -52,6 +52,7 @@ Run `minit --help` for details of the templates available and their usages. The 
 
     -h, --help              output usage information
     -n, --name <name>       package name
+    -p, --package-home [path]   package home
     -d, --destination [path]    where the template will be expanded relative to the package-home
     -c, --copyright [path]  copyright file
 ```
@@ -65,6 +66,7 @@ Run `minit --help` for details of the templates available and their usages. The 
 
     -h, --help                  output usage information
     -n, --name <name>           module name
+    -p, --package-home [path]   package home
     -d, --destination [path]    where the template will be expanded relative to the package-home
     -e, --exported-name [name]  exported name
     -j, --jsdoc [module]        jsdoc module
@@ -80,6 +82,7 @@ Run `minit --help` for details of the templates available and their usages. The 
 
     -h, --help                 output usage information
     -n, --name <name>          package name
+    -p, --package-home [path]   package home
     -d, --destination [path]    where the template will be expanded relative to the package-home
     -a, --author [name]        author
     -m, --montage-path [name]  path to montage
@@ -94,6 +97,7 @@ Run `minit --help` for details of the templates available and their usages. The 
 
     -h, --help          output usage information
     -n, --name <name>   module name
+    -p, --package-home [path]   package home
     -d, --destination [path]    where the template will be expanded relative to the package-home
     -t, --title [name]  title of the test
 ```
