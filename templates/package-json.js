@@ -53,6 +53,12 @@ exports.Template = Object.create(TemplateBase, {
                 options.montagePath = 'node_modules/montage/montage.js';
             }
         }
+    },
+
+    defaultPackageHome: {
+        value: function (value) {
+            return process.cwd()
+        }
     }
 
 });

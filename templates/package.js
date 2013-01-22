@@ -24,7 +24,6 @@ exports.Template = Object.create(TemplateBase, {
             if (options.copyright) {
                 options.copyright = this.validateCopyright(options.copyright);
             }
-
         }
     },
 
@@ -53,6 +52,12 @@ exports.Template = Object.create(TemplateBase, {
                 .then(function (loadedNpm) {
                     return Q.ninvoke(loadedNpm.commands, "install");
                 });
+        }
+    },
+
+    defaultPackageHome: {
+        value: function (value) {
+            return process.cwd()
         }
     }
 

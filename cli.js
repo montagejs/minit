@@ -42,7 +42,6 @@ var cli = new Command();
 cli.minitHome = __dirname + "/";
 //
 cli.version(config.version);
-cli.option('-p, --package-home [path]',"absolute path to the packages's home directory", String, findPackageHome());
 create.addCommandsTo(cli);
 cli.command('serve')
     .description('serve current directory with minit server.')
@@ -54,18 +53,3 @@ cli.command('serve')
 
 exports.command = cli;
 
-
-function findPackageHome() {
-    var packageHome = process.cwd();
-    while (true) {
-        if (fs.existsSync(path.join(packageHome, "package.json"))) {
-            break;
-        }
-        packageHome = path.resolve(path.join(packageHome, ".."));
-        if (packageHome === "/") {
-            packageHome = process.cwd();
-            break;
-        }
-    }
-    return packageHome
-}

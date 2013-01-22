@@ -17,7 +17,14 @@ exports.Template = Object.create(PackageTemplate, {
             command.option('-c, --copyright [path]', 'copyright file');
             return command;
         }
+    },
+
+    defaultPackageHome: {
+        value: function (value) {
+            return process.cwd()
+        }
     }
+
 
 
 });
