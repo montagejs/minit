@@ -30,7 +30,4 @@ The template contains the following files and directories:
 Create the following directories if you need them:
 
 * `locale/` – Directory containing localized content.
-* `lib/` – Directory containing other JS libraries. If a library doesn’t support the CommonJS "exports" object it will need to be loaded through a `<script>` tag.
-
-Layout
-------
+* `scripts/` – Directory containing other JS libraries. If a library doesn’t support the CommonJS "exports" object it will need to be loaded through a `<script>` tag.

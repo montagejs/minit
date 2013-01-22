@@ -1,9 +1,6 @@
 {
     "name": "{{name}}",
     "version": "0.1.0",
-    "directories": {
-        "lib": "ui"
-    },
     "dependencies": {
         "montage": "*",
         "montage-testing": "~0.1.1"
