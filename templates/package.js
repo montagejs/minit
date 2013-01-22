@@ -38,11 +38,17 @@ exports.Template = Object.create(TemplateBase, {
             var self = this;
             return TemplateBase.finish.call(this).then(function(result) {
                 var config = {
-                    prefix : path.join(destination, self.options.name)
+                    prefix : path.join(destination, self.options.name),
+                    production : true
                 };
                 return self.installDependencies(config);
+            }).then(function() {
+                console.log("#");
+                console.log("# "+ self.options.name +" created and installed with production dependencies, run");
+                console.log("# > npm install .");
+                console.log("# to setup the testing dependencies");
+                console.log("#");
             });
-
         }
     },
 
