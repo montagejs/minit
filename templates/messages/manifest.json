@@ -1,0 +1,15 @@
+{
+    "files": {
+        "locale": {
+            "directory": true,
+            "files": {
+                "{{locale}}": {
+                    "directory": true,
+                    "files": {
+                        "messages.json": null
+                    }
+                }
+            }
+        }
+    }
+}
