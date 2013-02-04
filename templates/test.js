@@ -31,11 +31,12 @@ POSSIBILITY OF SUCH DAMAGE.
 
 var TemplateBase = require("../lib/template-base.js").TemplateBase;
 var Q = require("q");
+var Path = require("path");
 
 exports.Template = Object.create(TemplateBase, {
 
     commandDescription: {
-        value: "jasmine spec"
+        value: "jasmine spec including boilerplate for a test page."
     },
 
     addOptions: {
@@ -45,6 +46,10 @@ exports.Template = Object.create(TemplateBase, {
             command.option('-t, --title [name]', 'title of the test');
             return command;
         }
+    },
+
+    destinationOptionDescription: {
+        value: "where the template will be expanded relative to the package-home's test directory"
     },
 
     didSetOptions: {
@@ -59,14 +64,20 @@ exports.Template = Object.create(TemplateBase, {
     },
 
     destination: {
-        value: "test/"
+        value: "ui"
+    },
+
+    finalDestination: {
+        get: function() {
+            return Path.join(this.options.packageHome, "test", this.options.destination)
+        }
     },
 
     finish: {
         value: function() {
             var self = this;
             return TemplateBase.finish.call(this).then(function(result) {
-                var message = 'add "test/' + self.options.name + "/" + self.options.name + '-spec" to test/all.js ';
+                var message = ['add "test',self.options.destination,self.options.name,self.options.name + '-spec" to test/all.js '].join(Path.sep);
                 console.log(message);
                 return Q.resolve(message);
             });

@@ -1,5 +1,6 @@
 var TemplateBase = require("../lib/template-base.js").TemplateBase;
 var Q = require("q");
+var Path = require("path");
 
 exports.Template = Object.create(TemplateBase, {
 
@@ -16,6 +17,10 @@ exports.Template = Object.create(TemplateBase, {
         }
     },
 
+    destinationOptionDescription: {
+        value: "where the template will be expanded relative to the package-home's test directory"
+    },
+
     didSetOptions: {
         value:function (options) {
             if (!options.title && options.name) {
@@ -25,14 +30,20 @@ exports.Template = Object.create(TemplateBase, {
     },
 
     destination: {
-        value: "test/"
+        value: ""
+    },
+
+    finalDestination: {
+        get: function() {
+            return Path.join(this.options.packageHome, "test", this.options.destination)
+        }
     },
 
     finish: {
         value: function() {
             var self = this;
             return TemplateBase.finish.call(this).then(function(result) {
-                var message = 'add "test/' + self.options.name + '-spec" to test/all.js ';
+                var message = ['add "test',self.options.destination,self.options.name + '-spec" to test/all.js '].join(Path.sep);
                 console.log(message);
                 return Q.resolve(message);
             });

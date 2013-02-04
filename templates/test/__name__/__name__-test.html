@@ -7,7 +7,7 @@
     <script type="text/montage-serialization">
         {
             "test": {
-                "prototype": "test/{{name}}/{{name}}-test[Test]",
+                "prototype": "test/{{#destination}}{{destination}}{{/destination}}{{^destination}}ui{{/destination}}/{{name}}/{{name}}-test[Test]",
                 "properties": {
                     "{{propertyName}}": {"@": "{{propertyName}}"}
                 }

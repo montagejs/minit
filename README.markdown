@@ -89,17 +89,31 @@ Run `minit --help` for details of the templates available and their usages. The 
 ```
 
 ```bash
+~$ minit create:spec --help
+
+  Usage: create:spec [options]
+
+  Options:
+
+    -h, --help                 output usage information
+    -p, --package-home [path]  absolute path to the packages's home directory
+    -d, --destination [path]   where the template will be expanded relative to the package-home's test directory
+    -n, --name <name>          module name
+    -t, --title [name]         title of the test
+```
+
+```bash
 ~$ minit create:test --help
 
   Usage: create:test [options]
 
   Options:
 
-    -h, --help          output usage information
-    -n, --name <name>   module name
-    -p, --package-home [path]   package home
-    -d, --destination [path]    where the template will be expanded relative to the package-home
-    -t, --title [name]  title of the test
+    -h, --help                 output usage information
+    -p, --package-home [path]  absolute path to the packages's home directory
+    -d, --destination [path]   where the template will be expanded relative to the package-home's test directory
+    -n, --name <name>          module name
+    -t, --title [name]         title of the test
 ```
 
 Using minit as a package
