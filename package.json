@@ -14,8 +14,8 @@
   ],
   "main": "main.js",
   "dependencies": {
-    "commander": ">=1.1.1",
-    "q": ">=0.8.11",
+    "commander": "~1.1.1",
+    "q": "~0.8.11",
     "q-io": "~1.5.1",
     "npm": "1.1.70",
     "jsdom": "~0.3.4"
@@ -26,7 +26,7 @@
     "mocks": "0.0.10"
   },
   "engines": {
-    "node": ">=0.8.0"
+    "node": "~0.8.0"
   },
   "bin": {
     "minit": "minit"
