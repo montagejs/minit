@@ -9,28 +9,16 @@
     <link rel="stylesheet" type="text/css" href="main.css">
 
     <script type="text/montage-serialization">
-    {
-        "owner": {
-            "properties": {
-                "element": {"#": "main"}
-            }
-        },
-
-        "exampleText": {
-            "prototype": "montage/ui/dynamic-text.reel",
-            "properties": {
-                "element": {"#": "exampleText"}
-            },
-            "bindings": {
-                "value": {"<-": "@owner.thing"}
+        {
+            "owner": {
+                "properties": {
+                    "element": {"#": "main"}
+                }
             }
         }
-    }
     </script>
 </head>
 <body>
-    <div data-montage-id="main" class="Main">
-        Hello, <span data-montage-id="exampleText"></span>
-    </div>
+    <div data-montage-id="main" class="Main">Hello World</div>
 </body>
 </html>
