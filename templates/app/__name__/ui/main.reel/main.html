@@ -14,70 +14,11 @@
                 "properties": {
                     "element": {"#": "main"}
                 }
-            },
-
-            "montageVersion": {
-                "prototype": "montage/ui/dynamic-text.reel",
-                "properties": {
-                    "element": {"#": "montageVersion"}
-                },
-                "bindings": {
-                    "value": {"<-": "@owner.montageDescription.version"}
-                }
             }
         }
     </script>
 </head>
 <body>
-<div data-montage-id="main" class="Main">
-    <h1><img src="assets/images/montage-logo-gradients.svg" alt="Montage"> Lights, Camera, Action!</h1>
-
-    <!-- Here's a good spot to add your greeting component's element if you're following along with the next steps-->
-
-    <p>Your Montage application is running fine. You're looking at the content of your main component located at
-        <kbd>ui/main.reel</kbd>. This modular component encapsulates the html, css, javascript, and any other
-        bundled resources it needs to do its thing. Feel free to poke around inside.
-    </p>
-
-    <p>Minit provides several commands to help you build your app; <em>run  minit commands from inside your application directory</em>.</p>
-
-    <h2>Add a component</h2>
-    <ol>
-        <li><kbd>minit create:component -n greeting</kbd></li>
-        <li>
-            Add the greeting to your main component's declaration
-<code>"greeting": {
-    "prototype": "ui/greeting.reel",
-    "properties": {
-        "element": {"#": "greeting"}
-    }
-}</code>
-        </li>
-        <li>
-            Add an element for your component inside ui/main.reel/main.html
-<code>&lt;div data-montage-id="greeting"&gt;&lt;/div&gt;</code>
-        </li>
-        <li>Add some content to the ui/greeting.reel/greeting.html
-<code>&lt;div data-montage-id="greeting" class="Greeting"&gt;Hello World!&lt;/div&gt;</code>
-        </li>
-        <li><a href=".">Refresh this page</a></li>
-    </ol>
-
-    <h2>Run tests</h2>
-    <ol>
-        <li>Install development dependencies <kbd>npm install</kbd></li>
-        <li><a href="run-tests.html">Run your tests</a></li>
-    </ol>
-
-    <h2>Dependency Information</h2>
-    <table>
-        <tr>
-            <th>Montage</th>
-            <td>v<span data-montage-id="montageVersion"></span></td>
-            <td><a href="http://montagejs.org/docs/">Documentation</a></td>
-            <td><a href="https://github.com/montagejs/montage">Code</a></td>
-        </tr>
-    </table>
-</div>
+    <div data-montage-id="main" class="Main">Hello World</div>
 </body>
 </html>

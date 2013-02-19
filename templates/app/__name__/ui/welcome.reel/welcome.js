@@ -1,7 +1,7 @@
 {{#copyright}}/* {{{copyright}}} */
 
 {{/copyright}}/**
-    @module "ui/main.reel"
+    @module "ui/welcome.reel"
     @requires montage
     @requires montage/ui/component
 */
@@ -10,9 +10,15 @@ var Montage = require("montage").Montage,
 
 /**
     Description TODO
-    @class module:"ui/main.reel".Main
+    @class module:"ui/welcome.reel".Welcome
     @extends module:ui/component.Component
 */
-exports.Main = Montage.create(Component, /** @lends module:"ui/main.reel".Main# */ {
+exports.Welcome = Montage.create(Component, /** @lends module:"ui/welcome.reel".Welcome# */ {
+
+    montageDescription: {
+        get: function() {
+            return montageRequire.packageDescription;
+        }
+    }
 
 });
