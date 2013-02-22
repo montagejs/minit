@@ -43,13 +43,13 @@ cli.minitHome = __dirname + "/";
 //
 cli.version(config.version);
 create.addCommandsTo(cli);
-cli.command('serve')
-    .description('serve current directory with minit server.')
-    .action(function(env){
-        var args = this.args.slice(0);
-        args.unshift(null,null);
-        console.log('serving "%s"', env);
-    });
+//cli.command('serve')
+//    .description('serve current directory with minit server.')
+//    .action(function(env){
+//        var args = this.args.slice(0);
+//        args.unshift(null,null);
+//        console.log('serving "%s"', env);
+//    });
 
 exports.command = cli;
 
