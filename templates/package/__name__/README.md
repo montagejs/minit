@@ -24,7 +24,7 @@ The template contains the following files and directories:
 * `test/` – Directory containing tests for your package.
   * `all.js` – Module that point the test runner to all your jasmine specs.
 * `run-tests.html` – Page to run jasmine tests manually in your browser
-* `testacular.conf.js` – This is the testacular configuration file. You can start testacular by running `node_modules/testacular/bin/testacular start`
+* `testacular.conf.js` – This is the testacular configuration file. You can start testacular by running `npm install testacular@0.5.7 && node_modules/testacular/bin/testacular start`
 
 Create the following directories if you need them:
 

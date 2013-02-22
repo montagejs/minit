@@ -5,8 +5,7 @@
         "montage": "*"
     },
     "devDependencies": {
-        "montage-testing": "~0.1.2",
-        "testacular": "~0.5.7"
+        "montage-testing": "~0.1.2"
     },
     "exclude": [
         "overview.html",
