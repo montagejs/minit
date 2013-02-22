@@ -1,0 +1,49 @@
+{{#copyright}}/* {{{copyright}}} */
+
+{{/copyright}}
+.Welcome {
+    max-width: 50em;
+    padding: 1em;
+    margin: 0 auto;
+}
+
+.Welcome h1 {
+    margin: 0;
+}
+
+.Welcome p {
+    margin-top: 0;
+}
+
+.Welcome h1 img {
+    width: 3em;
+    height: 3em;
+    vertical-align: middle;
+}
+
+.Welcome li {
+    margin-top: 0.5em;
+}
+
+.Welcome code.block {
+    display: block;
+    white-space: pre;
+    padding: 1em;
+    margin: 1em 0;
+}
+
+.Welcome code,
+.Welcome kbd {
+    background: hsl(0,0%,92%);
+}
+
+.Welcome .Main {
+    text-align: center;
+    margin: 0.2em 0;
+    padding: 0.5em;
+    border: 4px dashed hsl(0,0%,80%);
+    border-radius: 8px;
+    font-size: 4em;
+    font-weight: bold;
+    text-shadow: 0 2px 2px hsl(0,0%,80%);
+}
