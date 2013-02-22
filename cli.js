@@ -36,6 +36,7 @@ var Command = require("commander").Command;
 
 var config = require("./package.json");
 var create = require("./lib/create");
+var serve = require("./lib/serve");
 
 var cli = new Command();
 //extras
@@ -43,13 +44,12 @@ cli.minitHome = __dirname + "/";
 //
 cli.version(config.version);
 create.addCommandsTo(cli);
-//cli.command('serve')
-//    .description('serve current directory with minit server.')
-//    .action(function(env){
-//        var args = this.args.slice(0);
-//        args.unshift(null,null);
-//        console.log('serving "%s"', env);
-//    });
+var serveCommand = cli.command('serve')
+    .description('serve current directory with minit server.')
+    .action(function(env){
+        serve.serve(env);
+    });
+serve.addOptions(serveCommand);
 
 exports.command = cli;
 

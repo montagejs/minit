@@ -19,9 +19,10 @@
   "dependencies": {
     "commander": "~1.1.1",
     "q": "~0.8.11",
-    "q-io": "~1.5.1",
+    "q-io": "~1.7",
     "npm": "~1.2.18",
-    "minidom": "~0.0.2"
+    "minidom": "~0.0.2",
+    "joey": "~1.1.0"
   },
   "devDependencies": {
     "jasmine-node": "~1.7.0",
