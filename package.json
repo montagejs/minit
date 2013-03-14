@@ -1,6 +1,9 @@
 {
   "name": "minit",
-  "version": "0.1.12",
+  "version": "0.2.0-alpha",
+  "publishConfig": {
+    "tag": "edge"
+  },
   "title": "Montage Assistant",
   "homepage": "http://www.montage.org",
   "bugs": {
