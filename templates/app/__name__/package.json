@@ -2,7 +2,8 @@
     "name": "{{name}}",
     "version": "0.1.0",
     "dependencies": {
-        "montage": "0.13.0-alpha"
+        "montage": "0.13.0-alpha",
+        "matte": "0.1.1-alpha"
     },
     "devDependencies": {
         "montage-testing": "0.2.0-alpha"
