@@ -15,18 +15,18 @@
   "main": "main.js",
   "dependencies": {
     "commander": "~1.1.1",
-    "q": "~0.8.11",
-    "q-io": "~1.5.1",
-    "npm": "1.1.70",
-    "jsdom": "~0.3.4"
+    "q": "~0.9.2",
+    "q-io": "~1.6.4",
+    "npm": "~1.2.16",
+    "jsdom": "~0.5.5"
   },
   "devDependencies": {
-    "jasmine-node": "1.0.28",
-    "sandboxed-module": "0.1.4",
+    "jasmine-node": "~1.5.0",
+    "sandboxed-module": "~0.2.0",
     "mocks": "0.0.10"
   },
   "engines": {
-    "node": "~0.8.0"
+    "node": "~0.10.2"
   },
   "bin": {
     "minit": "minit"
