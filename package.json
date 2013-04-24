@@ -24,9 +24,9 @@
     "jsdom": "~0.3.4"
   },
   "devDependencies": {
-    "jasmine-node": "1.0.28",
-    "sandboxed-module": "0.1.4",
-    "mocks": "0.0.10"
+    "jasmine-node": "~1.7.0",
+    "sandboxed-module": "~0.2.0",
+    "mocks": "~0.0.11"
   },
   "engines": {
     "node": "~0.8.0"
