@@ -3,12 +3,12 @@ var jasmine = require("jasmine-node");
 var SandboxedModule = require('sandboxed-module');
 var Command = require("commander").Command;
 
-describe("package-json template", function () {
+describe("package template", function () {
     var testCommand;
     var Template;
     beforeEach(function() {
 
-        Template = SandboxedModule.require('../../templates/package-json', {
+        Template = SandboxedModule.require('../../templates/package', {
             requires: {
                 '../lib/template-base': {
                     TemplateBase: {
@@ -41,20 +41,12 @@ describe("package-json template", function () {
             expect(command.optionFor("--name")).toBeDefined();
         });
 
-        it("should have --author option", function () {
+        it("should have --copyright option", function () {
             var command = Object.create(Template).addOptions(testCommand);
 
-            expect(command.optionFor("-a")).toBeDefined();
-            expect(command.optionFor("--author")).toBeDefined();
+            expect(command.optionFor("-c")).toBeDefined();
+            expect(command.optionFor("--copyright")).toBeDefined();
         });
-
-        it("should have --montage-path option", function () {
-            var command = Object.create(Template).addOptions(testCommand);
-
-            expect(command.optionFor("-m")).toBeDefined();
-            expect(command.optionFor("--montage-path")).toBeDefined();
-        });
-
     });
 
 });
