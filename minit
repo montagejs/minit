@@ -1,4 +1,21 @@
 #!/usr/bin/env node
 
 
-require("./cli").command.parse(process.argv);
+var program = require("./cli").command;
+
+program.parse(process.argv);
+
+if (program.args.length === 0) {
+   program.help();
+} else {
+    var commandNames = program.commands.map(function(command) {
+        return command.name;
+    });
+
+    var commandName = program.args[0];
+    // Consumed command names will be an object.
+    if (typeof commandName === "string" && commandNames.indexOf(commandName) === -1) {
+        console.error("\n  Error: unknown command '" + commandName + "'");
+        program.help();
+    }
+}
