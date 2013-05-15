@@ -1,6 +1,6 @@
 {
   "name": "minit",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "title": "Montage Assistant",
   "homepage": "http://www.montage.org",
   "bugs": {
@@ -20,7 +20,7 @@
     "npm": "~1.2.16"
   },
   "optionalDependencies": {
-      "jsdom": "~0.5.5"
+    "jsdom": "~0.5.5"
   },
   "devDependencies": {
     "jasmine-node": "~1.5.0",
