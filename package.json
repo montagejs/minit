@@ -17,8 +17,10 @@
     "commander": "~1.1.1",
     "q": "~0.9.2",
     "q-io": "~1.6.4",
-    "npm": "~1.2.16",
-    "jsdom": "~0.5.5"
+    "npm": "~1.2.16"
+  },
+  "optionalDependencies": {
+      "jsdom": "~0.5.5"
   },
   "devDependencies": {
     "jasmine-node": "~1.5.0",
