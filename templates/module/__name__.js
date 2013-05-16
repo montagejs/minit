@@ -1,16 +1,16 @@
 {{#copyright}}/* {{{copyright}}} */
 
 {{/copyright}}/**
-    @module "{{jsdocModule}}{{destination}}/{{name}}"
-    @requires montage
+    @module {{#destination}}{{destination}}/{{/destination}}{{name}}
+    @requires montage{{#extendsModuleId}}
+    @requires {{extendsModuleId}}{{/extendsModuleId}}
 */
-var Montage = require("montage").Montage;
-
+var Montage = require("montage").Montage{{#extendsModuleId}},
+    {{extendsName}} = require("{{extendsModuleId}}").{{extendsName}}{{/extendsModuleId}};
 /**
-    Description TODO
-    @class module:"{{jsdocModule}}{{destination}}/{{name}}".{{exportedName}}
-    @extends module:montage.Montage
+    @class {{exportedName}}
+    @extends {{extendsName}}
 */
-exports.{{exportedName}} = Montage.create(Montage, /** @lends module:"{{jsdocModule}}{{destination}}/{{name}}".{{exportedName}}# */ {
+exports.{{exportedName}} = Montage.create({{extendsName}}, /** @lends {{exportedName}}# */ {
 
 });

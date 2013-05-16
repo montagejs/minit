@@ -21,8 +21,9 @@ exports.Template = Object.create(TemplateBase, {
             command = TemplateBase.addOptions.call(this, command);
             command.option('-n, --name <name>', 'module name');
             command.option('-e, --exported-name [name]', 'exported name');
-            command.option('-j, --jsdoc [module]', 'jsdoc module');
             command.option('-c, --copyright [path]', 'copyright file');
+            command.option('--extends-module-id [name]', 'module name');
+            command.option('--extends-name [name]', 'exported name');
             return command;
         }
     },
@@ -40,6 +41,9 @@ exports.Template = Object.create(TemplateBase, {
             }
             if (options.copyright) {
                 options.copyright = this.validateCopyright(options.copyright);
+            }
+            if (!options.extendsName) {
+                options.extendsName = "Montage";
             }
 
         }

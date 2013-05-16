@@ -47,6 +47,18 @@ exports.Template = Object.create(ModuleTemplate, {
         value: "component"
     },
 
+    didSetOptions: {
+        value:function (options) {
+            ModuleTemplate.didSetOptions.call(this, options);
+            if (!options.extendsModuleId) {
+                options.extendsModuleId = "montage/ui/component";
+            }
+            if (!options.extendsName) {
+                options.extendsName = "Component";
+            }
+        }
+    },
+
     destination: {
         value: "ui"
     },
