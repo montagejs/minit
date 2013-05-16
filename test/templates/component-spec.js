@@ -48,12 +48,17 @@ describe("component template", function () {
             expect(command.optionFor("--exported-name")).toBeDefined();
         });
 
-        it("should have --jsdoc option", function () {
+        it("should have --extends-name option", function () {
             var command = Object.create(Template).addOptions(testCommand);
 
-            expect(command.optionFor("-j")).toBeDefined();
-            expect(command.optionFor("--jsdoc")).toBeDefined();
+            expect(command.optionFor("--extends-name")).toBeDefined();
         });
+
+        it("should have --extends-module-id option", function () {
+             var command = Object.create(Template).addOptions(testCommand);
+
+             expect(command.optionFor("--extends-module-id")).toBeDefined();
+         });
 
         it("should have --copyright option", function () {
             var command = Object.create(Template).addOptions(testCommand);
