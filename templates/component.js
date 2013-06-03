@@ -50,12 +50,19 @@ exports.Template = Object.create(ModuleTemplate, {
     didSetOptions: {
         value:function (options) {
             ModuleTemplate.didSetOptions.call(this, options);
+
             if (!options.extendsModuleId) {
                 options.extendsModuleId = "montage/ui/component";
             }
-            if (!options.extendsName) {
-                options.extendsName = "Component";
-            }
+
+            options.extendsName = this.validateExtendsName(options.extendsName);
+        }
+    },
+
+    validateExtendsName: {
+        value: function(name) {
+            //TODO derive the extendsName from the extendsModuleId
+            return !name || "Montage" === name ? "Component" : name;
         }
     },
 
