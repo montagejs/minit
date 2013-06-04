@@ -1,9 +1,20 @@
 var Q = require("q");
 var FS = require("q-io/fs");
-var jsdom = require("jsdom");
+var minidom = require("minidom");
 var Path = require("path");
 
 var TemplateBase = require("../lib/template-base").TemplateBase;
+
+function visit(element, visitor) {
+    visitor(element);
+
+    var children = element.children;
+    var len = children ? children.length : 0;
+    for (var i = 0; i < len; i++) {
+        console.log("visit child", i, "or", element.tagName);
+        visit(children[i], visitor);
+    }
+}
 
 exports.Template = Object.create(TemplateBase, {
 
@@ -33,24 +44,25 @@ exports.Template = Object.create(TemplateBase, {
                 console.log("Processing " + tree.length + " files...");
                 return Q.all(tree.map(function (path) {
                     return FS.read(path).then(function (contents) {
-                        var deferred = Q.defer();
-                        // parse with jsdom
-                        jsdom.env(contents, deferred.makeNodeResolver());
-                        return deferred.promise;
+                        return minidom(contents);
                     })
-                    .then(function (window) {
-                        // extract text nodes in the body
-                        var root = window.document.body;
+                    .then(function (document) {
+                        var body;
+                        visit(document, function (element) {
+                            if (element.tagName === "BODY") {
+                                body = element;
+                            }
+                        });
 
-                        var elements = window.document.querySelectorAll("body, body *");
+                        // Collect all the text nodes
                         var results = [];
-                        var child;
-                        for(var i = 0; i < elements.length; i++) {
-                            child = elements[i].childNodes[0];
-                            if(elements[i].hasChildNodes() && child.nodeType == 3 && child.nodeValue.trim()) {
+                        visit(body, function (element) {
+                            // TODO collect more than just the first text node
+                            var child = element.childNodes[0];
+                            if(element.hasChildNodes() && child.nodeType == 3 && child.nodeValue.trim()) {
                                 results.push(child.nodeValue.trim());
                             }
-                        }
+                        });
 
                         if (results.length) {
                             return { path: path, messages: results };
