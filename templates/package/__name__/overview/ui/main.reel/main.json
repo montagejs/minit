@@ -6,7 +6,7 @@
     },
 
     "exampleText": {
-        "prototype": "montage/ui/dynamic-text.reel",
+        "prototype": "montage/ui/text.reel",
         "properties": {
             "element": {"#": "exampleText"}
         },
