@@ -8,7 +8,8 @@
 }
 
 .Welcome h1 {
-    margin: 0;
+    margin: 1em 0;
+    text-align: center;
 }
 
 .Welcome p {
@@ -16,9 +17,9 @@
 }
 
 .Welcome h1 img {
-    width: 3em;
-    height: 3em;
-    vertical-align: middle;
+    width: 5em;
+    height: 5em;
+	horizontal-align: center;
 }
 
 .Welcome li {
@@ -37,7 +38,7 @@
     background: hsl(0,0%,92%);
 }
 
-.Welcome .Main {
+.Welcome .HelloWorld {
     text-align: center;
     margin: 0.2em 0;
     padding: 0.5em;
