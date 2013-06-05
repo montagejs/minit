@@ -15,7 +15,9 @@
                     "element": {"#": "welcome"}
                 }
             },
+            "helloWorld" : {
 
+            },
             "montageVersion": {
                 "prototype": "montage/ui/text.reel",
                 "properties": {
@@ -29,71 +31,19 @@
     </script>
 </head>
 <body>
-<div data-montage-id="welcome" class="Welcome">
-    <h1><img src="assets/images/montage-logo-gradients.svg" alt="Montage"> Lights, Camera, Action!</h1>
+<div data-montage-id="welcome" data-montage-skin="light" class="Welcome">
+    <h1><img src="assets/images/montage-logo-gradients.svg" alt="Montage"></h1>
 
-    <p>You're looking at the content of the welcome component located at
-        <kbd>ui/welcome.reel</kbd>. Referred to as a component, this directory encapsulates the HTML,
-        CSS, JavaScript, and any other bundled resources it needs to do its thing.
+    <p>Welcome to Montage. You are looking at the contents of the Welcome component, located at
+        <kbd>{{name}}/ui/welcome.reel</kbd>. Designed to accompany our <a href="http://montagejs.org/docs/Quick-Start">Quick Start</a> tutorial, this component is but a sample project meant to help kickstart your basic understanding of how to build and architect Montage applications.
+    </p>
+    <p>
+        Finish the  <a href="http://montagejs.org/docs/Quick-Start">Quick Start</a> tutorial, and you will learn how to assemble Montage components into a user interface, surface and synchronize data between objects and the user interface, and listen for and react to events.
     </p>
 
-    <h2>Add a child component</h2>
-    <ol>
-        <li>A component is made up of other child components introduced through a declaration in the parent's HTML template.
-            Populate the existing entry for the main component inside <code>ui/welcome.reel/welcome.html</code> with the following:
-<code class="block">"main": {
-    "prototype": "ui/main.reel",
-    "properties": {
-        "element": {"#": "main"}
-    }
-}</code>
-          This will put an instance of the main component as a child of the welcome component attached to the element with
-            the <code>data-montage-id</code> attribute of <code>main</code>.
-        </li>
-        <li><div data-montage-id="main"><a href=".">Refresh this page</a></div></li>
-    </ol>
+    <div data-montage-id="hello-world"></div>
 
-    <h2>Create your own components</h2>
-    <ol>
-        <li><kbd>cd {{name}}</kbd></li>
-        <li><kbd>minit create:component -n <em>new-component</em></kbd></li>
-        <li>Use your new component just like you would any other</li>
-    </ol>
-
-    <h2>Load your actual application</h2>
-    <ol>
-        <li>Point the <code>index.html</code>'s loader component at the main component directly
-            by removing references to the welcome component.
-<code class="block">"owner": {
-    "prototype": "montage/ui/loader.reel"
-}</code>
-            By default the loader will load the <code>ui/main.reel</code> component.
-        </li>
-        <li>Delete <code>ui/welcome.reel</code></li>
-    </ol>
-
-    <h2>Run tests</h2>
-    <ol>
-        <li>Install development dependencies <kbd>npm install</kbd></li>
-        <li><a href="run-tests.html">Run your tests</a></li>
-    </ol>
-
-    <h2>Learn more</h2>
-    <ul>
-        <li><a href="http://montagejs.org/docs/">Documentation</a></li>
-        <li><a href="http://webchat.freenode.net/?channels=montage">IRC</a></li>
-        <li><a href="https://groups.google.com/forum/?fromgroups#!forum/montagejs">Mailing List</a></li>
-        <li><a href="https://github.com/montagejs/montage">Montage Sourcecode</a></li>
-        <li><a href="http://montagejs.org/docs/">Montage Website</a></li>
-    </ul>
-
-    <h2>Dependency Information</h2>
-    <table>
-        <tr>
-            <th>Montage</th>
-            <td>v<span data-montage-id="montageVersion"></span></td>
-        </tr>
-    </table>
+    <footer>Montage version: <span data-montage-id="montageVersion"></span></footer>
 </div>
 </body>
 </html>
