@@ -12,7 +12,6 @@ var Component = require("montage/ui/component").Component;
  */
 exports.Welcome = Component.specialize(/** @lends Welcome# */ {
 
-}
     constructor: {
         value: function Welcome() {
             this.super();
