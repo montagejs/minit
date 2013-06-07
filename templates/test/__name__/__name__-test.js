@@ -1,9 +1,9 @@
 var TestController = require("montage-testing/test-controller").TestController;
 
 exports.Test = TestController.specialize({
-
-    {{propertyName}}: {
-        value: null
+    constructor: {
+        value: function {{name}}() {
+            this.super();
+        }
     }
-
 });

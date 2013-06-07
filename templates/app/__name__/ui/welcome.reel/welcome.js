@@ -11,7 +11,11 @@ var Component = require("montage/ui/component").Component;
  * @extends Component
  */
 exports.Welcome = Component.specialize(/** @lends Welcome# */ {
-
+    constructor: {
+        value: function Welcome() {
+            this.super();
+        }
+    }
     montageDescription: {
         get: function() {
             return montageRequire.packageDescription;

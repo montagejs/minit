@@ -11,5 +11,9 @@ var {{extendsName}} = require("{{extendsModuleId}}").{{extendsName}};
  * @extends {{extendsName}}
  */
 exports.{{exportedName}} = {{extendsName}}.specialize(/** @lends {{exportedName}}# */ {
-
+    constructor: {
+        value: function {{exportedName}}() {
+            this.super();
+        }
+    }
 });

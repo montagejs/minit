@@ -10,5 +10,9 @@ var {{extendsName}} = require("{{extendsModuleId}}").{{extendsName}}{{/extendsMo
  * @extends {{extendsName}}
  */
 exports.{{exportedName}} = {{extendsName}}.specialize(/** @lends {{exportedName}}# */ {
-
+    constructor: {
+        value: function {{exportedName}}() {
+            this.super();
+        }
+    }
 });

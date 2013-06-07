@@ -11,5 +11,9 @@ var Component = require("montage/ui/component").Component;
  * @extends Component
  */
 exports.Main = Component.specialize(/** @lends Main# */ {
-
+    constructor: {
+        value: function Main() {
+            this.super();
+        }
+    }
 });
