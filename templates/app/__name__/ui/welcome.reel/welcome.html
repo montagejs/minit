@@ -15,16 +15,10 @@
                     "element": {"#": "welcome"}
                 }
             },
-            "helloWorld" : {
-
-            },
-            "montageVersion": {
-                "prototype": "montage/ui/text.reel",
+            "montageVersion" : {
+                "prototype": "ui/version.reel",
                 "properties": {
                     "element": {"#": "montageVersion"}
-                },
-                "bindings": {
-                    "value": {"<-": "@owner.montageDescription.version"}
                 }
             }
         }
@@ -43,7 +37,7 @@
 
     <div data-montage-id="hello-world"></div>
 
-    <footer>Montage version: <span data-montage-id="montageVersion"></span></footer>
+    <div data-montage-id="montageVersion"></div>
 </div>
 </body>
 </html>

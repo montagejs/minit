@@ -16,12 +16,6 @@ exports.Welcome = Component.specialize(/** @lends Welcome# */ {
         value: function Welcome() {
             this.super();
         }
-    },
-
-    montageDescription: {
-        get: function() {
-            return montageRequire.packageDescription;
-        }
     }
 
 });
