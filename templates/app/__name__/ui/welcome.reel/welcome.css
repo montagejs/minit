@@ -23,6 +23,8 @@
     background: hsl(0,0%,92%);
 }
 
+/* This css should be in the hello-world.css it is here to make the quick start easy.*/
+
 .Welcome .HelloWorld {
     text-align: center;
     margin: 0.2em 0;
@@ -33,4 +35,29 @@
     line-height: 1em;
     font-weight: bold;
     text-shadow: 0 2px 2px hsl(0,0%,80%);
+    background-color: white;
+    -webkit-backface-visibility: hidden;
+    -moz-backface-visibility: hidden;
+    -ms-backface-visibility: hidden;
+    -o-backface-visibility: hidden;
+    backface-visibility: hidden;
+    -webkit-transform-style: preserve-3d;
+    -moz-transform-style: preserve-3d;
+    -ms-transform-style: preserve-3d;
+    -o-transform-style: preserve-3d;
+    transform-style: preserve-3d;
+    -webkit-transition: -webkit-transform .4s ease-in-out;
+    -moz-transition: -moz-transform .4s ease-in-out;
+    -ms-transition: all .4s ease-in-out;
+    -o-transition: all .4s ease-in-out;
+    transition: transform .4s ease-in-out;
+}
+
+.Welcome .HelloWorld.flip {
+    background-color: rgb(245, 245, 245);
+    -webkit-transform: rotateY(180deg) rotateZ(180deg) rotateX(180deg);
+    -moz-transform: rotateY(180deg) rotateZ(180deg) rotateX(180deg);
+    -ms-transform: rotateY(180deg) rotateZ(180deg) rotateX(180deg);
+    -o-transform: rotateY(180deg) rotateZ(180deg) rotateX(180deg);
+    transform: rotateY(180deg) rotateZ(180deg) rotateX(180deg);
 }
