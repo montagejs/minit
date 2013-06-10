@@ -33,6 +33,9 @@ exports.Template = Object.create(TemplateBase, {
             if (options.name) {
                 options.name = this.validateName(options.name);
             }
+            if (options.name) {
+                options.propertyName = options.name.replace(/(?:-)([^-])/g, function(match, g1) { return g1.toUpperCase() });
+            }
             if (!options.exportedName) {
                 options.exportedName = this.validateExport(options.name);
             }
