@@ -27,7 +27,7 @@
     background: hsl(0,0%,92%);
 }
 
-/* This css should be in the hello-world.css it is here to make the quick start easy.*/
+/* The following rules really should be part of hello-world.css; we've included them here to streamline the quick start tutorial.*/
 
 .Welcome .HelloWorld {
     text-align: center;
