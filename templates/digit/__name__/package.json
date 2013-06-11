@@ -2,11 +2,11 @@
     "name": "{{name}}",
     "version": "0.1.0",
     "dependencies": {
-        "montage": "0.13.0-alpha",
-        "digit": "0.2.0-alpha"
+        "montage": "0.13.0",
+        "digit": "0.2.0"
     },
     "devDependencies": {
-        "montage-testing": "0.2.0-alpha"
+        "montage-testing": "0.2.0"
     },
     "exclude": [
         "run-tests.html",
