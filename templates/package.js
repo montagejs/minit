@@ -39,7 +39,8 @@ exports.Template = Object.create(TemplateBase, {
             return TemplateBase.finish.call(this).then(function(result) {
                 var config = {
                     prefix : path.join(destination, self.options.name),
-                    production : true
+                    production : true,
+                    loglevel: "warn"
                 };
                 return self.installDependencies(config);
             }).then(function() {

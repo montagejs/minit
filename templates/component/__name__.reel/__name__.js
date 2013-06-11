@@ -1,18 +1,19 @@
 {{#copyright}}/* {{{copyright}}} */
 
 {{/copyright}}/**
-    @module "{{jsdocModule}}{{destination}}/{{name}}.reel"
-    @requires montage
-    @requires montage/ui/component
-*/
-var Montage = require("montage").Montage,
-    Component = require("montage/ui/component").Component;
+ * @module {{#destination}}{{destination}}/{{/destination}}{{name}}.reel
+ * @requires {{extendsModuleId}}
+ */
+var {{extendsName}} = require("{{extendsModuleId}}").{{extendsName}};
 
 /**
-    Description TODO
-    @class module:"{{jsdocModule}}{{destination}}/{{name}}.reel".{{exportedName}}
-    @extends module:montage/ui/component.Component
-*/
-exports.{{exportedName}} = Montage.create(Component, /** @lends module:"{{jsdocModule}}{{destination}}/{{name}}.reel".{{exportedName}}# */ {
-
+ * @class {{exportedName}}
+ * @extends {{extendsName}}
+ */
+exports.{{exportedName}} = {{extendsName}}.specialize(/** @lends {{exportedName}}# */ {
+    constructor: {
+        value: function {{exportedName}}() {
+            this.super();
+        }
+    }
 });

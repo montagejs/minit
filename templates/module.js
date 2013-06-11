@@ -21,8 +21,9 @@ exports.Template = Object.create(TemplateBase, {
             command = TemplateBase.addOptions.call(this, command);
             command.option('-n, --name <name>', 'module name');
             command.option('-e, --exported-name [name]', 'exported name');
-            command.option('-j, --jsdoc [module]', 'jsdoc module');
             command.option('-c, --copyright [path]', 'copyright file');
+            command.option('--extends-module-id [name]', 'module name');
+            command.option('--extends-name [name]', 'exported name');
             return command;
         }
     },
@@ -32,6 +33,9 @@ exports.Template = Object.create(TemplateBase, {
             if (options.name) {
                 options.name = this.validateName(options.name);
             }
+            if (options.name) {
+                options.propertyName = options.name.replace(/(?:-)([^-])/g, function(match, g1) { return g1.toUpperCase() });
+            }
             if (!options.exportedName) {
                 options.exportedName = this.validateExport(options.name);
             }
@@ -40,6 +44,9 @@ exports.Template = Object.create(TemplateBase, {
             }
             if (options.copyright) {
                 options.copyright = this.validateCopyright(options.copyright);
+            }
+            if (!options.extendsName) {
+                options.extendsName = "Montage";
             }
 
         }

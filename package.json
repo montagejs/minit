@@ -1,10 +1,14 @@
 {
   "name": "minit",
-  "version": "0.2.1",
+  "version": "0.3.0",
   "title": "Montage Assistant",
   "homepage": "http://www.montage.org",
   "bugs": {
     "url": "http://github.com/montagejs/minit/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/montagejs/minit.git"
   },
   "licenses": [
     {
@@ -16,16 +20,15 @@
   "dependencies": {
     "commander": "~1.1.1",
     "q": "~0.9.2",
-    "q-io": "~1.6.4",
-    "npm": "~1.2.16"
-  },
-  "optionalDependencies": {
-    "jsdom": "~0.5.5"
+    "q-io": "~1.7",
+    "npm": "~1.2.18",
+    "minidom": "~0.0.2",
+    "joey": "~1.1.0"
   },
   "devDependencies": {
-    "jasmine-node": "~1.5.0",
+    "jasmine-node": "~1.7.0",
     "sandboxed-module": "~0.2.0",
-    "mocks": "0.0.10"
+    "mocks": "~0.0.11"
   },
   "engines": {
     "node": "~0.10.2"

@@ -2,10 +2,10 @@
     "name": "{{name}}",
     "version": "0.1.0",
     "dependencies": {
-        "montage": "*"
+        "montage": "0.13.0-alpha"
     },
     "devDependencies": {
-        "montage-testing": "~0.1.2"
+        "montage-testing": "0.2.0-alpha"
     },
     "exclude": [
         "overview.html",

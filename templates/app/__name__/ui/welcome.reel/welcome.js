@@ -1,23 +1,20 @@
 {{#copyright}}/* {{{copyright}}} */
 
 {{/copyright}}/**
-    @module "ui/welcome.reel"
-    @requires montage
-    @requires montage/ui/component
-*/
-var Montage = require("montage").Montage,
-    Component = require("montage/ui/component").Component;
+ * @module ui/welcome.reel
+ * @requires montage/ui/component
+ */
+var Component = require("montage/ui/component").Component;
 
 /**
-    Description TODO
-    @class module:"ui/welcome.reel".Welcome
-    @extends module:ui/component.Component
-*/
-exports.Welcome = Montage.create(Component, /** @lends module:"ui/welcome.reel".Welcome# */ {
+ * @class Welcome
+ * @extends Component
+ */
+exports.Welcome = Component.specialize(/** @lends Welcome# */ {
 
-    montageDescription: {
-        get: function() {
-            return montageRequire.packageDescription;
+    constructor: {
+        value: function Welcome() {
+            this.super();
         }
     }
 
