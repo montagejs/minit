@@ -1,5 +1,6 @@
 var TemplateBase = require("../lib/template-base.js").TemplateBase;
 var fs = require('fs');
+var removeDiacritics = require("diacritics").remove;
 
 var Command = require("commander").Command;
 
@@ -55,8 +56,8 @@ exports.Template = Object.create(TemplateBase, {
     validateName: {
         value: function(name) {
            var exportedName = this.validateExport(name);
-            // convert back from camelcase to dashes
-            return _fromCamelToDashes(exportedName);
+            // convert back from camelcase to dashes and ensure names are ascii
+            return removeDiacritics(_fromCamelToDashes(exportedName));
         }
     },
 
