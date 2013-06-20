@@ -48,5 +48,39 @@ describe("app template", function () {
             expect(command.optionFor("--copyright")).toBeDefined();
         });
     });
+    describe("option validation", function () {
+        var template;
+        var options;
+        beforeEach(function () {
+            template = Object.create(Template);
+            options = {};
+        });
+        it("should accept name with dashes", function () {
+            options.name = "my-app";
+            template.didSetOptions(options);
+            expect(options.name).toEqual("my-app");
+        });
+        it("should accept name with spaces", function () {
+            options.name = "my app";
+            template.didSetOptions(options);
+            expect(options.name).toEqual("my-app");
+        });
+        it("should accept camelCased name", function () {
+            options.name = "MyApp";
+            template.didSetOptions(options);
+            expect(options.name).toEqual("my-app");
+        });
+        it("should convert spaces to dashes in names", function () {
+            options.name = "My App";
+            template.didSetOptions(options);
+            expect(options.name).toEqual("my-app");
+        });
+        // by converting accented characters to ascii equivalents in names
+        it("should respect NPM package name conventions (râțéăü -> rateau)", function () {
+            options.name = "râțéăü";
+            template.didSetOptions(options);
+            expect(options.name).toEqual("rateau");
+        });
+    });
 
 });
