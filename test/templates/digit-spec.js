@@ -3,12 +3,12 @@ var jasmine = require("jasmine-node");
 var SandboxedModule = require('sandboxed-module');
 var Command = require("commander").Command;
 
-describe("app template", function () {
+describe("digit template", function () {
     var testCommand;
     var Template;
     beforeEach(function() {
 
-        Template = SandboxedModule.require('../../templates/app', {
+        Template = SandboxedModule.require('../../templates/digit', {
             requires: {
                 '../lib/template-base': {
                     TemplateBase: {
