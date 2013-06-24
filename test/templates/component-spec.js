@@ -99,6 +99,11 @@ describe("component template", function () {
             expect(options.name).toEqual("my-component");
             expect(options.exportedName).toEqual("MyComponent");
         });
+        it("should convert multiple spaces to dashes in names", function () {
+            options.name = "My Component Has Spaces";
+            template.didSetOptions(options);
+            expect(options.name).toEqual("my-component-hasspaces");
+        });
         // by converting accented characters to ascii equivalents in names
         it("should respect NPM package name conventions (râțéăü -> rateau)", function () {
             options.name = "râțéăü";

@@ -67,7 +67,7 @@ exports.Template = Object.create(TemplateBase, {
             // We then convert to to camelcase and back to get the consistent
             // naming used in Montage
             // remove spaces
-            name = name.replace(" ", "-");
+            name = name.replace(/ /g, "-");
             // convert to camelcase
             return name.replace(/(?:^|-)([^\-])/g, function(_, g1) { return g1.toUpperCase(); });
         }

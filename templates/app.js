@@ -41,7 +41,7 @@ exports.Template = Object.create(PackageTemplate, {
 
     validateName: {
         value: function(name) {
-            name = name.replace(" ", "-");
+            name = name.replace(/ /g, "-");
             // convert to camelcase
             name =  name.replace(/(?:^|-)([^\-])/g, function(_, g1) { return g1.toUpperCase(); });
             // convert back from camelcase to dashes and ensure names are safe to use as npm package names
