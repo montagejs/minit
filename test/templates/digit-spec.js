@@ -78,7 +78,7 @@ describe("digit template", function () {
         it("should convert multiple spaces to dashes in names", function () {
             options.name = "My App Has Spaces";
             template.didSetOptions(options);
-            expect(options.name).toEqual("my-app-hasspaces");
+            expect(options.name).toEqual("my-app-has-spaces");
         });
         // by converting accented characters to ascii equivalents in names
         it("should respect NPM package name conventions (râțéăü -> rateau)", function () {

@@ -5,11 +5,16 @@ var npm = require("npm");
 var Q = require('q');
 var removeDiacritics = require("diacritics").remove;
 
-var _firstCapRe = new RegExp('(.)([A-Z][a-z]+)');
-var _allCapRe = new RegExp('([a-z0-9])([A-Z])');
+
 var _fromCamelToDashes = function(name) {
-    var s1 = name.replace(_firstCapRe, "$1-$2");
-    return s1.replace(_allCapRe, "$1-$2").toLowerCase();
+    var s1 = name.replace(/([A-Z])/g, function (g) { return "-"+g.toLowerCase(); });
+    s1 = s1.replace(/--/g, "-").replace(/^-/, "");
+    return s1;
+};
+var _fromDashesToCamel = function(name) {
+    var s1 = name.replace(/-([a-z])/g, function (g) { return g[1].toUpperCase(); });
+    s1 = s1[0].toUpperCase() + s1.slice(1);
+    return s1;
 };
 exports.Template = Object.create(PackageTemplate, {
 
@@ -41,7 +46,7 @@ exports.Template = Object.create(PackageTemplate, {
         value: function(name) {
             name = name.replace(/ /g, "-");
             // convert to camelcase
-            name =  name.replace(/(?:^|-)([^\-])/g, function(_, g1) { return g1.toUpperCase(); });
+            name =  _fromDashesToCamel(name);
             // convert back from camelcase to dashes and ensure names are safe to use as npm package names
             return removeDiacritics(_fromCamelToDashes(name));
         }
@@ -55,7 +60,7 @@ exports.Template = Object.create(PackageTemplate, {
 
     defaultPackageHome: {
         value: function (value) {
-            return process.cwd()
+            return process.cwd();
         }
     }
 

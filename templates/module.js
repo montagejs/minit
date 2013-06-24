@@ -4,12 +4,16 @@ var removeDiacritics = require("diacritics").remove;
 
 var Command = require("commander").Command;
 
-var _firstCapRe = new RegExp('(.)([A-Z][a-z]+)');
-var _allCapRe = new RegExp('([a-z0-9])([A-Z])');
-var _fromCamelToDashes = function (name){
-        var s1 = name.replace(_firstCapRe, "$1-$2");
-        return s1.replace(_allCapRe, "$1-$2").toLowerCase();
-    };
+var _fromCamelToDashes = function(name) {
+    var s1 = name.replace(/([A-Z])/g, function (g) { return "-"+g.toLowerCase(); });
+    s1 = s1.replace(/--/g, "-").replace(/^-/, "");
+    return s1;
+};
+var _fromDashesToCamel = function(name) {
+    var s1 = name.replace(/-([a-z])/g, function (g) { return g[1].toUpperCase(); });
+    s1 = s1[0].toUpperCase() + s1.slice(1);
+    return s1;
+};
 
 exports.Template = Object.create(TemplateBase, {
 
@@ -35,7 +39,7 @@ exports.Template = Object.create(TemplateBase, {
                 options.name = this.validateName(options.name);
             }
             if (options.name) {
-                options.propertyName = options.name.replace(/(?:-)([^-])/g, function(match, g1) { return g1.toUpperCase() });
+                options.propertyName = _fromDashesToCamel(options.name);
             }
             if (!options.exportedName) {
                 options.exportedName = this.validateExport(options.name);
@@ -69,7 +73,7 @@ exports.Template = Object.create(TemplateBase, {
             // remove spaces
             name = name.replace(/ /g, "-");
             // convert to camelcase
-            return name.replace(/(?:^|-)([^\-])/g, function(_, g1) { return g1.toUpperCase(); });
+            return _fromDashesToCamel(name);
         }
     },
 
