@@ -2,9 +2,9 @@
 
 {{/copyright}}/**
  * @module {{#destination}}{{destination}}/{{/destination}}{{name}}
- * @requires {{extendsModuleId}}{{/extendsModuleId}}
+ * @requires {{extendsModuleId}}
  */
-var {{extendsName}} = require("{{extendsModuleId}}").{{extendsName}}{{/extendsModuleId}};
+var {{extendsName}} = require("{{extendsModuleId}}").{{extendsName}};
 /**
  * @class {{exportedName}}
  * @extends {{extendsName}}
