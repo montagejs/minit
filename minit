@@ -1,21 +1,44 @@
 #!/usr/bin/env node
 
-
+var ArgumentError = require("./lib/error.js").ArgumentError;
 var program = require("./cli").command;
 
-program.parse(process.argv);
+try {
+    program.parse(process.argv);
 
-if (program.args.length === 0) {
-   program.help();
-} else {
-    var commandNames = program.commands.map(function(command) {
-        return command.name;
-    });
+    if (program.args.length === 0) {
+       program.help();
+    } else {
+        var commandName = program.args[0];
 
-    var commandName = program.args[0];
-    // Consumed command names will be an object.
-    if (typeof commandName === "string" && commandNames.indexOf(commandName) === -1) {
-        console.error("\n  Error: unknown command '" + commandName + "'");
-        program.help();
+        var commandNameMap = program.commands.reduce(function(map, command) {
+            map[command.name] = true;
+            return map;
+        }, {});
+
+        if (typeof commandName === "string" && !commandNameMap[commandName]) {
+            throw new ArgumentError("Unknown command '" + commandName + "'");
+        }
+    }
+
+} catch (err) {
+    if (err instanceof ArgumentError) {
+
+        console.error("\n  " + err.message);
+
+        var command = program.args[0];
+
+        if (typeof command !== "string") {
+            console.info("\n  ", command.help());
+        } else {
+            program.help();
+        }
+    } else {
+        throw err;
     }
 }
+
+
+
+
+

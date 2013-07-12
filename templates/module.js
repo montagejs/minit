@@ -1,4 +1,5 @@
 var TemplateBase = require("../lib/template-base.js").TemplateBase;
+var ArgumentError = require("../lib/error.js").ArgumentError;
 var fs = require('fs');
 
 var Command = require("commander").Command;
@@ -33,10 +34,11 @@ exports.Template = Object.create(TemplateBase, {
         value:function (options) {
             if (options.name) {
                 options.name = this.validateName(options.name);
-            }
-            if (options.name) {
                 options.propertyName = options.name.replace(/(?:-)([^-])/g, function(match, g1) { return g1.toUpperCase() });
+            } else {
+                throw new ArgumentError("Missing required name option");
             }
+
             if (!options.exportedName) {
                 options.exportedName = this.validateExport(options.name);
             }
