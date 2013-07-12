@@ -93,6 +93,24 @@ describe("component template", function () {
             expect(options.name).toEqual("my-component");
             expect(options.exportedName).toEqual("MyComponent");
         });
+        it("should convert spaces to dashes in names", function () {
+            options.name = "My Component";
+            template.didSetOptions(options);
+            expect(options.name).toEqual("my-component");
+            expect(options.exportedName).toEqual("MyComponent");
+        });
+        it("should convert multiple spaces to dashes in names", function () {
+            options.name = "My Component Has Spaces";
+            template.didSetOptions(options);
+            expect(options.name).toEqual("my-component-has-spaces");
+        });
+        // by converting accented characters to ascii equivalents in names
+        it("should respect NPM package name conventions (râțéăü -> rateau)", function () {
+            options.name = "râțéăü";
+            template.didSetOptions(options);
+            expect(options.name).toEqual("rateau");
+            expect(options.exportedName).toEqual("Rateau");
+        });
         it("should transform name to exported name", function () {
             options.name = "my-component";
             template.didSetOptions(options);

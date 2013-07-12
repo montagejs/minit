@@ -34,13 +34,6 @@ var fs = require('fs');
 
 var Command = require("commander").Command;
 
-var _firstCapRe = new RegExp('(.)([A-Z][a-z]+)');
-var _allCapRe = new RegExp('([a-z0-9])([A-Z])');
-var _fromCamelToDashes = function (name){
-        var s1 = name.replace(_firstCapRe, "$1-$2");
-        return s1.replace(_allCapRe, "$1-$2").toLowerCase();
-    };
-
 exports.Template = Object.create(ModuleTemplate, {
 
     commandDescription: {

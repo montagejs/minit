@@ -1,15 +1,20 @@
 var TemplateBase = require("../lib/template-base.js").TemplateBase;
 var ArgumentError = require("../lib/error.js").ArgumentError;
 var fs = require('fs');
+var removeDiacritics = require("diacritics").remove;
 
 var Command = require("commander").Command;
 
-var _firstCapRe = new RegExp('(.)([A-Z][a-z]+)');
-var _allCapRe = new RegExp('([a-z0-9])([A-Z])');
-var _fromCamelToDashes = function (name){
-        var s1 = name.replace(_firstCapRe, "$1-$2");
-        return s1.replace(_allCapRe, "$1-$2").toLowerCase();
-    };
+var _fromCamelToDashes = function(name) {
+    var s1 = name.replace(/([A-Z])/g, function (g) { return "-"+g.toLowerCase(); });
+    s1 = s1.replace(/--/g, "-").replace(/^-/, "");
+    return s1;
+};
+var _fromDashesToCamel = function(name) {
+    var s1 = name.replace(/-([a-z])/g, function (g) { return g[1].toUpperCase(); });
+    s1 = s1[0].toUpperCase() + s1.slice(1);
+    return s1;
+};
 
 exports.Template = Object.create(TemplateBase, {
 
@@ -34,7 +39,7 @@ exports.Template = Object.create(TemplateBase, {
         value:function (options) {
             if (options.name) {
                 options.name = this.validateName(options.name);
-                options.propertyName = options.name.replace(/(?:-)([^-])/g, function(match, g1) { return g1.toUpperCase() });
+                options.propertyName = _fromDashesToCamel(options.name);
             } else {
                 throw new ArgumentError("Missing required name option");
             }
@@ -61,8 +66,8 @@ exports.Template = Object.create(TemplateBase, {
     validateName: {
         value: function(name) {
            var exportedName = this.validateExport(name);
-            // convert back from camelcase to dashes
-            return _fromCamelToDashes(exportedName);
+            // convert back from camelcase to dashes and ensure names are ascii
+            return removeDiacritics(_fromCamelToDashes(exportedName));
         }
     },
 
@@ -72,9 +77,9 @@ exports.Template = Object.create(TemplateBase, {
             // We then convert to to camelcase and back to get the consistent
             // naming used in Montage
             // remove spaces
-            name = name.replace(" ", "-");
+            name = name.replace(/ /g, "-");
             // convert to camelcase
-            return name.replace(/(?:^|-)([^\-])/g, function(_, g1) { return g1.toUpperCase(); });
+            return _fromDashesToCamel(name);
         }
     },
 
