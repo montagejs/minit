@@ -42,11 +42,11 @@ exports.Template = Object.create(ModuleTemplate, {
 
     didSetOptions: {
         value:function (options) {
-            ModuleTemplate.didSetOptions.call(this, options);
-
             if (!options.extendsModuleId) {
                 options.extendsModuleId = "montage/ui/component";
             }
+
+            ModuleTemplate.didSetOptions.call(this, options);
 
             options.extendsName = this.validateExtendsName(options.extendsName);
         }
