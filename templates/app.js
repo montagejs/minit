@@ -1,4 +1,5 @@
 var PackageTemplate = require("./package").Template;
+var ArgumentError = require("../lib/error.js").ArgumentError;
 var path = require('path');
 var fs = require('fs');
 var npm = require("npm");
@@ -25,7 +26,7 @@ exports.Template = Object.create(PackageTemplate, {
     addOptions: {
         value:function (command) {
             command = PackageTemplate.addOptions.call(this, command);
-            command.option('-n, --name <name>', 'application name');
+            command.option('-n, --name <name>', 'application name (required)');
             command.option('-c, --copyright [path]', 'copyright file');
             return command;
         }
@@ -35,6 +36,8 @@ exports.Template = Object.create(PackageTemplate, {
         value:function (options) {
             if (options.name) {
                 options.name = this.validateName(options.name);
+            } else {
+                throw new ArgumentError("Required name option missing");
             }
             if (options.copyright) {
                 options.copyright = this.validateCopyright(options.copyright);

@@ -24,7 +24,7 @@ try {
 } catch (err) {
     if (err instanceof ArgumentError) {
 
-        console.error("\n  " + err.message);
+        console.error("\n  Error: " + err.message);
 
         var command = program.args[0];
 
