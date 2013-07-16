@@ -41,7 +41,7 @@ exports.Template = Object.create(TemplateBase, {
                 options.name = this.validateName(options.name);
                 options.propertyName = _fromDashesToCamel(options.name);
             } else {
-                throw new ArgumentError("Missing required name option");
+                throw new ArgumentError("Required name option missing");
             }
 
             if (!options.exportedName) {
