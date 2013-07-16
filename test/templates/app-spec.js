@@ -55,6 +55,11 @@ describe("app template", function () {
             template = Object.create(Template);
             options = {};
         });
+        it("should throw an error when no name given", function () {
+            expect(function () {
+                template.didSetOptions(options);
+            }).toThrow("Required name option missing");
+        });
         it("should accept name with dashes", function () {
             options.name = "my-app";
             template.didSetOptions(options);
