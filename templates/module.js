@@ -26,7 +26,7 @@ exports.Template = Object.create(TemplateBase, {
         value:function (command) {
             command = TemplateBase.addOptions.call(this, command);
             command.usage("-n <name> [options]");
-            command.option('-n, --name <name>', 'module name');
+            command.option('-n, --name <name>', 'module name (required)');
             command.option('-e, --exported-name [name]', 'exported name');
             command.option('-c, --copyright [path]', 'copyright file');
             command.option('--extends-module-id [name]', 'module name');

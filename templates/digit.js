@@ -26,7 +26,7 @@ exports.Template = Object.create(PackageTemplate, {
     addOptions: {
         value:function (command) {
             command = PackageTemplate.addOptions.call(this, command);
-            command.option('-n, --name <name>', 'application name');
+            command.option('-n, --name <name>', 'application name (required)');
             command.option('-c, --copyright [path]', 'copyright file');
             return command;
         }
