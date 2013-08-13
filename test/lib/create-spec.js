@@ -2,7 +2,7 @@ var jasmine = require("jasmine-node");
 
 var SandboxedModule = require('sandboxed-module');
 var Command = require("commander").Command;
-
+var Q = require("q");
 var mockFS = require("mocks").fs;
 
 describe("create", function () {
@@ -69,6 +69,42 @@ describe("create", function () {
             expect(testCommand.listeners("create:testTemplate").length).not.toEqual(0);
 
                // .parse([null,null, "create:app"]);
+        });
+
+    });
+    describe("return a promise", function () {
+        var testCommand;
+        beforeEach(function() {
+            testCommand = new Command();
+            testCommand.minitHome = '/minit_home';
+            testCommand.packageHome = '/package_home';
+            testCommand.templatesDir = '/minit_home/templates';
+
+        });
+
+        it("should resolve the component's config details", function() {
+            var create = SandboxedModule.require('../../lib/create', {
+                requires: {
+                    'fs': mocks.simpleFS,
+                    '../templates/testTemplate': mocks.template
+                }
+            });
+            var name = "my-component";
+            return create("testTemplate", {
+                name: name
+            }, {
+                'Template': {
+                    'newWithDirectory': function(config) {
+                        return {
+                            'process': function(config) {
+                                return Q();
+                            }
+                        };
+                    }
+                }
+            }).then(function(results) {
+                expect(results.name).toEqual(name);
+            });
         });
 
     });
