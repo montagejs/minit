@@ -56,8 +56,23 @@ exports.Template = Object.create(TemplateBase, {
     installDependencies: {
         value: function (config) {
             return Q.ninvoke(npm, "load", (config || null))
-                .then(function (loadedNpm) {
-                    return Q.ninvoke(loadedNpm.commands, "install");
+                .then(function () {
+
+                    // npm is a singleton within a process; loading with a
+                    // new config does not appear to update the configuration
+                    // in particular, the prefix from the original configuration
+                    // is always used npm.config.set and other approaches
+                    // do not end up with a change to the necessary npm.dir
+                    // or npm.globalDir.
+                    // Changing npm.prefix directly here does work, though
+                    // if the configuration differed in other ways those might
+                    // need to be manually set directly on npm as well
+
+                    if (config.prefix) {
+                        npm.prefix = config.prefix;
+                    }
+
+                    return Q.ninvoke(npm.commands, "install");
                 });
         }
     },
