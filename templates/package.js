@@ -3,7 +3,6 @@ var path = require('path');
 var fs = require('fs');
 var npm = require("npm");
 var Q = require('q');
-var exec = require('../lib/exec');
 
 exports.Template = Object.create(TemplateBase, {
 
@@ -56,16 +55,10 @@ exports.Template = Object.create(TemplateBase, {
 
     installDependencies: {
         value: function (config) {
-
-            var args = ["install"];
-            if (config.production) {
-                args.push("--production");
-            }
-            if (config.production) {
-                args.push("--" + config.loglevel);
-            }
-
-            return exec("npm", args, config.prefix);
+            return Q.ninvoke(npm, "load", (config || null))
+                .then(function (loadedNpm) {
+                    return Q.ninvoke(loadedNpm.commands, "install");
+                });
         }
     },
 
