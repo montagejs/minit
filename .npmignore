@@ -3,5 +3,5 @@ node_modules
 .DS_Store
 build
 junitreport
-test
+test/
 run-test.js
