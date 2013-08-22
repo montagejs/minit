@@ -85,24 +85,28 @@ describe("component template", function () {
             options.name = "my-component";
             template.didSetOptions(options);
             expect(options.name).toEqual("my-component");
+            expect(options.propertyName).toEqual("myComponent");
         });
         it("should accept name with spaces", function () {
             options.name = "my component";
             template.didSetOptions(options);
             expect(options.name).toEqual("my-component");
             expect(options.exportedName).toEqual("MyComponent");
+            expect(options.propertyName).toEqual("myComponent");
         });
         it("should accept camelCased name", function () {
             options.name = "MyComponent";
             template.didSetOptions(options);
             expect(options.name).toEqual("my-component");
             expect(options.exportedName).toEqual("MyComponent");
+            expect(options.propertyName).toEqual("myComponent");
         });
         it("should convert spaces to dashes in names", function () {
             options.name = "My Component";
             template.didSetOptions(options);
             expect(options.name).toEqual("my-component");
             expect(options.exportedName).toEqual("MyComponent");
+            expect(options.propertyName).toEqual("myComponent");
         });
         it("should convert multiple spaces to dashes in names", function () {
             options.name = "My Component Has Spaces";

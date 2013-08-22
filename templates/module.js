@@ -39,7 +39,8 @@ exports.Template = Object.create(TemplateBase, {
         value:function (options) {
             if (options.name) {
                 options.name = this.validateName(options.name);
-                options.propertyName = _fromDashesToCamel(options.name);
+                var propertyName = _fromDashesToCamel(options.name);
+                options.propertyName = propertyName[0].toLowerCase() + propertyName.slice(1);
             } else {
                 throw new ArgumentError("Required name option missing");
             }
