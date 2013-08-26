@@ -1,3 +1,20 @@
+### v0.3.8
+
+ - Return a promise for the config object from `create`, which contains
+   information such as the destination directory and sanitized name
+ - Fix issues with `npm` not running well multiple times in the same process
+ - Update `app` template to use short charset declaration
+ - Ensure generated component `data-montage-id`s start with a lowercase letter
+ - Ensure `test` directories in templates are published
+
+### v0.3.7
+
+ - Update dependency versions of `app` and `digit` templates
+
+### v0.3.6
+
+ - Fix generating template on different source and destination devices/drives
+
 ### v0.3.5
 
  - Add diacritics to convert unicode names to ASCII when needed
