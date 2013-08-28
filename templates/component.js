@@ -46,6 +46,8 @@ exports.Template = Object.create(ModuleTemplate, {
                 options.extendsModuleId = "montage/ui/component";
             }
 
+            options.extensionName = "reel";
+
             ModuleTemplate.didSetOptions.call(this, options);
 
             options.extendsName = this.validateExtendsName(options.extendsName);
@@ -67,7 +69,7 @@ exports.Template = Object.create(ModuleTemplate, {
         value: function() {
             var self = this;
             return ModuleTemplate.finish.apply(self, arguments).then(function(result) {
-                console.log(self.options.name + ".reel created.");
+                console.log(self.options.name + "." + self.options.extensionName + " created.");
                 return result;
             });
         }

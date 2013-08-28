@@ -107,5 +107,32 @@ describe("create", function () {
             });
         });
 
+        it("should resolve the path of the result created", function() {
+            var create = SandboxedModule.require('../../lib/create', {
+                requires: {
+                    'fs': mocks.simpleFS,
+                    '../templates/testTemplate': mocks.template
+                }
+            });
+            var name = "my-component";
+            return create("testTemplate", {
+                name: name,
+                destination: "destination/path"
+            }, {
+                'Template': {
+                    'newWithDirectory': function(config) {
+                        return {
+                            'process': function(config) {
+                                config.extensionName = "ext";
+                                return Q();
+                            }
+                        };
+                    }
+                }
+            }).then(function(results) {
+                expect(results.resultPath).toEqual("destination/path/my-component.ext");
+            });
+        });
+
     });
 });
