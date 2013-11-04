@@ -1,9 +1,6 @@
 var PackageTemplate = require("./package").Template;
 var ArgumentError = require("../lib/error.js").ArgumentError;
-var path = require('path');
 var fs = require('fs');
-var npm = require("npm");
-var Q = require('q');
 var removeDiacritics = require("diacritics").remove;
 
 var _fromCamelToDashes = function(name) {

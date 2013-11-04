@@ -1,4 +1,3 @@
-var jasmine = require("jasmine-node");
 var SandboxedModule = require('sandboxed-module');
 var Command = require("commander").Command;
 
@@ -15,7 +14,7 @@ describe("template-base", function () {
 
         expect(base.directory).toBe(directory);
 
-     });
+    });
 
     describe("default template options", function () {
         var testCommand;
@@ -28,16 +27,13 @@ describe("template-base", function () {
 
         });
         it("should have a --destination option", function () {
+            var command = Object.create(Template).addOptions(testCommand);
 
-                var command = Object.create(Template).addOptions(testCommand);
-
-                expect(command.optionFor("-d")).toBeDefined();
-                expect(command.optionFor("--destination")).toBeDefined();
-
+            expect(command.optionFor("-d")).toBeDefined();
+            expect(command.optionFor("--destination")).toBeDefined();
         });
 
         it("should have --package-home option", function () {
-
             var command = Object.create(Template).addOptions(testCommand);
 
             expect(command.optionFor("-p")).toBeDefined();
@@ -61,15 +57,15 @@ describe("template-base", function () {
                     "testTemplate.js": 1
                 },
                 "package_home": {
-                   "package.json": 1
+                    "package.json": 1
                 }
             });
 
             osMock = {
                 tmpDir: function() {
-                    return "/minit_home"
+                    return "/minit_home";
                 }
-            }
+            };
 
             templateConfig = {};
             templateConfig.minitHome = "/minit_home";
