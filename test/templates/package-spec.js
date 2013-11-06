@@ -99,5 +99,23 @@ describe("package template", function () {
             });
         });
 
+        it("uses the npmCache option if given", function () {
+            spyOn(template, "installDependencies");
+            Object.defineProperty(template, "installDependencies", {
+                value: jasmine.createSpy().andCallFake(function () { return Q(); })
+            });
+            template.options = {
+                name: "",
+                npmCache: "pass"
+            };
+
+            return template.finish("")
+            .then(function () {
+                expect(template.installDependencies).toHaveBeenCalled();
+                expect(template.installDependencies.mostRecentCall.args[0].cache).toEqual("pass");
+            });
+        });
+
     });
+
 });

@@ -43,6 +43,9 @@ exports.Template = Object.create(TemplateBase, {
                     production : true,
                     loglevel: "warn"
                 };
+                if (self.options.npmCache) {
+                    config.cache = self.options.npmCache;
+                }
                 return self.installDependencies(config);
             }).then(function() {
                 console.log("#");
