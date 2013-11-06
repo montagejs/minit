@@ -1,10 +1,19 @@
 var SandboxedModule = require('sandboxed-module');
 var Command = require("commander").Command;
+var Q = require("q");
 
 describe("package template", function () {
     var testCommand;
     var Template;
+    var NpmWrapperMock;
     beforeEach(function() {
+        NpmWrapperMock = function (config) {
+            this.config = config;
+        };
+        NpmWrapperMock.prototype.install = function() {
+            return Q();
+        };
+        NpmWrapperMock.prototype.close = function() {};
 
         Template = SandboxedModule.require('../../templates/package', {
             requires: {
@@ -12,9 +21,13 @@ describe("package template", function () {
                     TemplateBase: {
                         addOptions: function(command) {
                             return command;
+                        },
+                        finish: function () {
+                            return Q();
                         }
                     }
-                }
+                },
+                '../lib/npm-wrapper': NpmWrapperMock
             }
         }).Template;
 
@@ -47,4 +60,44 @@ describe("package template", function () {
         });
     });
 
+    describe("install dependencies", function () {
+        var template;
+        beforeEach(function () {
+            template = Object.create(Template);
+        });
+
+        it("uses the npm registry if online", function () {
+            Object.defineProperty(template, "_isOnline", {
+                value: function () {
+                    return Q(true);
+                },
+            });
+            spyOn(NpmWrapperMock.prototype, "install").andCallThrough();
+
+            return template.installDependencies({})
+            .then(function () {
+                expect(NpmWrapperMock.prototype.install).toHaveBeenCalled();
+                var config = NpmWrapperMock.prototype.install.mostRecentCall.object.config;
+                expect(config.hasOwnProperty("registry")).toBe(false);
+            });
+        });
+
+        it("installs from cache if offline", function () {
+            Object.defineProperty(template, "_isOnline", {
+                value: function () {
+                    return Q(false);
+                },
+            });
+            spyOn(NpmWrapperMock.prototype, "install").andCallThrough();
+
+            return template.installDependencies({})
+            .then(function () {
+                expect(NpmWrapperMock.prototype.install).toHaveBeenCalled();
+                var config = NpmWrapperMock.prototype.install.mostRecentCall.object.config;
+                expect(config.hasOwnProperty("registry")).toBe(true);
+                expect(config.registry).toBe(null);
+            });
+        });
+
+    });
 });
