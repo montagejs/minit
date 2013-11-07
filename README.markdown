@@ -96,7 +96,7 @@ Run `minit --help` for details of the templates available and their usages. The 
   Options:
 
     -h, --help                 output usage information
-    -p, --package-home [path]  absolute path to the packages's home directory
+    -p, --package-home [path]  absolute path to the package's home directory
     -d, --destination [path]   where the template will be expanded relative to the package-home's test directory
     -n, --name <name>          module name
     -t, --title [name]         title of the test
@@ -110,7 +110,7 @@ Run `minit --help` for details of the templates available and their usages. The 
   Options:
 
     -h, --help                 output usage information
-    -p, --package-home [path]  absolute path to the packages's home directory
+    -p, --package-home [path]  absolute path to the package's home directory
     -d, --destination [path]   where the template will be expanded relative to the package-home's test directory
     -n, --name <name>          module name
     -t, --title [name]         title of the test
@@ -120,7 +120,7 @@ Using minit as a package
 -----
 
 The minit package exports a create function that accepts a template name and an options object. The available options
-are the same as the command line options except that the key are camel cased (--package-home becomes packageHome).
+are the same as the command line options except that they are camel cased (--package-home becomes packageHome).
 The create function returns a promise.
 
 ```javascript
