@@ -47,7 +47,7 @@ exports.Template = Object.create(TemplateBase, {
                 console.log("#");
                 console.log("# "+ self.options.name +" created and installed with production dependencies, run");
                 console.log("# > npm install .");
-                console.log("# to setup the testing dependencies");
+                console.log("# to set up the testing dependencies");
                 console.log("#");
             });
         }
