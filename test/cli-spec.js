@@ -1,5 +1,3 @@
-var jasmine = require("jasmine-node");
-
 var SandboxedModule = require('sandboxed-module');
 
 describe("minit", function () {
@@ -17,7 +15,7 @@ describe("minit", function () {
         mainSandbox = {
             requires: {'./lib/create': mockCreate}
         };
-   });
+    });
 
     it("should add creation commands", function () {
         var addCommandsToSpy = spyOn(mockCreate, "addCommandsTo");

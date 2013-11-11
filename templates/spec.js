@@ -24,7 +24,7 @@ exports.Template = Object.create(TemplateBase, {
     didSetOptions: {
         value:function (options) {
             if (!options.title && options.name) {
-                options.title = options.name.replace(/(?:^|-)([^-])/g, function(match, g1) { return g1.toUpperCase() });
+                options.title = options.name.replace(/(?:^|-)([^-])/g, function(match, g1) { return g1.toUpperCase(); });
             }
         }
     },
@@ -35,7 +35,7 @@ exports.Template = Object.create(TemplateBase, {
 
     finalDestination: {
         get: function() {
-            return Path.join(this.options.packageHome, "test", this.options.destination)
+            return Path.join(this.options.packageHome, "test", this.options.destination);
         }
     },
 

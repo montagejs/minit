@@ -1,5 +1,3 @@
-var jasmine = require("jasmine-node");
-
 var SandboxedModule = require('sandboxed-module');
 var Command = require("commander").Command;
 
@@ -55,10 +53,10 @@ describe("component template", function () {
         });
 
         it("should have --extends-module-id option", function () {
-             var command = Object.create(Template).addOptions(testCommand);
+            var command = Object.create(Template).addOptions(testCommand);
 
-             expect(command.optionFor("--extends-module-id")).toBeDefined();
-         });
+            expect(command.optionFor("--extends-module-id")).toBeDefined();
+        });
 
         it("should have --copyright option", function () {
             var command = Object.create(Template).addOptions(testCommand);

@@ -1,5 +1,3 @@
-var jasmine = require("jasmine-node");
-
 var SandboxedModule = require('sandboxed-module');
 var Command = require("commander").Command;
 var Q = require("q");
