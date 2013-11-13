@@ -1,3 +1,8 @@
+### v0.3.10
+
+ - Fix issues with minit serve -i not following symlinks #57
+ - Fix path to the svg logo in the generated app template
+
 ### v0.3.8
 
  - Return a promise for the config object from `create`, which contains
