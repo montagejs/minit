@@ -1,3 +1,15 @@
+### v0.4.0
+
+ - create:digit
+   * Update homescreen icons
+   * Add to homescreen support for Chrome Beta on Android
+   * Improve icons for iOS 7
+ - create:app
+   * Remove the welcome component
+ - Fix typos in usage screen
+ - Fix Montage logo path (Tim Statler <@tstatler>)
+ - Programmatic API now returns the final path of the created result
+
 ### v0.3.10
 
  - Fix issues with minit serve -i not following symlinks #57
