@@ -1,3 +1,8 @@
+### v0.4.1
+
+ - Montage v0.13.8
+ - Digit v0.4.0
+
 ### v0.4.0
 
  - create:digit
