@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/montagejs/minit.png?branch=master)](http://travis-ci.org/montagejs/minit)
+
 Minit – the Montage Initializer
 ===============================
 
