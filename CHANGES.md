@@ -1,3 +1,10 @@
+### v0.4.3
+
+ - serve
+   Update to Joey 1.3.3 so that we can handle audio range requests.
+ - Travis.ci config
+   Tune irc notifications
+
 ### v0.4.2
 
  - Montage v0.13.9
