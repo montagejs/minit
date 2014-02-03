@@ -46,7 +46,7 @@ Run `minit --help` for details of the templates available and their usages. The 
 ```
 
 ```bash
-~$ minit create:app --help
+~$ minit create:package --help
 
   Usage: create:package [options]
 
