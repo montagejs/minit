@@ -1,24 +1,19 @@
 {{#copyright}}/* {{{copyright}}} */
 
 {{/copyright}}
-/**
- * 1. Set default font family to sans-serif.
- * 2. Prevent iOS text size adjust after orientation change, without disabling
- *    user zoom.
+
+/* 
+ * This file is reserved for your global style rules. 
  */
 
 html {
-    font-family: sans-serif; /* 1 */
-    -webkit-text-size-adjust: 100%; /* 2 */
-    color: #222;
+    font-family: sans-serif;
+    color: #333;
+    
+    /* Prevent iOS text size adjust after orientation change, without disabling user zoom. */
+    -webkit-text-size-adjust: 100%;
 }
 
-/**
- * 1. Remove default margin.
- */
-
 body {
-    margin: 0; /* 1 */
-    font-size: 1em;
-    line-height: 1.4;
+    margin: 0; /* Remove default margin */
 }
