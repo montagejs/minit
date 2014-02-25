@@ -28,39 +28,26 @@
 </head>
 <body>
     <div data-montage-id="main" class="Main">
+        <h1>{{name}}</h1>
 
+        <h2>Components</h2>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Title</th>
+                    <th>Sample</th>
+                 </tr>
+            </thead>
+            <tbody>
+
+                <tr>
+                    <td><a href="#">Example</a></td>
+                    <td>Hello, <span data-montage-id="exampleText"></span></td>
+                </tr>
+
+            </tbody>
+        </table>
     </div>
-</body>
-</html>
-<!doctype html>
-<html>
-<head>
-    <meta charset="utf-8">
-    <link href="main.css" rel="stylesheet">
-    <link href="main.json" rel="serialization" type="text/montage-serialization">
-</head>
-<body data-montage-id="main">
-
-    <h1>{{name}}</h1>
-
-    <h2>Components</h2>
-
-    <table>
-        <thead>
-            <tr>
-                <th>Title</th>
-                <th>Sample</th>
-             </tr>
-        </thead>
-        <tbody>
-
-            <tr>
-                <td><a href="#">Example</a></td>
-                <td>Hello, <span data-montage-id="exampleText"></span></td>
-            </tr>
-
-        </tbody>
-    </table>
-
 </body>
 </html>

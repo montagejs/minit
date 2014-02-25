@@ -1,9 +1,11 @@
 var Component = require("montage/ui/component").Component;
 
-exports.Main = Component.specialize(Component, {
+exports.Main = Component.specialize({
 
-    thing: {
-        value: "World"
+    constructor: {
+        value: function Main() {
+            this.super();
+        }
     }
 
 });

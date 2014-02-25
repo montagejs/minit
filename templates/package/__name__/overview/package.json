@@ -5,6 +5,10 @@
         "montage": {
             "name": "montage",
             "location": "../node_modules/montage"
+        },
+        "{{name}}": {
+            "name": "{{name}}",
+            "location": "../"
         }
     }
 }
