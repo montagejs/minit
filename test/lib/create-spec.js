@@ -134,5 +134,59 @@ describe("create", function () {
             });
         });
 
+        it("should not duplicate the extension if provided as part of the specified name", function() {
+            var create = SandboxedModule.require('../../lib/create', {
+                requires: {
+                    'fs': mocks.simpleFS,
+                    '../templates/testTemplate': mocks.template
+                }
+            });
+            var name = "my-component.ext";
+            return create("testTemplate", {
+                name: name,
+                destination: "destination/path"
+            }, {
+                'Template': {
+                    'newWithDirectory': function(config) {
+                        return {
+                            'process': function(config) {
+                                config.extensionName = "ext";
+                                return Q();
+                            }
+                        };
+                    }
+                }
+            }).then(function(results) {
+                    expect(results.resultPath).toEqual("destination/path/my-component.ext");
+                });
+        });
+
+        it("should add the extension to the resulting file", function() {
+            var create = SandboxedModule.require('../../lib/create', {
+                requires: {
+                    'fs': mocks.simpleFS,
+                    '../templates/testTemplate': mocks.template
+                }
+            });
+            var name = "my-component.bar";
+            return create("testTemplate", {
+                name: name,
+                destination: "destination/path"
+            }, {
+                'Template': {
+                    'newWithDirectory': function(config) {
+                        return {
+                            'process': function(config) {
+                                config.extensionName = "ext";
+                                return Q();
+                            }
+                        };
+                    }
+                }
+            }).then(function(results) {
+                    expect(results.resultPath).toEqual("destination/path/my-component.bar.ext");
+                });
+        });
+
     });
 });
