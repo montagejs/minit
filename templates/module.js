@@ -43,7 +43,7 @@ exports.Template = Object.create(TemplateBase, {
             }
 
             if (options.name) {
-                options.name = this.validateName(options.name);
+                options.name = this.validateName(options.name, options);
                 var propertyName = _fromDashesToCamel(options.name);
                 options.propertyName = propertyName[0].toLowerCase() + propertyName.slice(1);
             } else {
@@ -70,10 +70,25 @@ exports.Template = Object.create(TemplateBase, {
     },
 
     validateName: {
-        value: function(name) {
+        value: function(name, options) {
            var exportedName = this.validateExport(name);
             // convert back from camelcase to dashes and ensure names are ascii
-            return removeDiacritics(_fromCamelToDashes(exportedName));
+            name = removeDiacritics(_fromCamelToDashes(exportedName));
+
+            // cleanup the extension
+            var extensionName = options.extensionName,
+                extensionPattern, result;
+
+            if (extensionName) {
+                extensionPattern = new RegExp("(\\w*)(\." + extensionName + ")$");
+
+                // strip the extension if there is one
+                result = extensionPattern.exec(name);
+                if (result !== null) {
+                    name = result[1];
+                }
+            }
+            return name;
         }
     },
 
