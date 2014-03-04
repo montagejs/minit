@@ -102,7 +102,8 @@ describe("create", function () {
                         };
                     }
                 }
-            }).then(function(results) {
+            })
+            .then(function(results) {
                 expect(results.name).toEqual(name);
             });
         });
@@ -129,7 +130,8 @@ describe("create", function () {
                         };
                     }
                 }
-            }).then(function(results) {
+            })
+            .then(function(results) {
                 expect(results.resultPath).toEqual("destination/path/my-component.ext");
             });
         });
@@ -156,9 +158,10 @@ describe("create", function () {
                         };
                     }
                 }
-            }).then(function(results) {
-                    expect(results.resultPath).toEqual("destination/path/my-component.ext");
-                });
+            })
+            .then(function(results) {
+                expect(results.resultPath).toEqual("destination/path/my-component.ext");
+            });
         });
 
         it("should add the extension to the resulting file", function() {
@@ -183,9 +186,10 @@ describe("create", function () {
                         };
                     }
                 }
-            }).then(function(results) {
-                    expect(results.resultPath).toEqual("destination/path/my-component.bar.ext");
-                });
+            })
+            .then(function(results) {
+                expect(results.resultPath).toEqual("destination/path/my-component.bar.ext");
+            });
         });
 
     });
