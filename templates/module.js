@@ -19,7 +19,7 @@ var _fromDashesToCamel = function(name) {
 exports.Template = Object.create(TemplateBase, {
 
     commandDescription: {
-        value: "component"
+        value: "module"
     },
 
     addOptions: {
@@ -37,6 +37,11 @@ exports.Template = Object.create(TemplateBase, {
 
     didSetOptions: {
         value:function (options) {
+
+            if (!options.extensionName) {
+                options.extensionName = "js";
+            }
+
             if (options.name) {
                 options.name = this.validateName(options.name);
                 var propertyName = _fromDashesToCamel(options.name);
