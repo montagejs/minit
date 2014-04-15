@@ -1,3 +1,10 @@
+### v0.5.4
+
+ - Add bundle information to application templates for mop
+ - Update application icon for new montagejs logo
+ - Update digit icons
+ - Add support for bookmaking the application to the home screen on iOS andAndroid
+
 ### v0.4.3
 
  - serve
