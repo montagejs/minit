@@ -11,5 +11,6 @@
     "exclude": [
         "run-tests.html",
         "test"
-    ]
+    ],
+    "bundle": [ "ui/main.reel" ]
 }
