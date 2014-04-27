@@ -2,7 +2,6 @@
 
 {{/copyright}}/**
  * @module {{#destination}}{{destination}}/{{/destination}}{{name}}.reel
- * @requires {{extendsModuleId}}
  */
 var {{extendsName}} = require("{{extendsModuleId}}").{{extendsName}};
 
