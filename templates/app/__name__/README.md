@@ -38,6 +38,8 @@ The default project directory includes the following files and folders:
     user interface component) and version.reel (which displays the current
     MontageJS version).
 
+* core/  -  Contains the core modules of the application logic.
+
 In development, you can expand this project directory as necessary; for example,
 depending on the project you may want to add the following folders:
 
