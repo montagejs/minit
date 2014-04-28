@@ -37,6 +37,8 @@ The default project directory includes the following files and folders:
     By default, this directory contains one component: main.reel (the Main
     user interface component)
 
+* core/  -  Contains the core modules of the application logic.
+
 In development, you can expand this project directory as necessary; for example,
 depending on the project you may want to add the following folders:
 
