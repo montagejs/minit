@@ -6,14 +6,15 @@ included in the default MontageJS project directory.
 about the final application before deploying the application or passing it on to
 a client.
 
-Project Directory
+Project Structure
 ============
 
 The default project directory includes the following files and folders:
 
-* assets/  -  Contains global stylesheets and images for the application.
-* index.html  -  Is the entry-point document for the application.
-* node_modules/  -  Contains the code dependencies required in development.
+* assets/ — Contains global stylesheets and images for the application.
+* core/  —  Reserved for the core modules of the application logic.
+* index.html  —  Is the entry-point document for the application.
+* node_modules/  —  Contains the code dependencies required in development.
 
     Includes Montage, the core framework, and Digit, a mobile-optimized user
     interface widget set by default. Since MontageJS uses the CommonJS module
@@ -23,27 +24,25 @@ The default project directory includes the following files and folders:
     NOTE: All packages in this directory must be included as dependencies
     in package.json.
 
-* package.json  -  Describes the application and the dependencies included in
+* package.json  —  Describes the application and the dependencies included in
             the node_modules directory.
-* README.md  -  The default readme file.
-* run-tests.html  -  Is a page to run Jasmine tests manually in the browser.
-* test/  -  Contains tests for the application.
+* README.md  —  The default readme file.
+* run-tests.html  —  Is a page to run Jasmine tests manually in the browser.
+* test/  —  Contains tests for the application.
 
     By default, this directory includes all.js, a module that points the test runner
     to all jasmine specs.
 
-* ui/  -  Contains the application user interface components.
+* ui/  —  Contains the application user interface components.
 
     By default, this directory contains one component: main.reel (the Main
     user interface component)
 
-* core/  -  Contains the core modules of the application logic.
-
 In development, you can expand this project directory as necessary; for example,
 depending on the project you may want to add the following folders:
 
-* locale/  -  For localized content.
-* scripts/  -  For JS libraries that do not support the CommonJS exports object
+* locale/  —  For localized content.
+* scripts/  —  For JS libraries that do not support the CommonJS exports object
            and, therefore, have to be loaded using a `<script>` tag.
 
 Unit Testing
