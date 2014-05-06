@@ -11,7 +11,7 @@ Project Structure
 
 The default project directory includes the following files and folders:
 
-* assets/ — Contains global stylesheets and images for the application.
+* assets/ — Contains global style sheets and images for the application.
 * core/  —  Reserved for the core modules of the application logic.
 * index.html  —  Is the entry-point document for the application.
 * node_modules/  —  Contains the code dependencies required in development.
