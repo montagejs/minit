@@ -3,7 +3,7 @@ This readme file provides a brief overview of the file and folder structure
 included in the default MontageJS project directory.
 
 >IMPORTANT: Be sure to replace the contents of this readme file with information
-about the final application before deploying the application or passing it on to
+relevant to your application before deploying the application or passing it on to
 a client.
 
 Project Structure
@@ -31,12 +31,13 @@ The default project directory includes the following files and folders:
 * test/  —  Contains tests for the application.
 
     By default, this directory includes all.js, a module that points the test runner
-    to all jasmine specs.
+    to all jasmine specs. To use this module run `npm install` to get the dependencies
+    required to run unit tests.
 
 * ui/  —  Contains the application user interface components.
 
     By default, this directory contains one component: main.reel (the Main
-    user interface component)
+    user interface component).
 
 In development, you can expand this project directory as necessary; for example,
 depending on the project you may want to add the following folders:
@@ -46,7 +47,7 @@ depending on the project you may want to add the following folders:
            and, therefore, have to be loaded using a `<script>` tag.
 
 Unit Testing
-=========
+============
 
 MontageJS uses some pure unit tests that are straightforward [Jasmine specs][1].
 
@@ -95,5 +96,5 @@ Contact
 [11]: https://github.com/montagejs/montage/issues        "Github issue"
 [12]: https://github.com/montagejs/montage/pulls        "Pull-requests"
 
-Last edited: November 14, 2013
+Last edited: May 9, 2014
 
