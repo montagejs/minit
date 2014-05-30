@@ -1,0 +1,78 @@
+.Spinner {
+    display: none;
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+}
+
+.montage-app-bootstrapping .Spinner,
+.montage-app-loading .Spinner {
+    display: -webkit-flex;
+    display: flex;
+}
+
+
+/* Icon --------------------------- */
+
+.Spinner-icon {
+    margin: auto;
+    fill: #007FC4;
+    -webkit-animation: Spinner-icon-colors 12.8s linear infinite;
+    animation: Spinner-icon-colors 12.8s linear infinite;
+}
+
+@-webkit-keyframes Spinner-icon-colors {
+      0%   { fill: #007FC4; }
+     12.5% { fill: #008069; }
+     25%   { fill: #E39D15; }
+     37.5% { fill: #D4622A; }
+     50%   { fill: #D0232A; }
+     62.5% { fill: #CE118C; }
+     75%   { fill: #762A90; }
+     87.5% { fill: #5447B2; }
+    100%   { fill: #007FC4; }
+}
+
+@keyframes Spinner-icon-colors {
+      0%   { fill: #007FC4; }
+     12.5% { fill: #008069; }
+     25%   { fill: #E39D15; }
+     37.5% { fill: #D4622A; }
+     50%   { fill: #D0232A; }
+     62.5% { fill: #CE118C; }
+     75%   { fill: #762A90; }
+     87.5% { fill: #5447B2; }
+    100%   { fill: #007FC4; }
+}
+
+.Spinner-icon-path {
+    opacity: .3;
+    -webkit-animation: Spinner-icon-shading 3.2s cubic-bezier(.72, .11, .73, .95) infinite;
+    animation: Spinner-icon-shading 3.2s cubic-bezier(.72, .11, .73, .95) infinite;
+}
+
+
+.Spinner-icon-path--1 { -webkit-animation-delay: -2.8s; animation-delay: -2.8s; }
+.Spinner-icon-path--2 { -webkit-animation-delay: -2.4s; animation-delay: -2.4s; }
+.Spinner-icon-path--3 { -webkit-animation-delay: -2.0s; animation-delay: -2.0s; }
+.Spinner-icon-path--4 { -webkit-animation-delay: -1.6s; animation-delay: -1.6s; }
+.Spinner-icon-path--5 { -webkit-animation-delay: -1.2s; animation-delay: -1.2s; }
+.Spinner-icon-path--6 { -webkit-animation-delay: -0.8s; animation-delay: -0.8s; }
+.Spinner-icon-path--7 { -webkit-animation-delay: -0.4s; animation-delay: -0.4s; }
+.Spinner-icon-path--8 { -webkit-animation-delay:    0s; animation-delay:    0s; }
+
+@-webkit-keyframes Spinner-icon-shading {
+    50% {
+        opacity: 1;
+        animaiton-timing-function: cubic-bezier(.31, .06, .30, .92);
+    }
+}
+
+@keyframes Spinner-icon-shading {
+    50% {
+        opacity: 1;
+        animaiton-timing-function: cubic-bezier(.31, .06, .30, .92);
+    }
+}

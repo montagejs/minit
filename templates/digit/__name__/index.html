@@ -27,11 +27,17 @@
     {
         "owner": {
             "prototype": "montage/ui/loader.reel"
+        },
+        "spinner": {
+            "prototype": "ui/spinner.reel",
+            "properties": {
+                "element": {"#": "spinner"}
+            }
         }
     }
     </script>
 </head>
 <body>
-    <span class="loading"></span>
+    <div data-montage-id="spinner"></div>
 </body>
 </html>
