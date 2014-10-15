@@ -1,3 +1,7 @@
+### v0.5.5
+
+ - Added backward compatible support for Montage use of the mr symbol instead of the montageRequire symbol.
+
 ### v0.5.4
 
  - Add bundle information to application templates for mop
