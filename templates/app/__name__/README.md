@@ -12,27 +12,27 @@ Project Directory
 The default project directory includes the following files and folders:
 
 * assets/  -  Contains global stylesheets and images for the application.
-* index.html  -  Is the entry-point document for the application. 
+* index.html  -  Is the entry-point document for the application.
 * node_modules/  -  Contains the code dependencies required in development.
 
     Includes Montage, the core framework, and Digit, a mobile-optimized user
-    interface widget set by default. Since MontageJS uses the CommonJS module 
-    system, you can leverage the npm ecosystem for additional modules. To add 
+    interface widget set by default. Since MontageJS uses the CommonJS module
+    system, you can leverage the npm ecosystem for additional modules. To add
     dependencies (e.g., foo), use `npm install foo` in the project directory.
-    
-    NOTE: All packages in this directory must be included as dependencies 
+
+    NOTE: All packages in this directory must be included as dependencies
     in package.json.
 
-* package.json  -  Describes the application and the dependencies included in 
+* package.json  -  Describes the application and the dependencies included in
             the node_modules directory.
 * README.md  -  The default readme file.
 * run-tests.html  -  Is a page to run Jasmine tests manually in the browser.
 * test/  -  Contains tests for the application.
 
-    By default, this directory includes all.js, a module that points the test runner
+    By default, this directory includes run.js, a module that points the test runner
     to all jasmine specs.
 
-* ui/  -  Contains the application user interface components. 
+* ui/  -  Contains the application user interface components.
 
     By default, this directory contains two components: main.reel (the Main
     user interface component) and version.reel (which displays the current
@@ -52,18 +52,18 @@ Unit Testing
 
 MontageJS uses some pure unit tests that are straightforward [Jasmine specs][1].
 
-To install the test code, run `npm install` in your project folder. This installs the 
-the [montage-testing][2] package, which adds some useful utilities for writing 
+To install the test code, run `npm install` in your project folder. This installs the
+the [montage-testing][2] package, which adds some useful utilities for writing
 jasmine tests. You will need the file run-tests.html.
 
 For an example of how we implement unit testing, see the [digit][3] repository:
 
 * [run-tests][4] loads our test environment.
-* `data-module="test/all"` inside the final script tag tells the system to load [test/all.js][5].
-* all.js specifies a list of module ids for the runner to execute.
+* `data-module="test/all"` inside the final script tag tells the system to load [test/run.js][5].
+* run.js specifies a list of module ids for the runner to execute.
 
->Note that in this example, all the tests load a page in an iframe using 
-`TestPageLoader.queueTest()`. These are akin to integration tests since they test 
+>Note that in this example, all the tests load a page in an iframe using
+`TestPageLoader.queueTest()`. These are akin to integration tests since they test
 the component in a real environment.
 
 We also test some components by [mocking their dependencies][6].
@@ -88,7 +88,7 @@ Contact
 [2]: https://github.com/montagejs/montage-testing        "montage-testing"
 [3]: https://github.com/montagejs/digit        "digit"
 [4]: https://github.com/montagejs/digit/blob/master/run-tests.html        "run-tests"
-[5]: https://github.com/montagejs/digit/tree/master/test        "test/all.js"
+[5]: https://github.com/montagejs/digit/tree/master/test        "test/run.js"
 [6]: https://github.com/montagejs/montage/blob/master/test/base/abstract-button-spec.js        "mocking their dependencies"
 [7]: http://montagejs.org/api/        "API Reference"
 [8]: http://montagejs.org/docs/        "Documentation"
