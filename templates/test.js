@@ -77,7 +77,7 @@ exports.Template = Object.create(TemplateBase, {
         value: function() {
             var self = this;
             return TemplateBase.finish.call(this).then(function(result) {
-                var message = ['add "test',self.options.destination,self.options.name,self.options.name + '-spec" to test/all.js '].join(Path.sep);
+                var message = ['add "test',self.options.destination,self.options.name,self.options.name + '-spec" to test/run.js '].join(Path.sep);
                 console.log(message);
                 return Q.resolve(message);
             });
