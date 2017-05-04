@@ -1,7 +1,6 @@
 "use strict";
 
 var jasmine = require('jasmine-node');
-var sys = require('sys');
 var path = require('path');
 var Q = require("q");
 
