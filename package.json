@@ -1,6 +1,6 @@
 {
   "name": "minit",
-  "version": "0.5.8",
+  "version": "0.5.9",
   "title": "Montage Assistant",
   "homepage": "http://www.montage.org",
   "bugs": {
@@ -15,7 +15,7 @@
   "dependencies": {
     "commander": "~1.1.1",
     "diacritics": "1.1.0",
-    "joey": "^1.5.1",
+    "joey": "^1.5.2",
     "minidom": "~0.1.0",
     "npm": "^4.5.0",
     "q": "^1.5.0",
