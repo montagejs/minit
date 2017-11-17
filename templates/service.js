@@ -1,4 +1,5 @@
 var PackageTemplate = require("./package").Template;
+var TemplateBase = require("../lib/template-base.js").TemplateBase;
 var ArgumentError = require("../lib/error.js").ArgumentError;
 var path = require('path');
 var fs = require('fs');
@@ -65,5 +66,22 @@ exports.Template = Object.create(PackageTemplate, {
         value: function (value) {
             return process.cwd();
         }
-    }
+    },
+
+
+    finish: {
+        value: function(destination) {
+            var self = this;
+            return TemplateBase.finish.call(this).then(function() {
+                console.log("#");
+                console.log("# "+ self.options.name +" service created, run");
+                console.log("# > npm run up");
+                console.log("# to start service via docker-compose");
+                console.log("#");
+                console.log("# > npm install .");
+                console.log("# to set up the testing dependencies");
+                console.log("#");
+            });
+        }
+    },
 });

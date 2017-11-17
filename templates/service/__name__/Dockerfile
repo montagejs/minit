@@ -9,7 +9,7 @@ ADD package.json ./
 RUN npm install
 
 # Then add source after install
-ADD server
+ADD server server
 
 EXPOSE 3000
 
