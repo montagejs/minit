@@ -6,11 +6,18 @@
         "digit": "~3.0.0"
     },
     "devDependencies": {
-        "montage-testing": "~0.5.1"
+        "montage-testing": "~0.5.1",
+        "minit": "^0.5.7",
+        "mop": "^16.0.1"
+    },
+    "scripts": {
+        "build": "mop .",
+        "start": "minit serve",
+        "start:dist": "minit serve -r dist"
     },
     "exclude": [
         "run-tests.html",
         "test"
     ],
-    "bundle": [ "ui/main.reel" ]
+    "bundle": ["ui/main.reel"]
 }

@@ -1,0 +1,44 @@
+sudo: required
+dist: trusty
+language: node_js
+node_js:
+  - "4"
+#  - "6"
+#  - "7"
+#  - "8"
+install:
+  # Update docker-engine using Ubuntu 'trusty' apt repo
+  - >
+    curl -sSL "https://get.docker.com/gpg" |
+     sudo -E apt-key add -
+  - >
+    echo "deb https://apt.dockerproject.org/repo ubuntu-trusty main" |
+     sudo tee -a /etc/apt/sources.list
+  - sudo apt-get update
+  - >
+    sudo apt-get -o Dpkg::Options::="--force-confdef" \
+     -o Dpkg::Options::="--force-confold" --assume-yes --allow-unauthenticated install docker-engine
+  - docker version
+  # Update docker-compose via pip
+  - sudo pip install docker-compose
+  - docker-compose version
+  # NodeJS Install
+  - npm config set loglevel warn
+  - "npm install"
+  # Add self-signed cert to System in case build need it
+  #- sudo certs/public.crt /usr/local/share/ca-certificates/public.crt
+  #- sudo chmod 644 /usr/local/share/ca-certificates/public.crt
+  # Update public certs
+  #- sudo update-ca-certificates --verbose
+before_script:
+#  - export DISPLAY=:99.0
+#  - sh -e /etc/init.d/xvfb start
+  - export DOCKER_CLIENT_TIMEOUT=120
+  - npm run build
+script:
+  - npm run up
+  - sleep 25
+  - npm test
+  - docker ps | grep -q {{name}}-service
+after_script:
+  - npm run down
