@@ -1,7 +1,7 @@
 version: "3.1"
 
 services:
-  montage-payment-service:
+  {{name}}-service:
     ports:
       - "3000:3000"
     build:
