@@ -66,6 +66,4 @@ exports.Template = Object.create(PackageTemplate, {
             return process.cwd();
         }
     }
-
-
 });

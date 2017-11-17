@@ -7,7 +7,7 @@
   },
   "scripts": {
     "test": "mocha --exit",
-    "start": "node server.js",
+    "start": "node server",
     "build": "docker-compose build",
     "up": "docker-compose up -d",
     "down": "docker-compose down"
