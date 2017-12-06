@@ -75,6 +75,11 @@ describe("app template", function () {
             template.didSetOptions(options);
             expect(options.name).toEqual("my-app");
         });
+        it("should accept camelCased name", function () {
+            options.name = "MyApp";
+            template.didSetOptions(options);
+            expect(options.name).toEqual("my-app");
+        });
         it("should convert spaces to dashes in names", function () {
             options.name = "My App";
             template.didSetOptions(options);
@@ -91,6 +96,16 @@ describe("app template", function () {
             template.didSetOptions(options);
             expect(options.name).toEqual("rateau");
         });
+        it("should generate description", function () {
+            options.name = "MyApp";
+            template.didSetOptions(options);
+            expect(options.description).toEqual("MyApp Application");
+        });
+        it("should generate description", function () {
+            options.name = "MyApp";
+            options.description = "Test description"
+            template.didSetOptions(options);
+            expect(options.description).toEqual("Test description");
+        });
     });
-
 });
