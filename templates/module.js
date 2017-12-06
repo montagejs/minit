@@ -3,8 +3,6 @@ var ArgumentError = require("../lib/error.js").ArgumentError;
 var fs = require('fs');
 var removeDiacritics = require("diacritics").remove;
 
-var Command = require("commander").Command;
-
 var _fromCamelToDashes = function(name) {
     var s1 = name.replace(/([A-Z])/g, function (g) { return "-"+g.toLowerCase(); });
     s1 = s1.replace(/--/g, "-").replace(/^-/, "");

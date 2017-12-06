@@ -23,17 +23,20 @@
   },
   "devDependencies": {
     "jasmine-node": "^1.14.5",
+    "jshint": "^2.9.5",
     "mocks": "0.0.15",
     "sandboxed-module": "^0.3.0"
   },
   "engines": {
-    "node": "~0.10.2"
+    "node": "=>4.8.4",
+    "npm": "=>2.15.11"
   },
   "bin": {
     "minit": "minit"
   },
   "scripts": {
-    "test": "node run-test.js"
+    "test": "node run-test.js",
+    "lint": "jshint ."
   },
   "preferGlobal": true
 }

@@ -5,6 +5,7 @@ node_js:
   - 8
 script: npm run $COMMAND
 env:
+  - COMMAND=lint
   - COMMAND=test
 notifications:
   irc:
