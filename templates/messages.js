@@ -37,8 +37,11 @@ exports.Template = Object.create(TemplateBase, {
             // find all html files
             console.log("Finding .html files...");
             return FS.listTree(".", function (path, stat) {
-                if (Path.basename(path) === "node_modules") return null;
-                return stat.isFile() && Path.extname(path) === ".html";
+                if (Path.basename(path) === "node_modules") {
+                    return null;
+                } else {
+                    return stat.isFile() && Path.extname(path) === ".html";
+                }
             })
             .then(function (tree) {
                 console.log("Processing " + tree.length + " files...");
@@ -59,7 +62,7 @@ exports.Template = Object.create(TemplateBase, {
                         visit(body, function (element) {
                             // TODO collect more than just the first text node
                             var child = element.childNodes[0];
-                            if(element.hasChildNodes() && child.nodeType == 3 && child.nodeValue.trim()) {
+                            if(element.hasChildNodes() && child.nodeType === 3 && child.nodeValue.trim()) {
                                 results.push(child.nodeValue.trim());
                             }
                         });
@@ -76,7 +79,9 @@ exports.Template = Object.create(TemplateBase, {
                 // convert text to key, add to messages
                 var messages = {};
                 textNodes.forEach(function (data) {
-                    if (!data) return;
+                    if (!data) {
+                        return;
+                    }
                     console.log(data.messages.length + " messages found in " + data.path);
                     data.messages.forEach(function (message) {
                         var key = self._convertMessageToKey(message);

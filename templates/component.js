@@ -30,9 +30,6 @@ POSSIBILITY OF SUCH DAMAGE.
 </copyright> */
 
 var ModuleTemplate = require("./module").Template;
-var fs = require('fs');
-
-var Command = require("commander").Command;
 
 exports.Template = Object.create(ModuleTemplate, {
 
