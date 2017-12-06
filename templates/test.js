@@ -33,6 +33,9 @@ var TemplateBase = require("../lib/template-base.js").TemplateBase;
 var Q = require("q");
 var Path = require("path");
 
+var REPLACE_TITLE_REG = /(?:^|-)([^-])/g,
+    REPLACE_PARAM_REG = /(?:-)([^-])/g;
+
 exports.Template = Object.create(TemplateBase, {
 
     commandDescription: {
@@ -55,10 +58,14 @@ exports.Template = Object.create(TemplateBase, {
     didSetOptions: {
         value:function (options) {
             if (!options.title && options.name) {
-                options.title = options.name.replace(/(?:^|-)([^-])/g, function(match, g1) { return g1.toUpperCase() });
+                options.title = options.name.replace(REPLACE_TITLE_REG, function(match, g1) { 
+                    return g1.toUpperCase();
+                });
             }
             if (options.name) {
-                options.propertyName = options.name.replace(/(?:-)([^-])/g, function(match, g1) { return g1.toUpperCase() });
+                options.propertyName = options.name.replace(REPLACE_PARAM_REG, function(match, g1) { 
+                    return g1.toUpperCase();
+                });
             }
         }
     },
@@ -69,14 +76,14 @@ exports.Template = Object.create(TemplateBase, {
 
     finalDestination: {
         get: function() {
-            return Path.join(this.options.packageHome, "test", this.options.destination)
+            return Path.join(this.options.packageHome, "test", this.options.destination);
         }
     },
 
     finish: {
         value: function() {
             var self = this;
-            return TemplateBase.finish.call(this).then(function(result) {
+            return TemplateBase.finish.call(this).then(function(/*result*/) {
                 var message = ['add "test',self.options.destination,self.options.name,self.options.name + '-spec" to test/all.js '].join(Path.sep);
                 console.log(message);
                 return Q.resolve(message);

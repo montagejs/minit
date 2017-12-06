@@ -1,4 +1,5 @@
-var jasmine = require("jasmine-node");
+/*global describe,beforeEach,it,expect */
+
 var SandboxedModule = require('sandboxed-module');
 var Command = require("commander").Command;
 
@@ -67,9 +68,9 @@ describe("template-base", function () {
 
             osMock = {
                 tmpDir: function() {
-                    return "/minit_home"
+                    return "/minit_home";
                 }
-            }
+            };
 
             templateConfig = {};
             templateConfig.minitHome = "/minit_home";

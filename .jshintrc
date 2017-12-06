@@ -1,0 +1,24 @@
+{
+    "node": true,
+    "bitwise": true,
+    "camelcase": true,
+    "curly": true,
+    "eqeqeq": true,
+    "forin": true,
+    "noarg": true,
+    "noempty": true,
+    "nonew": true,
+    "undef": true,
+    "unused": false,
+    "trailing": true,
+    "indent": 4,
+    "boss": true,
+    "eqnull": true,
+    "browser": true,
+    "globals": {
+        "require": false,
+        "exports": false,
+        "module": false,
+        "global": false
+    }
+}

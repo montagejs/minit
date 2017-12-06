@@ -36,7 +36,7 @@ exports.Template = Object.create(TemplateBase, {
     finish: {
         value: function(destination) {
             var self = this;
-            return TemplateBase.finish.call(this).then(function(result) {
+            return TemplateBase.finish.call(this).then(function() {
                 var config = {
                     prefix : path.join(destination, self.options.name),
                     production : true,
@@ -78,9 +78,8 @@ exports.Template = Object.create(TemplateBase, {
     },
 
     defaultPackageHome: {
-        value: function (value) {
-            return process.cwd()
+        value: function () {
+            return process.cwd();
         }
     }
-
 });

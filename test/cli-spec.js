@@ -1,5 +1,4 @@
-var jasmine = require("jasmine-node");
-
+/*global xdescribe,describe,beforeEach,it,expect,spyOn,xit */
 var SandboxedModule = require('sandboxed-module');
 
 describe("minit", function () {
