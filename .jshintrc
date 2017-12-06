@@ -16,20 +16,9 @@
     "eqnull": true,
     "browser": true,
     "globals": {
-        "CustomEvent": true,
-        "WebSocket": false,
-
         "require": false,
         "exports": false,
         "module": false,
-        "global": false,
-
-        "WeakMap": true,
-        "Map": true,
-        "Set": true,
-        "Node": true,
-        "frames": true,
-
-        "console": false
+        "global": false
     }
 }
