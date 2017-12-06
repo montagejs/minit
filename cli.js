@@ -29,9 +29,6 @@ ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 POSSIBILITY OF SUCH DAMAGE.
 </copyright> */
 
-var fs = require("fs");
-var path = require("path");
-
 var Command = require("commander").Command;
 
 var config = require("./package.json");

@@ -1,4 +1,4 @@
-var jasmine = require("jasmine-node");
+/*global describe,beforeEach,it,expect */
 
 var SandboxedModule = require('sandboxed-module');
 var Command = require("commander").Command;
@@ -155,12 +155,12 @@ describe("module template", function () {
             options = {};
         });
         it("should remove the extension", function () {
-            options.name = "foo.js"
+            options.name = "foo.js";
             Template.didSetOptions(options);
             expect(options.name).toEqual("foo");
         });
         it("should remove the extension only if it will be duplicated", function () {
-            options.name = "foo.ext"
+            options.name = "foo.ext";
             Template.didSetOptions(options);
             expect(options.name).toEqual("foo.ext");
         });
