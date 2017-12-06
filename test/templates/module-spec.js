@@ -3,11 +3,6 @@
 var SandboxedModule = require('sandboxed-module');
 var Command = require("commander").Command;
 
-var TemplateBase = require("../../lib/template-base").TemplateBase;
-
-var QMock = require("q-io/fs-mock");
-var mockFS = require("mocks").fs;
-
 describe("module template", function () {
     var testCommand;
     var Template;

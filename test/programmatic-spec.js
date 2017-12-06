@@ -1,4 +1,4 @@
-/*global xdescribe,describe,beforeEach,it,expect */
+/*global xdescribe */
 xdescribe("programmatic", function() {
     var minitCreate = require("../main").create;
 

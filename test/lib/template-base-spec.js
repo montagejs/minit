@@ -16,7 +16,7 @@ describe("template-base", function () {
 
         expect(base.directory).toBe(directory);
 
-     });
+    });
 
     describe("default template options", function () {
         var testCommand;
@@ -29,16 +29,13 @@ describe("template-base", function () {
 
         });
         it("should have a --destination option", function () {
+            var command = Object.create(Template).addOptions(testCommand);
 
-                var command = Object.create(Template).addOptions(testCommand);
-
-                expect(command.optionFor("-d")).toBeDefined();
-                expect(command.optionFor("--destination")).toBeDefined();
-
+            expect(command.optionFor("-d")).toBeDefined();
+            expect(command.optionFor("--destination")).toBeDefined();
         });
 
         it("should have --package-home option", function () {
-
             var command = Object.create(Template).addOptions(testCommand);
 
             expect(command.optionFor("-p")).toBeDefined();
@@ -62,7 +59,7 @@ describe("template-base", function () {
                     "testTemplate.js": 1
                 },
                 "package_home": {
-                   "package.json": 1
+                    "package.json": 1
                 }
             });
 
@@ -112,6 +109,11 @@ describe("template-base", function () {
                 .then(function(exists) {
                     expect(exists).toBe(true);
                 });
+        });
+
+        it("interpolates strings correctly", function () {
+            var result = testTemplate.applyTransform("before {{replace}} after", {replace: "a/b/c"});
+            expect(result).toEqual("before a/b/c after");
         });
     });
 });

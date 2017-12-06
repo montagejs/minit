@@ -1,4 +1,4 @@
-/*global xdescribe,describe,beforeEach,it,expect,spyOn,xit */
+/*global describe,beforeEach,it,expect,spyOn,xit */
 var SandboxedModule = require('sandboxed-module');
 
 describe("minit", function () {
@@ -16,7 +16,7 @@ describe("minit", function () {
         mainSandbox = {
             requires: {'./lib/create': mockCreate}
         };
-   });
+    });
 
     it("should add creation commands", function () {
         var addCommandsToSpy = spyOn(mockCreate, "addCommandsTo");

@@ -58,7 +58,7 @@ exports.Template = Object.create(PackageTemplate, {
     },
 
     defaultPackageHome: {
-        value: function () {
+        value: function (value) {
             return process.cwd();
         }
     }
