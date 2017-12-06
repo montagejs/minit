@@ -112,5 +112,10 @@ describe("template-base", function () {
                     expect(exists).toBe(true);
                 });
         });
+
+        it("interpolates strings correctly", function () {
+            var result = testTemplate.applyTransform("before {{replace}} after", {replace: "a/b/c"});
+            expect(result).toEqual("before a/b/c after");
+        });
     });
 });
