@@ -1,6 +1,7 @@
 {
     "name": "{{name}}",
     "version": "0.1.0",
+    "description": "{{description}}",
     "dependencies": {
         "montage": "~17.0.11",
         "digit": "~3.0.0"
