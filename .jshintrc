@@ -1,5 +1,4 @@
 {
-    "node": true,
     "bitwise": true,
     "camelcase": true,
     "curly": true,
@@ -9,11 +8,12 @@
     "noempty": true,
     "nonew": true,
     "undef": true,
-    "unused": false,
+    "unused": "vars",
     "trailing": true,
     "indent": 4,
     "boss": true,
     "eqnull": true,
+    "node": true,
     "browser": true,
     "globals": {
         "require": false,

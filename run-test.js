@@ -17,13 +17,21 @@ var junitreport = {
     useDotNotation: false
 };
 
-process.argv.forEach(function(arg){
-    switch(arg) {
-          case '--color': showColors = true; break;
-          case '--noColor': showColors = false; break;
-          case '--verbose': isVerbose = true; break;
-          case '--junit': junitreport.report = true; break;
-      }
+process.argv.forEach(function(arg) {
+    switch (arg) {
+    case '--color':
+        showColors = true;
+        break;
+    case '--noColor':
+        showColors = false;
+        break;
+    case '--verbose':
+        isVerbose = true;
+        break;
+    case '--junit':
+        junitreport.report = true;
+        break;
+    }
 });
 
 /**
@@ -55,13 +63,12 @@ jasmine.Block.prototype.execute = function (onComplete) {
 
 jasmine.executeSpecsInFolder({
     "specFolders": [__dirname+ "/test"],
-    "onComplete": function(runner/*, log*/){
-      if (runner.results().failedCount === 0) {
-        process.exit(0);
-      }
-      else {
-        process.exit(1);
-      }
+    "onComplete": function(runner, log){
+        if (runner.results().failedCount === 0) {
+            process.exit(0);
+        } else {
+            process.exit(1);
+        }
     },
     "isVerbose": isVerbose,
     "showColors": showColors,

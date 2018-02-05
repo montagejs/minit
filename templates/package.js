@@ -1,8 +1,9 @@
-var TemplateBase = require("../lib/template-base.js").TemplateBase;
+var TemplateBase = require("../lib/template-base").TemplateBase;
 var path = require('path');
 var fs = require('fs');
-var npm = require("npm");
+var NpmWrapper = require("../lib/npm-wrapper");
 var Q = require('q');
+var http = require("http");
 
 exports.Template = Object.create(TemplateBase, {
 
@@ -42,6 +43,9 @@ exports.Template = Object.create(TemplateBase, {
                     production : true,
                     loglevel: "warn"
                 };
+                if (self.options.npmCache) {
+                    config.cache = self.options.npmCache;
+                }
                 return self.installDependencies(config);
             }).then(function() {
                 console.log("#");
@@ -53,32 +57,65 @@ exports.Template = Object.create(TemplateBase, {
         }
     },
 
+    /**
+     * Performs a HEAD request on `registry.npmjs.org` to check if the user
+     * and registry are online and available.
+     * @function
+     * @returns {Promise.<boolean>} `true` if the npm registry can be reached,
+     * `false` otherwise
+     */
+    _isOnline: {
+        value: function () {
+            var isOnline = Q.defer();
+
+            var req = http.request({
+                hostname: "registry.npmjs.org",
+                method: "HEAD"
+            }, function (res) {
+                // Listen to the data event so that the response stream can
+                // start, but we actually don't care about the response
+                res.on("data", function () {});
+
+                if (res.statusCode === 200) {
+                    isOnline.resolve(true);
+                } else {
+                    isOnline.resolve(false);
+                }
+            });
+            req.on("error", function (error) {
+                isOnline.resolve(false);
+            });
+            req.end();
+
+            return isOnline.promise;
+        }
+    },
+
     installDependencies: {
         value: function (config) {
-            return Q.ninvoke(npm, "load", (config || null))
-                .then(function () {
+            return this._isOnline()
+            .then(function (isOnline) {
+                var npm;
+                if (isOnline) {
+                    npm = new NpmWrapper(config);
+                } else {
+                    // If we're not online then set the registry to null which
+                    // prevents any contact with the outside world
+                    config = Object.create(config);
+                    config.registry = null;
+                    npm = new NpmWrapper(config);
+                }
 
-                    // npm is a singleton within a process; loading with a
-                    // new config does not appear to update the configuration
-                    // in particular, the prefix from the original configuration
-                    // is always used npm.config.set and other approaches
-                    // do not end up with a change to the necessary npm.dir
-                    // or npm.globalDir.
-                    // Changing npm.prefix directly here does work, though
-                    // if the configuration differed in other ways those might
-                    // need to be manually set directly on npm as well
-
-                    if (config.prefix) {
-                        npm.prefix = config.prefix;
-                    }
-
-                    return Q.ninvoke(npm.commands, "install");
+                return npm.install()
+                .finally(function () {
+                    return npm.close();
                 });
+            });
         }
     },
 
     defaultPackageHome: {
-        value: function () {
+        value: function (value) {
             return process.cwd();
         }
     }

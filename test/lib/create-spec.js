@@ -163,6 +163,5 @@ describe("create", function () {
                 expect(results.resultPath).toEqual("destination/path/my-component.bar.ext");
             });
         });
-
     });
 });

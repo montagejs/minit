@@ -71,5 +71,4 @@ exports.Template = Object.create(ModuleTemplate, {
             });
         }
     }
-
 });
