@@ -24,6 +24,7 @@ exports.Template = Object.create(PackageTemplate, {
         value:function (command) {
             command = PackageTemplate.addOptions.call(this, command);
             command.option('-n, --name <name>', 'application name (required)');
+            command.option('-d, --description <description>', 'application description (optional)');
             command.option('-c, --copyright [path]', 'copyright file');
             return command;
         }
@@ -32,9 +33,15 @@ exports.Template = Object.create(PackageTemplate, {
     didSetOptions: {
         value:function (options) {
             if (options.name) {
+                options.originalName = options.name;
                 options.name = this.validateName(options.name);
             } else {
                 throw new ArgumentError("Required name option missing");
+            }
+            if (options.description) {
+                options.description = this.validateDescription(options.description);
+            } else {
+                options.description = options.originalName + " Application";
             }
             if (options.copyright) {
                 options.copyright = this.validateCopyright(options.copyright);
@@ -52,6 +59,13 @@ exports.Template = Object.create(PackageTemplate, {
         }
     },
 
+    validateDescription: {
+        value: function(description) {
+            // ensure names are safe to use as npm package names
+            return removeDiacritics(description);
+        }
+    },
+
     validateCopyright: {
         value: function(path) {
             return fs.readFileSync(path, "utf-8");
@@ -63,6 +77,4 @@ exports.Template = Object.create(PackageTemplate, {
             return process.cwd();
         }
     }
-
-
 });
