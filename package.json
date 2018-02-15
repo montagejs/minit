@@ -1,6 +1,6 @@
 {
   "name": "minit",
-  "version": "0.5.9",
+  "version": "0.5.8",
   "title": "Montage Assistant",
   "homepage": "http://www.montage.org",
   "bugs": {
@@ -28,8 +28,8 @@
     "sandboxed-module": "^0.3.0"
   },
   "engines": {
-    "node": "=>4.8.4",
-    "npm": "=>2.15.11"
+    "node": "=>4.8",
+    "npm": "=>2.15"
   },
   "bin": {
     "minit": "minit"
