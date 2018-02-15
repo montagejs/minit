@@ -99,13 +99,13 @@ describe("app template", function () {
         it("should generate description", function () {
             options.name = "MyApp";
             template.didSetOptions(options);
-            expect(options.description).toEqual("MyApp Application");
+            expect(options.desc).toEqual("MyApp Application");
         });
         it("should generate description", function () {
             options.name = "MyApp";
-            options.description = "Test description";
+            options.desc = "Test description";
             template.didSetOptions(options);
-            expect(options.description).toEqual("Test description");
+            expect(options.desc).toEqual("Test description");
         });
     });
 });
