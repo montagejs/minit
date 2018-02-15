@@ -38,5 +38,9 @@
     "test": "node run-test.js",
     "lint": "jshint ."
   },
+  "exclude": [
+    "test",
+    "run-test.js"
+  ],
   "preferGlobal": true
 }
