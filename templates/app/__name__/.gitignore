@@ -11,6 +11,10 @@ tmp/
 log.txt
 *.log
 
+## Builds
+builds/
+dist/node_modules/**/*.md
+
 ## jsdoc
 /doc
  

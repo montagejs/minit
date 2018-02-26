@@ -1,0 +1,21 @@
+{
+  "name": "{{name}}",
+  "version": "0.1.0",
+  "dependencies": {
+    "express": "^4.16.2",
+    "mocha": "^4.0.1"
+  },
+  "scripts": {
+    "test": "mocha --exit",
+    "start": "node server",
+    "build": "docker-compose build",
+    "up": "docker-compose up -d",
+    "down": "docker-compose down"
+  },
+  "exclude": [
+    "test"
+  ],
+  "devDependencies": {
+    "supertest": "^3.0.0"
+  }
+}

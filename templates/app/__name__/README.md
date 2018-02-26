@@ -1,3 +1,4 @@
+# {{name}}
 
 This readme file provides a brief overview of the file and folder structure
 included in the default MontageJS project directory.
@@ -6,8 +7,7 @@ included in the default MontageJS project directory.
 about the final application before deploying the application or passing it on to
 a client.
 
-Project Directory
-============
+## Project Directory
 
 The default project directory includes the following files and folders:
 
@@ -47,8 +47,7 @@ depending on the project you may want to add the following folders:
 * scripts/  -  For JS libraries that do not support the CommonJS exports object
            and, therefore, have to be loaded using a `<script>` tag.
 
-Unit Testing
-=========
+## Unit Testing
 
 MontageJS uses some pure unit tests that are straightforward [Jasmine specs][1].
 
@@ -68,8 +67,7 @@ the component in a real environment.
 
 We also test some components by [mocking their dependencies][6].
 
-Documentation
-============
+## Documentation
 
 Here are some links you may find helpful:
 
@@ -77,8 +75,7 @@ Here are some links you may find helpful:
 * [Documentation][8]
 * [FAQ][9]
 
-Contact
-======
+## Contact
 
 * Got questions? Join us on [irc.freenode.net#montage][10].
 * Got feedback or want to report a bug? Let us know by creating a new [Github issue][11].
