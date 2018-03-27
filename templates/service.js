@@ -1,6 +1,10 @@
 var PackageTemplate = require("./package").Template;
+var TemplateBase = require("../lib/template-base.js").TemplateBase;
 var ArgumentError = require("../lib/error.js").ArgumentError;
+var path = require('path');
 var fs = require('fs');
+var npm = require("npm");
+var Q = require('q');
 var removeDiacritics = require("diacritics").remove;
 
 var _fromCamelToDashes = function(name) {
@@ -24,7 +28,6 @@ exports.Template = Object.create(PackageTemplate, {
         value:function (command) {
             command = PackageTemplate.addOptions.call(this, command);
             command.option('-n, --name <name>', 'service name (required)');
-            command.option('-d, --desc <desc>', 'service description (optional)');
             command.option('-c, --copyright [path]', 'copyright file');
             return command;
         }
@@ -33,15 +36,9 @@ exports.Template = Object.create(PackageTemplate, {
     didSetOptions: {
         value:function (options) {
             if (options.name) {
-                options.originalName = options.name;
                 options.name = this.validateName(options.name);
             } else {
                 throw new ArgumentError("Required name option missing");
-            }
-            if (options.desc) {
-                options.desc = this.validateDescription(options.desc);
-            } else {
-                options.desc = options.originalName + " Service";
             }
             if (options.copyright) {
                 options.copyright = this.validateCopyright(options.copyright);
@@ -59,13 +56,6 @@ exports.Template = Object.create(PackageTemplate, {
         }
     },
 
-    validateDescription: {
-        value: function(desc) {
-            // ensure names are safe to use as npm package names
-            return removeDiacritics(desc);
-        }
-    },
-
     validateCopyright: {
         value: function(path) {
             return fs.readFileSync(path, "utf-8");
@@ -73,8 +63,25 @@ exports.Template = Object.create(PackageTemplate, {
     },
 
     defaultPackageHome: {
-        value: function () {
+        value: function (value) {
             return process.cwd();
         }
-    }
+    },
+
+
+    finish: {
+        value: function(destination) {
+            var self = this;
+            return TemplateBase.finish.call(this).then(function() {
+                console.log("#");
+                console.log("# "+ self.options.name +" service created, run");
+                console.log("# > npm run start");
+                console.log("# to start service via docker-compose");
+                console.log("#");
+                console.log("# > npm install .");
+                console.log("# to set up the testing dependencies");
+                console.log("#");
+            });
+        }
+    },
 });

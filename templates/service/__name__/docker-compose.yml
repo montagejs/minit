@@ -1,3 +1,10 @@
+version: "3.1"
 
-{{name}}-service:
-  build: .
+services:
+  {{name}}-service:
+    ports:
+      - "8083:8083"
+    build:
+      context: ./
+    volumes:
+      - ./public:/home/{{name}}-service/public/:ro

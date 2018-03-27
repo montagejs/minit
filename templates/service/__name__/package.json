@@ -4,21 +4,27 @@
   "joey": "^1.5.3",
   "version": "0.1.0",
   "script": {
-    "start": "npm run start:swarm && npm run start:stack",
     "lint": "jshint .",
+    "start": "node main",
+    "test": "mocha test --exit",
     "start:swarm": "docker swarm init",
     "start:stack": "docker stack deploy -c docker-compose.yml '{{name}}'",
-    "stop": "npm run stop:swarm",
+    "stop:stack": "docker stack rm '{{name}}'",
     "stop:swarm": "docker swarm leave --force",
     "build": "npm run build:docker",
     "build:docker": "docker build . -t {{name}}:develop-SNAPSHOT",
-    "test": "mocha test --exit"
+    "build:compose": "docker-compose build",
+    "start:compose": "docker-compose up -d",
+    "stop:compose": "docker-compose down"
   },
   "dependencies": {
     "joey": "^1.5.3",
     "montage": "~17.0.11"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "mocha": "^4.0.1",
+    "supertest": "^3.0.0"
+  },
   "exclude": [
     "test"
   ]
