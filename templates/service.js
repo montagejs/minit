@@ -28,6 +28,7 @@ exports.Template = Object.create(PackageTemplate, {
         value:function (command) {
             command = PackageTemplate.addOptions.call(this, command);
             command.option('-n, --name <name>', 'service name (required)');
+            command.option('-e, --exported-name [name]', 'exported name');
             command.option('-c, --copyright [path]', 'copyright file');
             return command;
         }
@@ -35,10 +36,17 @@ exports.Template = Object.create(PackageTemplate, {
 
     didSetOptions: {
         value:function (options) {
+            if (!options.extensionName) {
+                options.extensionName = "js";
+            }
+
             if (options.name) {
-                options.name = this.validateName(options.name);
+                options.name = this.validateName(options.name, options);
             } else {
                 throw new ArgumentError("Required name option missing");
+            }
+            if (!options.exportedName) {
+                options.exportedName = this.validateExport(options.name);
             }
             if (options.copyright) {
                 options.copyright = this.validateCopyright(options.copyright);
@@ -47,12 +55,38 @@ exports.Template = Object.create(PackageTemplate, {
     },
 
     validateName: {
+        value: function(name, options) {
+           var exportedName = this.validateExport(name);
+            // convert back from camelcase to dashes and ensure names are ascii
+            name = removeDiacritics(_fromCamelToDashes(exportedName));
+
+            // cleanup the extension
+            var extensionName = options.extensionName,
+                extensionPattern, result;
+
+            if (extensionName) {
+                extensionPattern = new RegExp("(\\w*)(\." + extensionName + ")$");
+
+                // strip the extension if there is one
+                result = extensionPattern.exec(name);
+                if (result !== null) {
+                    name = result[1];
+                }
+            }
+            return name;
+        }
+    },
+
+
+    validateExport: {
         value: function(name) {
+            // We accept the name in any format, dashed, spaced or camelcased
+            // We then convert to to camelcase and back to get the consistent
+            // naming used in Montage
+            // remove spaces
             name = name.replace(/ /g, "-");
             // convert to camelcase
-            name =  _fromDashesToCamel(name);
-            // convert back from camelcase to dashes and ensure names are safe to use as npm package names
-            return removeDiacritics(_fromCamelToDashes(name));
+            return _fromDashesToCamel(name);
         }
     },
 

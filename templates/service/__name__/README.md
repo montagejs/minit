@@ -56,3 +56,6 @@ See swagger Documentation: [swagger.yml](./doc/swagger.yml).
 ## License
 
 {{#copyright}}
+{{{copyright}}}
+{{/copyright}}
+
