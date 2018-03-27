@@ -2,9 +2,9 @@ sudo: required
 dist: trusty
 language: node_js
 node_js:
-  - "4"
+#  - "4"
 #  - "6"
-#  - "8"
+  - "8"
 install:
   # Update docker-engine using Ubuntu 'trusty' apt repo
   - >
@@ -35,9 +35,9 @@ before_script:
   - export DOCKER_CLIENT_TIMEOUT=120
   - npm run build
 script:
-  - npm run up
+  - npm run start:compose
   - sleep 25
   - npm test
   - docker ps | grep -q {{name}}-service
 after_script:
-  - npm run down
+  - npm run stop::compose
