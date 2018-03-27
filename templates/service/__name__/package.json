@@ -1,0 +1,25 @@
+{
+  "name": "{{name}}",
+  "description": "{{description}}",
+  "joey": "^1.5.3",
+  "version": "0.1.0",
+  "script": {
+    "start": "npm run start:swarm && npm run start:stack",
+    "lint": "jshint .",
+    "start:swarm": "docker swarm init",
+    "start:stack": "docker stack deploy -c docker-compose.yml '{{name}}'",
+    "stop": "npm run stop:swarm",
+    "stop:swarm": "docker swarm leave --force",
+    "build": "npm run build:docker",
+    "build:docker": "docker build . -t {{name}}:develop-SNAPSHOT",
+    "test": "mocha test --exit"
+  },
+  "dependencies": {
+    "joey": "^1.5.3",
+    "montage": "~17.0.11"
+  },
+  "devDependencies": {},
+  "exclude": [
+    "test"
+  ]
+}
