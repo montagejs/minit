@@ -4,12 +4,12 @@ var HttpService = require("montage/data/service/http-service").HttpService,
     {{exportedName}} = require("../model/{{name}}-model").{{exportedName}};
 
 /**
- * Provides area briefs data for applications.
+ * Provides data for applications.
  *
  * @class
- * @extends external:DataService
+ * @extends external:HttpService
  */
- var {{exportedName}}Service = exports.{{exportedName}}Service = HttpService.specialize(/** @lends HelloWorldService.prototype */ {
+ var {{exportedName}}Service = exports.{{exportedName}}Service = HttpService.specialize(/** @lends {{exportedName}}Service.prototype */ {
 
     defaultName: {
         value: 'World'
