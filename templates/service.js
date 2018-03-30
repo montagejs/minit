@@ -102,19 +102,27 @@ exports.Template = Object.create(PackageTemplate, {
         }
     },
 
-
     finish: {
         value: function(destination) {
             var self = this;
             return TemplateBase.finish.call(this).then(function() {
-                console.log("#");
-                console.log("# "+ self.options.name +" service created, run");
-                console.log("# > npm run start");
-                console.log("# to start service via docker-compose");
-                console.log("#");
-                console.log("# > npm install .");
-                console.log("# to set up the testing dependencies");
-                console.log("#");
+                var config = {
+                    prefix : path.join(destination, self.options.name),
+                    production : true,
+                    loglevel: "warn"
+                };
+                return self.installDependencies(config);
+            }).then(function() {
+                return TemplateBase.finish.call(this).then(function() {
+                    console.log("#");
+                    console.log("# "+ self.options.name +" service created, run");
+                    console.log("# > npm run start");
+                    console.log("# to start service via docker-compose");
+                    console.log("#");
+                    console.log("# > npm install .");
+                    console.log("# to set up the testing dependencies");
+                    console.log("#");
+                });
             });
         }
     },
