@@ -27,7 +27,7 @@ describe('loading express', function () {
       });
   });
 
-  it('responds to POST /fetchData', function testFetchData(done) {
+  xit('responds to POST /fetchData', function testFetchData(done) {
       var body = JSON.stringify({
           name: 'foo'
       });
