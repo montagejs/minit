@@ -32,7 +32,8 @@ function getMainService() {
 	    }).then(function (mainService) {
     		return mr.async("logic/model/{{name}}-model").then(function (module) {
 		    	return mr.async("logic/service/{{name}}-service").then(function (module) {
-		    		mainService.addChildService(new module.{{exportedName}}Service());
+		    		var moduleName = "{{exportedName}}Service";
+		    		mainService.addChildService(new module[moduleName]());
 		    		return mainService;
 		    	});
 		    });

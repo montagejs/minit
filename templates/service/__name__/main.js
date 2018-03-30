@@ -8,7 +8,8 @@ var joey = require("joey");
 // Create App
 var app = joey.log()
 	.error()
-	.favicon();
+	.favicon()
+	.parseQuery();
 
 // Add middleware
 require('./middleware')(app);
