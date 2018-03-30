@@ -1,0 +1,51 @@
+swagger: "2.0"
+info:
+  title: "{{name}} API documentation"
+  description: "{{description}}"
+  version: "0.0.1"
+host: ""
+basePath: ""
+schemes:
+- "http"
+#- "https"
+paths:
+  /api/hello:
+    get:
+      tags:
+        - "api"
+      parameters:
+      - name: "name"
+        in: "query"
+        description: "User name"
+        required: false
+        type: "string"
+        format: "string"
+      responses:
+        200:
+          description: "Successful operation"
+          schema:
+            $ref: "#/definitions/Hello"
+        500:
+          $ref: '#/components/responses/InternalServerError'
+securityDefinitions:
+  bearerAuth:
+    type: apiKey
+    name: Authorization
+    in: header
+    description: Requests should pass an Authorization header with a Bearer token.
+security:
+  - requestedWithXHR: []
+  - bearerAuth: []
+  - apiKey: []
+  - xsrfToken: []
+definitions:
+  {{exportedName}}:
+    type: "object"
+    properties:
+      message:
+        type: "string"
+        format: "string"
+components:
+  responses:
+    InternalServerError:
+      description: Internal Server Error
