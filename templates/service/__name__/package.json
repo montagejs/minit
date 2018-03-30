@@ -19,7 +19,7 @@
   },
   "dependencies": {
     "joey": "^1.5.3",
-    "montage": "montagejs/montage#master"
+    "montage": "~17.1.1"
   },
   "devDependencies": {
     "mocha": "^4.0.1",

@@ -19,7 +19,7 @@ var HttpService = require("montage/data/service/http-service").HttpService,
         value: function (stream) {
             var self = this,
                 criteria = stream.query.criteria,
-                name = criteria.name || this.defaultName;
+                name = criteria.parameters.name || this.defaultName;
 
             var data = {
                 message: `Hello ${name}`

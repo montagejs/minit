@@ -5,7 +5,7 @@ describe('loading express', function () {
     server = require('./../main');
   });
   afterEach(function () {
-    server.close();
+    
   });
 
   it('responds to /', function testSlash(done) { 

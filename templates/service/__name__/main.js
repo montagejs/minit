@@ -9,6 +9,7 @@ var joey = require("joey");
 var app = joey.log()
 	.error()
 	.favicon()
+	.parseQuery()
 	.route(function ($) {
 	    $("")
 	    .method("GET")
