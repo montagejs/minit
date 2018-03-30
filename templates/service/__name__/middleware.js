@@ -56,7 +56,7 @@ function getDataQuery(query) {
 	});
 }
 
-function createDataQuery() {
+function createDataQuery(request) {
 	return getMontageRequire().then(function (mr) {
 		return mr.async("montage/data/service/data-selector").then(function (module) {
 		    var DataSelector = module.DataSelector;
@@ -68,7 +68,7 @@ function createDataQuery() {
 		            var dataType = module.{{exportedName}};
 		            var dataExpression = "name = $name";
 		            var dataParameters = {
-		            	name: "Dave"
+		            	name: request.query.name || "Dave"
 		            };
 
 		            var dataCriteria = new Criteria().initWithExpression(dataExpression, dataParameters);
@@ -100,7 +100,7 @@ module.exports = function (app) {
 		    	// why it's inside the app function
 		    	return getMainService().then(function (mainService) {
 		    		var queryParam = request.query.query || request.params.query;
-					var dataQueryPromise = queryParam ? Promise.resolve(queryParam) : createDataQuery();
+					var dataQueryPromise = queryParam ? Promise.resolve(queryParam) : createDataQuery(request);
 					return dataQueryPromise.then(function (query) {
 						return getDataQuery(query).then(function (dataQuery) {
 							return mainService.fetchData(dataQuery);

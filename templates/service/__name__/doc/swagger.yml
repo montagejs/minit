@@ -4,12 +4,12 @@ info:
   description: "{{description}}"
   version: "0.0.1"
 host: ""
-basePath: ""
+basePath: "/api"
 schemes:
 - "http"
 #- "https"
 paths:
-  /api/hello:
+  /fetchData:
     get:
       tags:
         - "api"
@@ -24,7 +24,7 @@ paths:
         200:
           description: "Successful operation"
           schema:
-            $ref: "#/definitions/Hello"
+            $ref: "#/definitions/{{exportedName}}"
         500:
           $ref: '#/components/responses/InternalServerError'
 securityDefinitions:
