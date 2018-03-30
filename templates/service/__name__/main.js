@@ -8,17 +8,14 @@ var joey = require("joey");
 // Create App
 var app = joey.log()
 	.error()
-	.favicon()
-	.parseQuery()
-	.route(function ($) {
-	    $("")
-	    .method("GET")
-	    .contentType("text/plain")
-	    .content("Hello, World!")
-	})
+	.favicon();
 
 // Add middleware
 require('./middleware')(app);
+
+// Serve statics
+app.directoryIndex()
+	.fileTree(__dirname);
 
 // Serve app
 app.listen(APP_PORT)
