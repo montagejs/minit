@@ -1,15 +1,21 @@
-FROM node:8
+# Pull base image.
+FROM node:carbon
 
-RUN mkdir /service
-WORKDIR /service
+# Create app directory
+WORKDIR /usr/src/app
 
-ENV PATH /service/node_modules/.bin:$PATH
+# Install app dependencies
+# A wildcard is used to ensure both package.json AND package-lock.json are copied
+# where available (npm@5+)
+COPY package*.json ./
 
-ADD package.json /service
 RUN npm install
+# If you are building your code for production
+# RUN npm install --only=production
 
-ADD . /service
+# Bundle app source
+COPY . .
 
-EXPOSE 8080
+EXPOSE 8080/tcp
 
-CMD ["node", "main.js"]
+CMD [ "npm", "start" ]
