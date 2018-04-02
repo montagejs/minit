@@ -66,9 +66,9 @@ function createDataQuery(request) {
 		            
 		            // A Default Query
 		            var dataType = module.{{exportedName}};
-		            var dataExpression = "name = $name";
+		            var dataExpression = "id = $id";
 		            var dataParameters = {
-		            	name: request.query.name || "Dave"
+		            	id: request.query.id
 		            };
 
 		            var dataCriteria = new Criteria().initWithExpression(dataExpression, dataParameters);

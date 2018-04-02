@@ -2,6 +2,7 @@
   "name": "{{name}}",
   "description": "{{description}}",
   "version": "0.1.0",
+  "main": "index",
   "dependencies": {
     "joey": "^1.5.3",
     "montage": "~17.1.1"
@@ -15,7 +16,7 @@
   ],
   "scripts": {
     "lint": "jshint .",
-    "start": "node main",
+    "start": "node index",
     "test": "mocha test --exit",
     "start:swarm": "docker swarm init",
     "start:stack": "docker stack deploy -c docker-compose.yml '{{name}}'",

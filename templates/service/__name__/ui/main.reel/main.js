@@ -13,6 +13,14 @@ var serialize = require("montage/core/serialization/serializer/montage-serialize
 var query = serialize(dataQuery, require);
 */
 
+function assert(msg, assertion, debug) {
+    if (assertion) {
+        console.info(msg, 'ok');
+    } else {
+        console.error(msg, 'error', debug);
+    }
+}
+
 /**
  * @class Main
  * @extends Component
@@ -26,26 +34,26 @@ exports.Main = Component.specialize(/** @lends Main# */ {
             var dataType = {{exportedName}};
 
             mainService.fetchData(dataType).then(function (res) {
-                console.log('fetchData:withType', res.length === 1, res);
+                assert('fetchData:withType', res.length === 1, res);
 
                 // Create reply
                 var myMsg = mainService.createDataObject(dataType);
                 myMsg.subject = "RE: You've got mail";
                 mainService.saveDataObject(myMsg).then(function () {
 
-                    console.log('saveDataObject.created', typeof myMsg.created !== 'undefined', myMsg);
-                    console.log('saveDataObject.updated', typeof myMsg.updated === 'undefined', myMsg);
+                    assert('saveDataObject.created', typeof myMsg.created !== 'undefined', myMsg);
+                    assert('saveDataObject.updated', typeof myMsg.updated === 'undefined', myMsg);
                     myMsg.text = "Add missing text";
 
                     // myMsg is updated
                     mainService.saveDataObject(myMsg).then(function () {
-                        console.log('saveDataObject.text', typeof myMsg.text !== 'undefined', myMsg);
-                        console.log('saveDataObject.updated', typeof myMsg.updated !== 'undefined', myMsg);
+                        assert('saveDataObject.text', typeof myMsg.text !== 'undefined', myMsg);
+                        assert('saveDataObject.updated', typeof myMsg.updated !== 'undefined', myMsg);
 
                         // myMsg from service
                         mainService.fetchData(dataType).then(function (res) {
                         
-                            console.log('fetchData', res.length == 2, res);
+                            assert('fetchData', res.length == 2, res);
 
                             // myMsg is deleted
                             mainService.deleteDataObject(myMsg).then(function () {
@@ -59,11 +67,11 @@ exports.Main = Component.specialize(/** @lends Main# */ {
                                 var dataQuery  = DataSelector.withTypeAndCriteria(dataType, dataCriteria);
                                 
                                 mainService.fetchData(dataQuery).then(function (res) {
-                                    console.log('fetchData:withTypeAndCriteria', res.length === 0, res);
+                                    assert('fetchData:withTypeAndCriteria', res.length === 0, res);
 
                                     // myMsg from service
                                     mainService.fetchData(dataType).then(function (res) {
-                                        console.log('fetchData:withType', res.length === 1, res);
+                                        assert('fetchData:withType', res.length === 1, res);
                                     });
                                 });
                             });

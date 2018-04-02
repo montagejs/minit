@@ -14,9 +14,9 @@ paths:
       tags:
         - "api"
       parameters:
-      - name: "name"
+      - name: "id"
         in: "query"
-        description: "User name"
+        description: "filter by {{exportedName}} id"
         required: false
         type: "string"
         format: "string"
