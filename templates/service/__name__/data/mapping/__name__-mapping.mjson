@@ -1,0 +1,24 @@
+{
+    "root": {
+        "prototype": "montage/data/service/expression-data-mapping",
+        "properties": {
+            "rawDataPrimaryKeys":["id"],
+            "objectDescriptor": {"@": "{{exportedName}}ObjectDescriptor"},
+            "objectMapping": {
+                "rules": {
+                    "id": {"<->": "id"},
+                    "subject": {"<->": "subject"},
+                    "text": {"<->": "text"},
+                    "created": {"<->": "text"},
+                    "updated": {"<->": "text"}
+                }
+            },
+            "requisitePropertyNames": [
+                "id", "subject", "text"
+            ]
+        }
+    },
+    "{{exportedName}}ObjectDescriptor": {
+        "object": "data/descriptors/{{name}}.mjson"
+    }
+}

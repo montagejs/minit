@@ -1,0 +1,14 @@
+{
+    "root": {
+        "prototype": "montage/data/service/data-service",
+        "properties": {
+            "name": "DataService",
+            "childServices": [
+                {"@": "messageService"}
+            ]
+        }
+    },
+    "{{name}}Service": {
+        "object": "data/{{name}}-service.mjson"
+    }
+}

@@ -1,38 +1,96 @@
 var HttpService = require("montage/data/service/http-service").HttpService,
-    DataService = require("montage/data/service/data-service").DataService,
-    DataSelector = require("montage/data/service/data-selector").DataSelector,
-    {{exportedName}} = require("../model/{{name}}-model").{{exportedName}};
+    Promise = require("montage/core/promise").Promise;
+
+var STORE = Map.from({
+    42: {
+        "id": 42,
+        "subject": "You've got mail",
+        "text": "Hello World!",
+        "create": Date.now()
+    }
+});
+
+var AUTO_INCREMENT_ID = 43;
+
+var dataStore = {
+    all: function () {
+        return Array.from(STORE);
+    },
+    filterBy: function (prop, value) {
+        return Array.from(STORE).filter(function (rawDataEntry) {
+            return rawDataEntry[prop] === value;
+        });
+    },
+    set: function (key, value) {
+        return STORE.set(key, value);
+    },
+    get: function (key) {
+        return STORE.get(key);  
+    },
+    delete: function (key) {
+        return STORE.delete(key);   
+    }
+};
 
 /**
- * Provides data for applications.
+ * Provides {{exportedName}}
  *
  * @class
  * @extends external:HttpService
  */
- var {{exportedName}}Service = exports.{{exportedName}}Service = HttpService.specialize(/** @lends {{exportedName}}Service.prototype */ {
+exports.{{exportedName}}Service = HttpService.specialize(/** @lends {{exportedName}}Service.prototype */ {
 
-    defaultName: {
-        value: 'World'
-    },
-   
+    //==========================================================================
+    // Entry points
+    //==========================================================================
+
+    // Get and query
     fetchRawData: {
         value: function (stream) {
             var self = this,
-                criteria = stream.query.criteria,
-                name = criteria.parameters.name || this.defaultName;
+                query = stream.query,
+                criteria = query.criteria,
+                parameters = criteria.parameters;
 
-            var data = {
-                message: `Hello ${name}`
-            };
-            
-            self.addRawData(stream, [data], criteria);
-            self.rawDataDone(stream);
+            if (parameters && parameters.id) {
+                var rawData = dataStore.filterBy('id', parameters.id);
+                self.addRawData(stream, rawData);
+                self.rawDataDone(stream);
+            } else {
+                Promise.resolve(dataStore.all()).then(function (rawData) {
+                    self.addRawData(stream, rawData);
+                    self.rawDataDone(stream);
+                });
+            }
         }
     },
 
-    mapFromRawData: {
-        value: function (object, rawData, criteria) {
-            object.message = rawData.message;
+    // Create and update
+    saveRawData: {
+        value: function (rawData, object) {
+
+            // Update rawData
+            if (this.rootService.createdDataObjects.has(object)) {
+                AUTO_INCREMENT_ID++;
+                rawData.id = AUTO_INCREMENT_ID;
+                rawData.created = Date.now();
+                Object.assign(object, rawData);
+            } else {
+                object.updated = rawData.updated = Date.now();
+            }
+
+            // Update store
+            dataStore.set(rawData.id, rawData);
+
+            return Promise.resolve(rawData);
+        }
+    },
+
+    // Delete
+    deleteRawData: {
+        value: function (rawData, object) {
+            dataStore.delete(rawData.id);
+            return Promise.resolve(rawData);
         }
     }
 });

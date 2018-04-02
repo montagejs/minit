@@ -1,0 +1,52 @@
+{
+    "root": {
+        "prototype": "montage/core/meta/module-object-descriptor",
+        "properties": {
+            "name": "{{exportedName}}",
+            "propertyDescriptors": [
+                {"@": "id"},
+                {"@": "subject"},
+                {"@": "text"}
+            ],
+            "exportName": "{{exportedName}}",
+            "module": {
+                "%": "logic/model/{{name}}-model"
+            }
+        }
+    },
+    "id": {
+        "prototype": "montage/core/meta/property-descriptor",
+        "properties": {
+            "name": "id",
+            "valueType": "number"
+        }
+    },
+    "subject": {
+        "prototype": "montage/core/meta/property-descriptor",
+        "properties": {
+            "name": "subject",
+            "valueType": "string"
+        }
+    },
+    "text": {
+        "prototype": "montage/core/meta/property-descriptor",
+        "properties": {
+            "name": "text",
+            "valueType": "string"
+        }
+    },
+    "updated": {
+        "prototype": "montage/core/meta/property-descriptor",
+        "properties": {
+            "name": "text",
+            "valueType": "string"
+        }
+    },
+    "created": {
+        "prototype": "montage/core/meta/property-descriptor",
+        "properties": {
+            "name": "text",
+            "valueType": "string"
+        }
+    }
+}
