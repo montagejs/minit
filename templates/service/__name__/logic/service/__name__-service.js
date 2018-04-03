@@ -32,6 +32,8 @@ var dataStore = {
     }
 };
 
+var {{exportedName}} = require('logic/model/{{name}}-model');
+
 /**
  * Provides {{exportedName}}
  *
@@ -39,6 +41,15 @@ var dataStore = {
  * @extends external:HttpService
  */
 exports.{{exportedName}}Service = HttpService.specialize(/** @lends {{exportedName}}Service.prototype */ {
+
+    // TODO
+    // Cause Can\'t fetch data of unknown type
+    // Need to me module not object
+    /*
+    types: {
+        value: [{{exportedName}}]
+    },
+    */
 
     //==========================================================================
     // Entry points

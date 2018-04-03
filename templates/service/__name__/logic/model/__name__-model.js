@@ -4,7 +4,7 @@ var Montage = require("montage").Montage
  * @class
  * @extends external:Montage
  */
-exports.{{exportedName}} = Montage.specialize(/** @lends Message.prototype */ {
+exports.{{exportedName}} = Montage.specialize(/** @lends {{exportedName}}.prototype */ {
 
     /**
      * The unique identifier for this message
@@ -38,4 +38,15 @@ exports.{{exportedName}} = Montage.specialize(/** @lends Message.prototype */ {
         value: undefined
     }
 
-}, {});
+}, {
+    /**
+     * The Montage Data type of features.
+     *
+     * @type {external:ObjectDescriptor}
+     */
+    objectPrototype: {
+        get: function () {
+            return exports.{{exportedName}};
+        }
+    }
+});

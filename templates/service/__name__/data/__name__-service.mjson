@@ -1,5 +1,5 @@
 {
-    "{{name}}": {
+    "{{exportedName}}": {
         "object": "data/descriptors/{{name}}.mjson"
     },
     "{{exportedName}}Mapping": {
@@ -10,7 +10,7 @@
         "properties": {
             "name": "{{exportedName}}Service",
             "types": [
-                 {"@": "{{name}}"}
+                 {"@": "{{exportedName}}"}
              ],
             "mappings": [
                  {"@": "{{exportedName}}Mapping"}

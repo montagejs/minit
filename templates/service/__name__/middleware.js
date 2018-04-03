@@ -1,6 +1,10 @@
 var PATH = require("path");
 var Montage = require('montage');
 
+// TODO
+// In progress - Load Service/Model/Mapping programaticly 
+// Next - Load Via main.mjson
+
 var mr;
 function getMontageRequire() {
 	// Once only
@@ -87,6 +91,16 @@ function createDataQuery(request) {
 	});
 }
 
+function createDataQueryResult(queryResult) {
+	console.log('createDataQueryResult', queryResult);
+	return mr.async('montage/core/serialization/serializer/montage-serializer').then(function (module) {
+		return module.serialize(queryResult, mr); 
+	}).then(function (res) {
+		console.log('createDataQueryResult (serialized)', res);
+		return res;
+	});
+}
+
 // Note: Work in progress
 
 module.exports = function (app) {
@@ -94,8 +108,8 @@ module.exports = function (app) {
     	// TODO move router to app (fetchData|create|delete|update)			
 	    router("api/fetchData")
 		    .method("GET")
-		    .json()
-		    .app(function (request) {
+		    .contentType("application/json")
+		    .contentApp(function (request) {
 		    	// You need to do that after route install before .listen that 
 		    	// why it's inside the app function
 		    	return getMainService().then(function (mainService) {
@@ -103,13 +117,9 @@ module.exports = function (app) {
 					var dataQueryPromise = queryParam ? Promise.resolve(queryParam) : createDataQuery(request);
 					return dataQueryPromise.then(function (query) {
 						return getDataQuery(query).then(function (dataQuery) {
-							return mainService.fetchData(dataQuery);
-						}).then(function (queryResult) {
-							return queryResult;
-							// TODO return serialize?
-							return mr.async('montage/core/serialization/serializer/montage-serializer').then(function (module) {
-					            return JSON.parse(module.serialize(queryResult, mr)); 
-					        });
+							return mainService.fetchData(dataQuery).then(function (queryResult) {
+								return createDataQueryResult(queryResult);
+							});
 						});
 					});
 		    	}).catch(function (err) {
