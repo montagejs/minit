@@ -5,7 +5,7 @@
   "main": "index",
   "dependencies": {
     "joey": "^1.5.3",
-    "montage": "~17.1.1"
+    "montage": "montagejs/montage#master"
   },
   "devDependencies": {
     "mocha": "^4.0.1",
