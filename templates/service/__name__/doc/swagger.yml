@@ -22,11 +22,11 @@ paths:
       parameters:
         - name: "id"
           in: "query"
-          description: "filter by {{exportedName}} id"
+          description: "DataQuery Criteria 'id' parameter"
           required: false
           type: "string"
           format: "string"
-        - in: body
+        - in: query
           name: query
           description: Montage DataQuery
           required: false
@@ -101,9 +101,20 @@ definitions:
   {{exportedName}}:
     type: "object"
     properties:
-      {{name}}:
-        type: "string"
-        format: "string"
+      message:
+        type: object
+        properties:
+          prototype:
+            type: string
+          values:
+            type: object
+      root:
+        type: object
+        properties:
+          prototype:
+            type: string
+          value:
+            type: object
   DataQuery:
     type: object
     required:
