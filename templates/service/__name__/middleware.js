@@ -1,151 +1,203 @@
 var PATH = require("path");
 var Montage = require('montage');
 
+const APP_PATH = process.env.APP_PATH || PATH.join(__dirname, ".");
+
 // TODO
 // In progress - Load Service/Model/Mapping programaticly 
 // Next - Load Via main.mjson
 
-var mr;
+var montageRequire;
 function getMontageRequire() {
-	// Once only
-	if (mr) {
-		return Promise.resolve(mr);
-	}
+    // Once only
+    if (montageRequire) {
+        return Promise.resolve(montageRequire);
+    }
 
-	return Montage.loadPackage(PATH.join(__dirname, "."), {
-	    mainPackageLocation: PATH.join(__dirname, ".")
-	}).then(function (require) {
-		return (mr = require);
-	});
+    return Montage.loadPackage(APP_PATH, {
+        mainPackageLocation: APP_PATH
+    }).then(function (require) {
+        return (montageRequire = require);
+    });
 }
 
 var mainService;
 function getMainService() {
-	return getMontageRequire().then(function (mr) {
+    return getMontageRequire().then(function (mr) {
 
-		// Once only
-		if (mainService) {
-			return Promise.resolve(mainService);
-		}
+        // Once only
+        if (mainService) {
+            return Promise.resolve(mainService);
+        }
 
-		return mr.async('data/main.mjson').then(function (module) {
+        return mr.async('data/main.mjson').then(function (module) {
+            // 1. End goal
+            // TODO fix nodejs mjson
+            //return (mainService = module.montageObject);
 
-			// 1. End goal
-			// TODO fix nodejs mjson
-			//return (mainService = module.montageObject);
+            // 2. Testing/Debug
+            // TODO programatic mjson
+            /*
+            return deserialize(module);
+            // Reviver
+            return mr.async('montage/core/serialization/deserializer/montage-deserializer').then(function (module) {
+                var deserializer = new module.MontageDeserializer();
+                deserializer.init((mainService = {}), mr, module, "data/main.mjson");
+                return deserializer.deserializeObject().then(function () {
+                    console.log(arguments, module.montageObject)
+                    return mainService;
+                });
+            });
+            */
+            
+            // 3. Testing/Debug
+            // TODO programatic loading Service/Model/Mapping
+            // Load main service
 
-			/*
-			// 2. Testing/Debug
-			// TODO programatic mjson
-			return mr.async('montage/core/serialization/deserializer/montage-deserializer').then(function (module) {
-				var deserializer = new module.MontageDeserializer();
-	            deserializer.init(mjson, mr, "");
-	            return deserializer.deserializeObject();
-			});
-			*/
+            // Load main service
+            return mr.async("montage/data/service/data-service").then(function (module) {
+                return (mainService = new module.DataService());
 
-			// 3. Testing/Debug
-			// TODO programatic loading Service/Model/Mapping
-			// Load main service
-
-			// Load main service
-			return mr.async("montage/data/service/data-service").then(function (module) {
-		        return (mainService = new module.DataService());
-
-		    // Load sub service
-		    }).then(function (config) {
-	    		return mr.async("logic/model/{{name}}-model").then(function (module) {
-			    	return mr.async("logic/service/{{name}}-service").then(function (module) {
-			    		var moduleName = "{{exportedName}}Service";
-			    		mainService.addChildService(new module[moduleName]());
-			    		return mainService;
-			    	});
-			    });
-		    });
-		});
-	});
+            // Load sub service
+            }).then(function (config) {
+                return mr.async("logic/model/{{name}}-model").then(function (module) {
+                    return mr.async("logic/service/{{name}}-service").then(function (module) {
+                        var moduleName = "{{exportedName}}Service";
+                        mainService.addChildService(new module[moduleName]());
+                        return mainService;
+                    });
+                });
+            });
+        });
+    });
 }
 
-function getDataQuery(query) {
-	return getMontageRequire().then(function (mr) {
-		return mr.async("montage/data/service/data-selector").then(function (module) {
-		    var DataSelector = module.DataSelector;
-		    return mr.async("montage/core/criteria").then(function (module) {
-		        var Criteria = module.Criteria;
-		        return mr.async('montage/core/serialization/deserializer/montage-deserializer').then(function (module) {
-		            return module.deserialize(query, mr); 
-		        });
-		    });
-		});	
-	});
+function serialize(object) {
+    return getMontageRequire().then(function (mr) {
+        return mr.async('montage/core/serialization/serializer/montage-serializer').then(function (module) {
+            return module.serialize(object, mr); 
+        })
+    });
 }
 
-function createDataQuery(request) {
-	return getMontageRequire().then(function (mr) {
-		return mr.async("montage/data/service/data-selector").then(function (module) {
-		    var DataSelector = module.DataSelector;
-		    return mr.async("montage/core/criteria").then(function (module) {
-		        var Criteria = module.Criteria;
-	    		return mr.async("logic/model/{{name}}-model").then(function (module) {
-		            
-		            // A Default Query
-		            var dataType = module.{{exportedName}};
-		            var dataExpression = "id = $id";
-		            var dataParameters = {
-		            	id: request.query.id
-		            };
-
-		            var dataCriteria = new Criteria().initWithExpression(dataExpression, dataParameters);
-		            var dataQuery  = DataSelector.withTypeAndCriteria(dataType, dataCriteria);
-		     
-		            return dataQuery;
-		    	
-		    	// Convert to serialized version
-		    	}).then(function (dataQuery) {
-	    			return mr.async('montage/core/serialization/serializer/montage-serializer').then(function (module) {
-			            return module.serialize(dataQuery, mr); 
-			        });
-		    	});
-    		});
-		});	
-	});
+function deserialize(data) {
+    return getMontageRequire().then(function (mr) {
+        return mr.async('montage/core/serialization/deserializer/montage-deserializer').then(function (module) {
+            return module.deserialize(data, mr); 
+        });
+    });
 }
 
-function createDataQueryResult(queryResult) {
-	console.log('createDataQueryResult', queryResult);
-	return mr.async('montage/core/serialization/serializer/montage-serializer').then(function (module) {
-		return module.serialize(queryResult, mr); 
-	}).then(function (res) {
-		console.log('createDataQueryResult (serialized)', res);
-		return res;
-	});
+function createDataQueryFromParams(queryParam) {
+    return getMontageRequire().then(function (mr) {
+        return mr.async("montage/data/service/data-selector").then(function (module) {
+            var DataSelector = module.DataSelector;
+            return mr.async("montage/core/criteria").then(function (module) {
+                var Criteria = module.Criteria;
+                return mr.async("logic/model/{{name}}-model").then(function (module) {
+                    
+                    // A Default Query
+                    var dataType = module.{{exportedName}};
+                    var dataExpression = "";
+                    var dataParameters = queryParam;
+
+                    var dataCriteria = new Criteria().initWithExpression(dataExpression, dataParameters);
+                    var dataQuery  = DataSelector.withTypeAndCriteria(dataType, dataCriteria);
+             
+                    return dataQuery;
+                
+                // Convert to serialized version
+                });
+            });
+        }); 
+    });
+}
+
+function getDataOperationFromData(data) {
+    return getMontageRequire().then(function (mr) {
+        return mr.async("montage/data/service/data-selector").then(function (module) {
+            var DataSelector = module.DataSelector;
+            return mr.async("montage/core/criteria").then(function (module) {
+                var Criteria = module.Criteria;
+                return deserialize(data);
+            });
+        }); 
+    });
+}
+
+function getDataOperationFromRequest(request) {
+    var queryParam = request.query.query || request.params.query;
+    return queryParam ? 
+        getDataOperationFromData(queryParam) : 
+            createDataQueryFromParams(request);
+}
+
+function getDataOperationResponse(queryResult) {
+    console.log('getDataOperationResponse', queryResult);
+    return serialize(queryResult).then(function (res) {
+        console.log('getDataOperationResponse (serialized)', res);
+        return res;
+    });
 }
 
 // Note: Work in progress
 
 module.exports = function (app) {
-	app.route(function (router) {
-    	// TODO move router to app (fetchData|create|delete|update)			
-	    router("api/fetchData")
-		    .method("GET")
-		    .contentType("application/json")
-		    .contentApp(function (request) {
-		    	// You need to do that after route install before .listen that 
-		    	// why it's inside the app function
-		    	return getMainService().then(function (mainService) {
-		    		var queryParam = request.query.query || request.params.query;
-					var dataQueryPromise = queryParam ? Promise.resolve(queryParam) : createDataQuery(request);
-					return dataQueryPromise.then(function (query) {
-						return getDataQuery(query).then(function (dataQuery) {
-							return mainService.fetchData(dataQuery).then(function (queryResult) {
-								return createDataQueryResult(queryResult);
-							});
-						});
-					});
-		    	}).catch(function (err) {
-		    		console.error(err, err.stack);
-		    		throw err;
-		    	});
-		    });
-	});
+    // TODO HttpDataOperation to DataOperation ?
+    // TODO WSDataOperation to DataOperation ?
+    app.route(function (router) {   
+        router("api/fetchData")
+            .method("GET")
+            .contentType("application/json")
+            .contentApp(function (request) {
+                // You need to do that after route install before .listen that 
+                // why it's inside the app function
+                return getDataOperationFromRequest(request).then(function (dataQuery) {
+                    return getMainService().then(function (mainService) {
+                        return mainService.fetchData(dataQuery).then(function (queryResult) {
+                            return getDataOperationResponse(queryResult);
+                        });
+                    });
+                }).catch(function (err) {
+                    console.error(err, err.stack);
+                    throw err;
+                });
+            });
+
+        router("api/deleteDataObject")
+            .method("DELETE")
+            .contentType("application/json")
+            .contentApp(function (request, response) {
+                // You need to do that after route install before .listen that 
+                // why it's inside the app function
+                return getDataOperationFromRequest(request).then(function (dataObject) {
+                    return getMainService().then(function (mainService) {
+                        return mainService.deleteDataObject(dataObject).then(function (result) {
+                            return getDataOperationResponse(response, result);
+                        });
+                    });
+                }).catch(function (err) {
+                    console.error(err, err.stack);
+                    throw err;
+                });
+            });
+
+        router("api/saveDataObject")
+            .method("POST")
+            .contentType("application/json")
+            .contentApp(function (request) {
+                // You need to do that after route install before .listen that 
+                // why it's inside the app function
+                return getDataOperationFromRequest(request).then(function (dataObject) {
+                    return getMainService().then(function (mainService) {
+                        return mainService.saveDataObject(dataObject).then(function (result) {
+                            return getDataOperationResponse(response, result);
+                        });
+                    });
+                }).catch(function (err) {
+                    console.error(err, err.stack);
+                    throw err;
+                });
+            });
+    });
 };
