@@ -2,7 +2,6 @@ swagger: "2.0"
 info:
   title: "{{exportedName}} Service API documentation"
   description: "{{exportedName}} Service API documentation."
-  description: "service"
   version: "0.0.1"
 host: "localhost:8080"
 #host: "example.com"
