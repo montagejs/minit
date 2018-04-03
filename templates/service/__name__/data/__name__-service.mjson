@@ -7,7 +7,7 @@
     },
     "root": {
         "prototype": "logic/service/{{name}}-service",
-        "properties": {
+        "values": {
             "name": "{{exportedName}}Service",
             "types": [
                  {"@": "{{exportedName}}"}

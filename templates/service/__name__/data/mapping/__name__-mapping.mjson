@@ -1,7 +1,7 @@
 {
     "root": {
         "prototype": "montage/data/service/expression-data-mapping",
-        "properties": {
+        "values": {
             "rawDataPrimaryKeys":["id"],
             "objectDescriptor": {"@": "{{exportedName}}ObjectDescriptor"},
             "objectMapping": {

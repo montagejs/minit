@@ -1,7 +1,7 @@
 {
     "root": {
         "prototype": "montage/core/meta/module-object-descriptor",
-        "properties": {
+        "values": {
             "name": "{{exportedName}}",
             "propertyDescriptors": [
                 {"@": "id"},
@@ -16,35 +16,35 @@
     },
     "id": {
         "prototype": "montage/core/meta/property-descriptor",
-        "properties": {
+        "values": {
             "name": "id",
             "valueType": "number"
         }
     },
     "subject": {
         "prototype": "montage/core/meta/property-descriptor",
-        "properties": {
+        "values": {
             "name": "subject",
             "valueType": "string"
         }
     },
     "text": {
         "prototype": "montage/core/meta/property-descriptor",
-        "properties": {
+        "values": {
             "name": "text",
             "valueType": "string"
         }
     },
     "updated": {
         "prototype": "montage/core/meta/property-descriptor",
-        "properties": {
+        "values": {
             "name": "text",
             "valueType": "string"
         }
     },
     "created": {
         "prototype": "montage/core/meta/property-descriptor",
-        "properties": {
+        "values": {
             "name": "text",
             "valueType": "string"
         }
