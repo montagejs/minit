@@ -1,16 +1,19 @@
-swagger: "2.0"
+swagger: "3.0"
 info:
   title: "{{exportedName}} Service API documentation"
   description: "{{exportedName}} Service API documentation."
   version: "0.0.1"
 host: "localhost:8080"
+#host: "xxx.ngrok.io"
 #host: "example.com"
 basePath: "/api"
 schemes:
 - "http"
+#- "ws"
 #- "https"
+#- "wss"
 paths:
-  /fetchData:
+  /{{name}}:
     get:
       tags:
         - "api"
@@ -39,7 +42,6 @@ paths:
             $ref: "#/definitions/{{exportedName}}"
         500:
           $ref: '#/components/responses/InternalServerError'
-  /deleteDataObject:
     delete:
       tags:
         - "api"
@@ -62,7 +64,6 @@ paths:
             $ref: "#/definitions/{{exportedName}}"
         500:
           $ref: '#/components/responses/InternalServerError'
-  /saveDataObject:
     post:
       tags:
         - "api"

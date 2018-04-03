@@ -126,7 +126,7 @@ function getDataOperationFromData(data) {
 }
 
 function getDataOperationFromRequest(request) {
-    var queryParam = request.query.query || request.params.query;
+    var queryParam = request && (request.query.query || request.params.query);
     return queryParam ? 
         getDataOperationFromData(queryParam) : 
             createDataQueryFromParams(request);
