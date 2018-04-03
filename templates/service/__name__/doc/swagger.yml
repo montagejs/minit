@@ -1,9 +1,11 @@
 swagger: "2.0"
 info:
-  title: "{{name}} API documentation"
-  description: "{{description}}"
+  title: "{{exportedName}} Service API documentation"
+  description: "{{exportedName}} Service API documentation."
+  description: "service"
   version: "0.0.1"
-host: ""
+host: "localhost:8080"
+#host: "example.com"
 basePath: "/api"
 schemes:
 - "http"
@@ -13,15 +15,76 @@ paths:
     get:
       tags:
         - "api"
+      operationId: "fetchData"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
       parameters:
-      - name: "id"
-        in: "query"
-        description: "filter by {{exportedName}} id"
-        required: false
-        type: "string"
-        format: "string"
+        - name: "id"
+          in: "query"
+          description: "filter by {{exportedName}} id"
+          required: false
+          type: "string"
+          format: "string"
+        - in: body
+          name: query
+          description: Montage DataQuery
+          required: false
+          schema:
+            $ref: "#/definitions/DataQuery"
       responses:
         200:
+          description: "Successful operation"
+          schema:
+            $ref: "#/definitions/{{exportedName}}"
+        500:
+          $ref: '#/components/responses/InternalServerError'
+  /deleteDataObject:
+    delete:
+      tags:
+        - "api"
+      operationId: "deleteDataObject"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+        - in: body
+          name: query
+          description: Montage DataObject
+          required: false
+          schema:
+            $ref: "#/definitions/DataObject"
+      responses:
+        205:
+          description: "Successful operation"
+          schema:
+            $ref: "#/definitions/{{exportedName}}"
+        500:
+          $ref: '#/components/responses/InternalServerError'
+  /saveDataObject:
+    post:
+      tags:
+        - "api"
+      operationId: "saveDataObject"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+        - in: body
+          name: query
+          description: Montage DataObject
+          required: false
+          schema:
+            $ref: "#/definitions/DataObject"
+      responses:
+        200:
+          description: "Successful operation"
+          schema:
+            $ref: "#/definitions/{{exportedName}}"
+        201:
           description: "Successful operation"
           schema:
             $ref: "#/definitions/{{exportedName}}"
@@ -34,17 +97,38 @@ securityDefinitions:
     in: header
     description: Requests should pass an Authorization header with a Bearer token.
 security:
-  - requestedWithXHR: []
   - bearerAuth: []
-  - apiKey: []
-  - xsrfToken: []
 definitions:
   {{exportedName}}:
     type: "object"
     properties:
-      message:
+      {{name}}:
         type: "string"
         format: "string"
+  DataQuery:
+    type: object
+    required:
+      - root
+    properties:
+      root:
+        type: object
+        properties:
+          prototype:
+            type: string
+          value:
+            type: object
+  DataObject:
+    type: object
+    required:
+      - root
+    properties:
+      root:
+        type: object
+        properties:
+          prototype:
+            type: string
+          value:
+            type: object
 components:
   responses:
     InternalServerError:
