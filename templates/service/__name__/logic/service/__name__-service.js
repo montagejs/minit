@@ -1,5 +1,5 @@
 var HttpService = require("montage/data/service/http-service").HttpService,
-    Promise = require("montage/core/promise").Promise;
+    MontagePromise = require("montage/core/promise").Promise;
 
 var STORE = Map.from({
     42: {
@@ -68,7 +68,7 @@ exports.{{exportedName}}Service = HttpService.specialize(/** @lends {{exportedNa
                 self.addRawData(stream, rawData);
                 self.rawDataDone(stream);
             } else {
-                Promise.resolve(dataStore.all()).then(function (rawData) {
+                MontagePromise.resolve(dataStore.all()).then(function (rawData) {
                     self.addRawData(stream, rawData);
                     self.rawDataDone(stream);
                 });
@@ -93,7 +93,7 @@ exports.{{exportedName}}Service = HttpService.specialize(/** @lends {{exportedNa
             // Update store
             dataStore.set(rawData.id, rawData);
 
-            return Promise.resolve(rawData);
+            return MontagePromise.resolve(rawData);
         }
     },
 
@@ -101,7 +101,7 @@ exports.{{exportedName}}Service = HttpService.specialize(/** @lends {{exportedNa
     deleteRawData: {
         value: function (rawData, object) {
             dataStore.delete(rawData.id);
-            return Promise.resolve(rawData);
+            return MontagePromise.resolve(rawData);
         }
     }
 });

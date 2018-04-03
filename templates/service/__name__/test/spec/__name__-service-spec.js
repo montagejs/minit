@@ -2,7 +2,7 @@
 var APP_TEST_URL = null;
 
 if (typeof process !== 'undefined') {
-  APP_TEST_URL = process.env.APP_TEST_URL
+  APP_TEST_URL = process.env.APP_TEST_URL;
 }
 
 // Default value

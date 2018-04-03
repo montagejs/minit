@@ -1,7 +1,7 @@
 var APP_TEST_URL = null;
 
 if (typeof process !== 'undefined') {
-  APP_TEST_URL = process.env.APP_TEST_URL
+  APP_TEST_URL = process.env.APP_TEST_URL;
 }
 
 // Default value
@@ -22,7 +22,7 @@ describe('{{exportedName}} WS API', () => {
         });
         socket.on('disconnect', function() {
             //console.log('disconnected...');
-        })
+        });
     });
     afterEach(function(done) {
         // Cleanup

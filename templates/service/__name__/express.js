@@ -79,9 +79,8 @@ app.route("/api/{{name}}")
 var socketSubscriptions = new Map();
 function broadcastsDataOperation(event, data, clientSource) {
   return Array.from(socketSubscriptions).filter(function (socketSubscription) {
-    return clientSource && socketSubscription.id !== clientSource.id
+    return clientSource && socketSubscription.id !== clientSource.id;
   }).map(function (socketSubscription) {
-    console.log(socketSubscription, event, data)
     return socket.to(socketSubscription.id).emit(event, data);
   });
 }
