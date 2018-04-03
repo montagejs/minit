@@ -21,9 +21,18 @@ npm install
 npm start
 ```
 
-3. Test
-Then Open you browser to "https://localhost:8080".
+3. Run Unit-Tests
+```
+npm test
+npm integration
+```
 
+4. Open live Documentation
+```
+npm run doc
+```
+
+You can also open you browser to "https://localhost:8080" to see a basic Service Montage Application with basic CRUD operations.
 
 ## Troubleshooting & Useful Tools
 
@@ -53,6 +62,28 @@ docker swarm leave --force
 
 See swagger Documentation: [swagger.yml](./doc/swagger.yml).
 
+### Npm commands
+ 
+ - `lint`: jshint . 
+ - `start`: node index.js 
+ - `test`: mocha test --timeout 10000 --exit 
+ - `integration`: concurrently \npm run serve:test\ \npm run open:test\ 
+ - `doc`: concurrently \npm run serve:doc\ \npm run open:doc\ 
+ - `serve:test`: http-server -p 8081 
+ - `serve:doc`: http-server -p 8082 doc 
+ - `open:app`: open http://localhost:8080 
+ - `open:test`: open http://localhost:8081/test 
+ - `open:doc`: open http://localhost:8082 
+ - `start:swarm`: docker swarm init 
+ - `start:stack`: docker stack deploy -c docker-compose.yml '{{name}}-stack' 
+ - `stop:stack`: docker stack rm '{{name}}-stack' 
+ - `stop:swarm`: docker swarm leave --force 
+ - `build`: npm run build:docker 
+ - `build:docker`: docker build . -t {{name}}:develop-SNAPSHOT 
+ - `build:compose`: docker-compose build 
+ - `start:compose`: docker-compose up -d 
+ - `stop:compose`: docker-compose down
+ - 
 ## License
 
 {{#copyright}}

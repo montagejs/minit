@@ -101,7 +101,7 @@ definitions:
   {{exportedName}}:
     type: "object"
     properties:
-      message:
+      {{name}}:
         type: object
         properties:
           prototype:

@@ -7,7 +7,7 @@ var Montage = require("montage").Montage
 exports.{{exportedName}} = Montage.specialize(/** @lends {{exportedName}}.prototype */ {
 
     /**
-     * The unique identifier for this message
+     * The unique identifier for this {{name}}
      * @type {number}
      */
     id: {
@@ -15,7 +15,7 @@ exports.{{exportedName}} = Montage.specialize(/** @lends {{exportedName}}.protot
     },
 
     /**
-     * The message's subject.
+     * The {{name}}'s subject.
      * @type {string}
      */
     subject: {
@@ -23,7 +23,7 @@ exports.{{exportedName}} = Montage.specialize(/** @lends {{exportedName}}.protot
     },
 
     /**
-     * The message's text.
+     * The {{name}}'s text.
      * @type {string}
      */
     text: {

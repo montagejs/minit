@@ -97,7 +97,7 @@ function createDataQueryFromParams(queryParam) {
                 return mr.async("logic/model/{{name}}-model").then(function (module) {
                     
                     // A Default Query
-                    var dataType = module.{{exportedName}};
+                    var dataType = module["{{exportedName}}"];
                     var dataExpression = "";
                     var dataParameters = queryParam;
 
@@ -132,72 +132,48 @@ function getDataOperationFromRequest(request) {
             createDataQueryFromParams(request);
 }
 
-function getDataOperationResponse(queryResult) {
+function getDataOperationResponse(response, queryResult) {
     console.log('getDataOperationResponse', queryResult);
-    return serialize(queryResult).then(function (res) {
-        console.log('getDataOperationResponse (serialized)', res);
-        return res;
+    return serialize(queryResult).then(function (queryJson) {
+        console.log('getDataOperationResponse (serialized)', queryJson);
+        return queryJson;
+    }).then(function (res) {
+        if (response) {
+            response.header("Content-Type", "application/json");
+            response.send(res);
+            response.end();
+        } else {
+            return res;
+        }
     });
 }
 
-// Note: Work in progress
-
-module.exports = function (app) {
-    // TODO HttpDataOperation to DataOperation ?
-    // TODO WSDataOperation to DataOperation ?
-    app.route(function (router) {   
-        router("api/fetchData")
-            .method("GET")
-            .contentType("application/json")
-            .contentApp(function (request) {
-                // You need to do that after route install before .listen that 
-                // why it's inside the app function
-                return getDataOperationFromRequest(request).then(function (dataQuery) {
-                    return getMainService().then(function (mainService) {
-                        return mainService.fetchData(dataQuery).then(function (queryResult) {
-                            return getDataOperationResponse(queryResult);
-                        });
-                    });
-                }).catch(function (err) {
-                    console.error(err, err.stack);
-                    throw err;
-                });
+exports.fetchData = function (req, res) {
+    return getDataOperationFromRequest(req).then(function (dataQuery) {
+        return getMainService().then(function (mainService) {
+            return mainService.fetchData(dataQuery).then(function (queryResult) {
+                return getDataOperationResponse(res, queryResult);
             });
+        });
+    });
+};
 
-        router("api/deleteDataObject")
-            .method("DELETE")
-            .contentType("application/json")
-            .contentApp(function (request, response) {
-                // You need to do that after route install before .listen that 
-                // why it's inside the app function
-                return getDataOperationFromRequest(request).then(function (dataObject) {
-                    return getMainService().then(function (mainService) {
-                        return mainService.deleteDataObject(dataObject).then(function (result) {
-                            return getDataOperationResponse(response, result);
-                        });
-                    });
-                }).catch(function (err) {
-                    console.error(err, err.stack);
-                    throw err;
-                });
+exports.deleteDataObject = function (req, res) {
+    return getDataOperationFromRequest(req).then(function (dataObject) {
+        return getMainService().then(function (mainService) {
+            return mainService.deleteDataObject(dataObject).then(function (result) {
+                return getDataOperationResponse(res, result);
             });
+        });
+    });
+};
 
-        router("api/saveDataObject")
-            .method("POST")
-            .contentType("application/json")
-            .contentApp(function (request) {
-                // You need to do that after route install before .listen that 
-                // why it's inside the app function
-                return getDataOperationFromRequest(request).then(function (dataObject) {
-                    return getMainService().then(function (mainService) {
-                        return mainService.saveDataObject(dataObject).then(function (result) {
-                            return getDataOperationResponse(response, result);
-                        });
-                    });
-                }).catch(function (err) {
-                    console.error(err, err.stack);
-                    throw err;
-                });
+exports.saveDataObject = function (req, res) {
+    return getDataOperationFromRequest(req).then(function (dataObject) {
+        return getMainService().then(function (mainService) {
+            return mainService.saveDataObject(dataObject).then(function (result) {
+                return getDataOperationResponse(res, result);
             });
+        });
     });
 };
