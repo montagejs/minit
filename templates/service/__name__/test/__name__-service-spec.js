@@ -3,10 +3,12 @@ var request = require("joey").redirectTrap(20).client();
 describe('loading express', function () {
   
   var server,
-    apiURL = 'http://localhost:8080/api';
+    apiPort = 8081,
+    apiURL = 'http://localhost:' + apiPort + '/api';
   
   beforeEach(function () {
-    server = require('./../main');
+    process.env.APP_PORT = apiPort;
+    server = require('./../index');
   });
 
   afterEach(function () {
