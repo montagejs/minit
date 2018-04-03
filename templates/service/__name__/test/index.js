@@ -8,4 +8,9 @@ global.chai = chai;
 global.should = chai.should();
 global.expect = chai.expect;
 
+
+var io = require('socket.io-client');
+global.io = io;
+
 require('./spec/{{name}}-service-spec');
+require('./spec/{{name}}-service-ws-spec');

@@ -1,7 +1,7 @@
-var PATH = require("path");
-var Montage = require('montage');
-
+const PATH = require("path");
 const APP_PATH = process.env.APP_PATH || PATH.join(__dirname, ".");
+
+var Montage = require('montage');
 
 // TODO
 // In progress - Load Service/Model/Mapping programaticly 
@@ -76,7 +76,7 @@ function serialize(object) {
     return getMontageRequire().then(function (mr) {
         return mr.async('montage/core/serialization/serializer/montage-serializer').then(function (module) {
             return module.serialize(object, mr); 
-        })
+        });
     });
 }
 

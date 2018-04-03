@@ -1,25 +1,26 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>{{exportedName}} Service Tests</title>
+  <title>{{exportedName}} Service Tests</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../node_modules/mocha/mocha.css" />
     <script src="../node_modules/mocha/mocha.js"></script>
-	<script src="../node_modules/chai/chai.js"></script>
-	<script src="../node_modules/chai-http/dist/chai-http.js"></script>
+  <script src="../node_modules/chai/chai.js"></script>
+  <script src="../node_modules/chai-http/dist/chai-http.js"></script>
+  <script src="../node_modules/socket.io-client/dist/socket.io.js"></script>
 </head>
 <body>
-	<script>
-	  chai.use(chaiHttp);
+  <script>
+    chai.use(chaiHttp);
 
     global = window;
     global.chai = chai;
     global.should = chai.should();
     global.expect = chai.expect;
 
-	</script>
-	<script>
+  </script>
+  <script>
       mocha.setup({
       allowUncaught: true,
       ui: 'bdd',
@@ -30,6 +31,7 @@
     });
     </script>
     <script src="./spec/{{name}}-service-spec.js"></script>
+    <script src="./spec/{{name}}-service-ws-spec.js"></script>
     <script>
      onload = function(){
         var runner = mocha.run();
@@ -53,7 +55,7 @@
             return titles.reverse();
           };
 
-          failedTests.push({name: test.title, result: false, {{name}}: err.{{name}}, stack: err.stack, titles: flattenTitles(test) });
+          failedTests.push({name: test.title, result: false, message: err.message, stack: err.stack, titles: flattenTitles(test) });
         };
       };
     </script>

@@ -8,7 +8,7 @@ if (typeof process !== 'undefined') {
 // Default value
 APP_TEST_URL = APP_TEST_URL || 'http://localhost:8080';
 
-describe('{{exportedName}}', () => {
+describe('{{exportedName}} HTTP API', () => {
   beforeEach((done) => {
      done();        
   });

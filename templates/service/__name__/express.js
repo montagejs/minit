@@ -39,65 +39,107 @@ app.use(express.static(APP_PUBLIC_PATH));
 var {{name}} = require('./middleware');
 
 //
-// HTTP REST Routing
+// HTTP REST Routing 
+// /api/{{name}} GET|POST|PUT|DELETE
 //
 
+function resultToHttpResponse(response, event, result) {
+    response.header("Content-Type", "application/json");
+    response.send(result);
+    response.end();
+}
+
 app.route("/api/{{name}}")
-    .get({{name}}.fetchData)
-    .post({{name}}.saveDataObject)
-    .put({{name}}.saveDataObject)
-    .delete({{name}}.deleteDataObject);
+    .get(function (req, res) {
+        {{name}}.fetchData(req, res).then(function (result) {
+          resultToHttpResponse(res, 'fetchData', result);
+        });
+    })
+    .post(function (req, res) {
+        {{name}}.saveDataObject(req, res).then(function (result) {
+          resultToHttpResponse(res, 'saveDataObject', result);
+        });
+    })
+    .put(function (req, res) {
+        {{name}}.saveDataObject(req, res).then(function (result) {
+          resultToHttpResponse(res, 'saveDataObject', result);
+        });
+    })
+    .delete(function (req, res) {
+        {{name}}.deleteDataObject(req, res).then(function (result) {
+          resultToHttpResponse(res, 'deleteDataObject', result);
+        });
+    });
+
 
 //
 // Socket Routing
 //
 
 var socketSubscriptions = new Map();
-function broadcastsDataOperation(event, data) {
-  return Array.from(socketSubscriptions).map(function (socketSubscription) {
-    // TODO check socketSubscription.filter
+function broadcastsDataOperation(event, data, clientSource) {
+  return Array.from(socketSubscriptions).filter(function (socketSubscription) {
+    return clientSource && socketSubscription.id !== clientSource.id
+  }).map(function (socketSubscription) {
+    console.log(socketSubscription, event, data)
     return socket.to(socketSubscription.id).emit(event, data);
   });
+}
+
+function resultToSocketResponse(client, event, result) {
+
+    // Preparse
+    result = JSON.parse(result);
+
+    client.emit(event, result);
+    broadcastsDataOperation(event, result, client);
 }
 
 socket.on('connection', function(client) {  
 
     // Use socket to communicate with this particular client only, sending it it's own id
     client.emit('welcome', { 
-      message: 'Welcome!', 
+      {{name}}: 'Welcome!', 
       time: Date.now(),
       id: client.id 
     });
 
-    // Add socket to broadcasts
-    client.on('join', function(config) {
-        socketSubscriptions.set(client.id, Object.assin({
+    // Add socketSubscriptions
+    client.on('subscribe', function(data) {
+          
+        // Get current subscription data or create
+        var currentData = socketSubscriptions.get(client.id) || {
           id: client.id
-        }, data));
-    });
+        };
 
-    client.on('leave', function(data) {
-        socketSubscriptions.delete(client.id);
+        // Store subscription
+        socketSubscriptions.set(client.id, Object.assign(currentData, data));
+
+        // Remove socketSubscriptions on disconnected
+        client.on('disconnected', function(client) {
+          socketSubscriptions.delete(client.id);
+        });
+
+        client.on('unsubscribe', function(data) {
+            socketSubscriptions.delete(client.id);
+        });
     });
 
     client.on('fetchData', function (data) {
-      {{name}}.fetchData(data).then(function (res) {
-        client.emit('fetchData', res);
-        broadcastsDataOperation('fetchData', res);
+      {{name}}.fetchData(data).then(function (result) {
+        resultToSocketResponse(client, 'fetchData', result);
       });
     });
 
     client.on('saveDataObject', function (data) {
-      {{name}}.saveDataObject(data).then(function (res) {
-        client.emit('saveDataObject', res);
-        broadcastsDataOperation('saveDataObject', res);
+      {{name}}.saveDataObject(data).then(function (result) {
+        resultToSocketResponse(client, 'deleteDataObject', result);
       });
     });
 
     client.on('deleteDataObject', function () {
-      {{name}}.deleteDataObject(data).then(function (res) {
-        client.emit('deleteDataObject', res);
-        broadcastsDataOperation('deleteDataObject', res);
+      {{name}}.deleteDataObject(data).then(function (result) {
+        resultToSocketResponse(client, 'deleteDataObject', result);
       });
     });
 });

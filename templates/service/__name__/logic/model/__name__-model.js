@@ -1,4 +1,4 @@
-var Montage = require("montage").Montage
+var Montage = require("montage").Montage;
 
 /**
  * @class

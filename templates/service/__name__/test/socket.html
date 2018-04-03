@@ -1,17 +1,19 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Message Service Socket</title>
+  <title>{{exportedName}} Service Socket</title>
 </head>
 <body>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.0.3/socket.io.js"></script>
+  <script src="../node_modules/socket.io-client/dist/socket.io.js"></script>
   <script>  
     var socket = io.connect('http://localhost:8080');
     socket.on('connect', function(data) {
+        socket.emit('join');
+        
         socket.emit('fetchData');
-    });
-    socket.on('fetchData', function(data) {
-        console.log(data);
+        socket.on('fetchData', function(data) {
+            console.log(data);
+        });
     });
 </script>
 </body>
