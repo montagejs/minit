@@ -125,14 +125,6 @@ function getDataOperationResponse(response, queryResult) {
     return serialize(queryResult).then(function (queryJson) {
         console.log('getDataOperationResponse (serialized)', queryJson);
         return queryJson;
-    }).then(function (res) {
-        if (response) {
-            response.header("Content-Type", "application/json");
-            response.send(res);
-            response.end();
-        } else {
-            return res;
-        }
     });
 }
 
