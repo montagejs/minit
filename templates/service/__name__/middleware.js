@@ -121,7 +121,6 @@ function getDataOperationFromRequest(request) {
 }
 
 function getDataOperationResponse(response, queryResult) {
-    console.log('getDataOperationResponse', queryResult);
     return serialize(queryResult).then(function (queryJson) {
         console.log('getDataOperationResponse (serialized)', queryJson);
         return queryJson;
