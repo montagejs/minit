@@ -27,6 +27,7 @@
   "scripts": {
     "lint": "jshint .",
     "start": "node index.js",
+    "pretest": "npm install",
     "test": "mocha test --timeout 10000 --exit",
     "integration": "concurrently \"npm run serve:test\" \"npm run open:test\"",
     "doc": "concurrently \"npm run serve:doc\" \"npm run open:doc\"",
