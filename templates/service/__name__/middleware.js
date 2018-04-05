@@ -29,33 +29,13 @@ function getMainService() {
         if (mainService) {
             return Promise.resolve(mainService);
         }
-
-        // TODO
-        // Cannot read property 'defineDeserializationUnit' of undefined
-        // at Module.eval (file:///me/node_modules/montage/core/serialization/bindings.js:118:13)
-        /*
+        
         return mr.async('montage/core/serialization/deserializer/montage-deserializer').then(function (module) {
             var Deserializer = module.MontageDeserializer;
             return mr.async('data/main.mjson').then(function (descriptor) {
                 var deserializer = new Deserializer().init(descriptor, mr);
                 return deserializer.deserializeObject();
             }); 
-        });
-        */
-
-        // Load main service
-        return mr.async("montage/data/service/data-service").then(function (module) {
-            return (mainService = new module.DataService());
-
-        // Load sub service
-        }).then(function (config) {
-            return mr.async("logic/model/{{name}}-model").then(function (module) {
-                return mr.async("logic/service/{{name}}-service").then(function (module) {
-                    var moduleName = "{{exportedName}}Service";
-                    mainService.addChildService(new module[moduleName]());
-                    return mainService;
-                });
-            });
         });
     });
 }
