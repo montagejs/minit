@@ -1,5 +1,5 @@
 var HttpService = require("montage/data/service/http-service").HttpService,
-    MontagePromise = require("montage/core/promise").Promise;
+    Promise = require("montage/core/promise").Promise;
 
 var STORE = Map.from({
     42: {
@@ -14,21 +14,21 @@ var AUTO_INCREMENT_ID = 43;
 
 var dataStore = {
     all: function () {
-        return Array.from(STORE);
+        return Promise.resolve(Array.from(STORE));
     },
     filterBy: function (prop, value) {
-        return Array.from(STORE).filter(function (rawDataEntry) {
+        return Promise.resolve(Array.from(STORE).filter(function (rawDataEntry) {
             return rawDataEntry[prop] === value;
-        });
+        }));
     },
     set: function (key, value) {
-        return STORE.set(key, value);
+        return Promise.resolve(STORE.set(key, value));
     },
     get: function (key) {
-        return STORE.get(key);  
+        return Promise.resolve(STORE.get(key));  
     },
     delete: function (key) {
-        return STORE.delete(key);   
+        return Promise.resolve(STORE.delete(key));   
     }
 };
 
@@ -64,11 +64,12 @@ exports.{{exportedName}}Service = HttpService.specialize(/** @lends {{exportedNa
                 parameters = criteria.parameters;
 
             if (parameters && parameters.id) {
-                var rawData = dataStore.filterBy('id', parameters.id);
-                self.addRawData(stream, rawData);
-                self.rawDataDone(stream);
+                return dataStore.filterBy('id', parameters.id).then(function (rawData) {
+                    self.addRawData(stream, rawData);
+                    self.rawDataDone(stream); 
+                });
             } else {
-                MontagePromise.resolve(dataStore.all()).then(function (rawData) {
+                return dataStore.all().then(function (rawData) {
                     self.addRawData(stream, rawData);
                     self.rawDataDone(stream);
                 });
@@ -91,17 +92,19 @@ exports.{{exportedName}}Service = HttpService.specialize(/** @lends {{exportedNa
             }
 
             // Update store
-            dataStore.set(rawData.id, rawData);
+            return dataStore.set(rawData.id, rawData).then(function () {
+                return Promise.resolve(rawData);                
+            });
 
-            return MontagePromise.resolve(rawData);
         }
     },
 
     // Delete
     deleteRawData: {
         value: function (rawData, object) {
-            dataStore.delete(rawData.id);
-            return MontagePromise.resolve(rawData);
+            return dataStore.delete(rawData.id).then(function () {
+                return Promise.resolve(rawData); 
+            });
         }
     }
 });
