@@ -8,6 +8,7 @@
     "config": "^1.30.0",
     "express": "^4.16.3",
     "joey": "^1.5.3",
+    "commander": "^2.15.1",
     "montage": "montagejs/montage#master",
     "morgan": "^1.9.0",
     "socket.io": "^2.1.0",

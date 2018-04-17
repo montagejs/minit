@@ -36,11 +36,11 @@ app.use(function(req, res, next) {
 app.use(express.static(APP_PUBLIC_PATH));
 
 // Load controller
-var {{name}} = require('./middleware');
+var main = require('./main');
 
 //
 // HTTP REST Routing 
-// /api/{{name}} GET|POST|PUT|DELETE
+// /api/main GET|POST|PUT|DELETE
 //
 
 function resultToHttpResponse(response, event, result) {
@@ -49,24 +49,24 @@ function resultToHttpResponse(response, event, result) {
     response.end();
 }
 
-app.route("/api/{{name}}")
+app.route("/api/data")
     .get(function (req, res) {
-        {{name}}.fetchData(req, res).then(function (result) {
+        main.fetchData(req, res).then(function (result) {
           resultToHttpResponse(res, 'fetchData', result);
         });
     })
     .post(function (req, res) {
-        {{name}}.saveDataObject(req, res).then(function (result) {
+        main.saveDataObject(req, res).then(function (result) {
           resultToHttpResponse(res, 'saveDataObject', result);
         });
     })
     .put(function (req, res) {
-        {{name}}.saveDataObject(req, res).then(function (result) {
+        main.saveDataObject(req, res).then(function (result) {
           resultToHttpResponse(res, 'saveDataObject', result);
         });
     })
     .delete(function (req, res) {
-        {{name}}.deleteDataObject(req, res).then(function (result) {
+        main.deleteDataObject(req, res).then(function (result) {
           resultToHttpResponse(res, 'deleteDataObject', result);
         });
     });
@@ -98,7 +98,7 @@ socket.on('connection', function(client) {
 
     // Use socket to communicate with this particular client only, sending it it's own id
     client.emit('welcome', { 
-      {{name}}: 'Welcome!', 
+      message: 'Welcome!', 
       time: Date.now(),
       id: client.id 
     });
@@ -125,22 +125,29 @@ socket.on('connection', function(client) {
     });
 
     client.on('fetchData', function (data) {
-      {{name}}.fetchData(data).then(function (result) {
+      main.fetchData(data).then(function (result) {
         resultToSocketResponse(client, 'fetchData', result);
       });
     });
 
     client.on('saveDataObject', function (data) {
-      {{name}}.saveDataObject(data).then(function (result) {
+      main.saveDataObject(data).then(function (result) {
         resultToSocketResponse(client, 'deleteDataObject', result);
       });
     });
 
     client.on('deleteDataObject', function () {
-      {{name}}.deleteDataObject(data).then(function (result) {
+      main.deleteDataObject(data).then(function (result) {
         resultToSocketResponse(client, 'deleteDataObject', result);
       });
     });
+});
+
+// Handle error
+app.use(function (err, req, res, next) {
+  console.error(err.stack || err);
+  res.status(500);
+  res.end(err.message);  
 });
 
 // Start Service endpoint
