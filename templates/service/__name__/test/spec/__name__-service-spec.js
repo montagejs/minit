@@ -15,7 +15,7 @@ describe('{{exportedName}} HTTP API', () => {
   describe('/GET {{name}}', () => {
       it('it should GET all the {{name}}s', (done) => {
         chai.request(APP_TEST_URL)
-            .get('/api/{{name}}')
+            .get('/api/data')
             .end((err, res) => {
                 expect(err).to.be.null;
                 expect(res).to.have.status(200);
@@ -37,11 +37,11 @@ describe('{{exportedName}} HTTP API', () => {
   */
   describe('/POST {{name}}', () => {
       it('it should not POST a {{name}} without pages field', (done) => {
-        var {{name}} = {
-        }
+        var {{exportedName}} = {
+        };
         chai.request(APP_TEST_URL)
-            .post('/api/{{name}}')
-            .send({{name}})
+            .post('/api/data')
+            .send({{exportedName}})
             .end((err, res) => {
                 expect(err).to.be.null;
                 expect(res).to.have.status(200);
@@ -58,11 +58,11 @@ describe('{{exportedName}} HTTP API', () => {
   */
   describe('/DELETE {{name}}', () => {
       it('it should not DELETE a {{name}} without pages field', (done) => {
-        var {{name}} = {
-        }
+        var {{exportedName}} = {
+        };
         chai.request(APP_TEST_URL)
-            .delete('/api/{{name}}')
-            .send({{name}})
+            .delete('/api/data')
+            .send({{exportedName}})
             .end((err, res) => {
                 expect(err).to.be.null;
                 expect(res).to.have.status(200);

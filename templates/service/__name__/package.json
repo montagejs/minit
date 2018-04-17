@@ -4,7 +4,7 @@
   "version": "0.1.0",
   "main": "index",
   "bin": {
-    "{{name}}": "cli"
+    "{{name}}": "cli.js"
   },
   "dependencies": {
     "body-parser": "^1.18.2",
