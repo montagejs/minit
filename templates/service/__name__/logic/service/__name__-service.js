@@ -6,7 +6,8 @@ var STORE = Map.from({
         "id": 42,
         "subject": "You've got mail",
         "text": "Hello World!",
-        "create": Date.now()
+        "updated": void 0,
+        "created": Date.now()
     }
 });
 
@@ -103,9 +104,7 @@ exports.{{exportedName}}Service = HttpService.specialize(/** @lends {{exportedNa
     // Delete
     deleteRawData: {
         value: function (rawData, object) {
-            return dataStore.delete(rawData.id).then(function () {
-                return Promise.resolve(rawData); 
-            });
+            return dataStore.delete(rawData.id);
         }
     }
 });
