@@ -9,8 +9,8 @@
                     "id": {"<->": "id"},
                     "subject": {"<->": "subject"},
                     "text": {"<->": "text"},
-                    "created": {"<->": "text"},
-                    "updated": {"<->": "text"}
+                    "created": {"<->": "created"},
+                    "updated": {"<->": "updated"}
                 }
             },
             "requisitePropertyNames": [

@@ -6,7 +6,9 @@
             "propertyDescriptors": [
                 {"@": "id"},
                 {"@": "subject"},
-                {"@": "text"}
+                {"@": "text"},
+                {"@": "updated"},
+                {"@": "created"}
             ],
             "exportName": "{{exportedName}}",
             "module": {
@@ -38,14 +40,14 @@
     "updated": {
         "prototype": "montage/core/meta/property-descriptor",
         "values": {
-            "name": "text",
+            "name": "updated",
             "valueType": "string"
         }
     },
     "created": {
         "prototype": "montage/core/meta/property-descriptor",
         "values": {
-            "name": "text",
+            "name": "created",
             "valueType": "string"
         }
     }
