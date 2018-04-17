@@ -3,6 +3,9 @@
   "description": "{{description}}",
   "version": "0.1.0",
   "main": "index",
+  "bin": {
+    "{{name}}": "cli"
+  },
   "dependencies": {
     "body-parser": "^1.18.2",
     "config": "^1.30.0",
