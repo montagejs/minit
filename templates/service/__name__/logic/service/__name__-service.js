@@ -21,8 +21,26 @@ var dataStore = {
             return rawDataEntry[prop] === value;
         }));
     },
-    set: function (key, value) {
-        return Promise.resolve(STORE.set(key, value));
+    save: function (value) {
+
+        // Update rawData
+        // this.rootService.createdDataObjects.has(object)
+        if (!value.id) {
+
+            AUTO_INCREMENT_ID++;
+            value.id = AUTO_INCREMENT_ID;
+            value.created = Date.now();
+
+            // WHY why ?
+            //Object.assign(object, rawData);
+
+        } else {
+            value.updated = Date.now();
+        }
+
+        return Promise.resolve(STORE.set(value.id, value)).then(function () {
+            return value;
+        });
     },
     get: function (key) {
         return Promise.resolve(STORE.get(key));  
@@ -80,22 +98,11 @@ exports.{{exportedName}}Service = HttpService.specialize(/** @lends {{exportedNa
     // Create and update
     saveRawData: {
         value: function (rawData, object) {
-
-            // Update rawData
-            if (this.rootService.createdDataObjects.has(object)) {
-                AUTO_INCREMENT_ID++;
-                rawData.id = AUTO_INCREMENT_ID;
-                rawData.created = Date.now();
-                Object.assign(object, rawData);
-            } else {
-                object.updated = rawData.updated = Date.now();
-            }
-
+            var self = this;
             // Update store
-            return dataStore.set(rawData.id, rawData).then(function () {
-                return Promise.resolve(rawData);                
+            return dataStore.save(rawData).then(function (rawData) {
+                return self._mapRawDataToObject(rawData, object);
             });
-
         }
     },
 
