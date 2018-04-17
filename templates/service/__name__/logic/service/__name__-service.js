@@ -24,16 +24,10 @@ var dataStore = {
     save: function (value) {
 
         // Update rawData
-        // this.rootService.createdDataObjects.has(object)
         if (!value.id) {
-
             AUTO_INCREMENT_ID++;
             value.id = AUTO_INCREMENT_ID;
             value.created = Date.now();
-
-            // WHY why ?
-            //Object.assign(object, rawData);
-
         } else {
             value.updated = Date.now();
         }
