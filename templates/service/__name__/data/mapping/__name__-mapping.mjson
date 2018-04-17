@@ -9,12 +9,12 @@
                     "id": {"<->": "id"},
                     "subject": {"<->": "subject"},
                     "text": {"<->": "text"},
-                    "created": {"<->": "created"},
-                    "updated": {"<->": "updated"}
+                    "updated": {"<->": "updated"},
+                    "created": {"<->": "created"}
                 }
             },
             "requisitePropertyNames": [
-                "id", "subject", "text"
+                "id", "subject", "text", "updated", "created"
             ]
         }
     },

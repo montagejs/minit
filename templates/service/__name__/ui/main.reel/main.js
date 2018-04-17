@@ -2,7 +2,7 @@
  * @module ui/main.reel
  */
 var Component = require("montage/ui/component").Component;
-var DataSelector = require("montage/data/service/data-selector").DataSelector;
+var DataQuery = require("montage/data/model/data-query").DataQuery;
 var Criteria = require("montage/core/criteria").Criteria;
 
 var {{exportedName}} = require("data/descriptors/{{name}}.mjson").montageObject;
@@ -64,7 +64,7 @@ exports.Main = Component.specialize(/** @lends Main# */ {
                                     id: myMsg.id
                                 };
                                 var dataCriteria = new Criteria().initWithExpression(dataExpression, dataParameters);
-                                var dataQuery  = DataSelector.withTypeAndCriteria(dataType, dataCriteria);
+                                var dataQuery  = DataQuery.withTypeAndCriteria(dataType, dataCriteria);
                                 
                                 mainService.fetchData(dataQuery).then(function (res) {
                                     assert('fetchData:withTypeAndCriteria', res.length === 0, res);

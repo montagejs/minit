@@ -58,19 +58,19 @@ function deserialize(data) {
 
 function createDataQueryFromParams(queryParam) {
     return getMontageRequire().then(function (mr) {
-        return mr.async("montage/data/service/data-selector").then(function (module) {
-            var DataSelector = module.DataSelector;
+        return mr.async("montage/data/model/data-query").then(function (module) {
+            var DataQuery = module.DataQuery;
             return mr.async("montage/core/criteria").then(function (module) {
                 var Criteria = module.Criteria;
-                return mr.async("logic/model/{{name}}-model").then(function (module) {
+                return mr.async("data/descriptors/{{name}}.mjson").then(function (module) {
                     
                     // A Default Query
-                    var dataType = module["{{exportedName}}"];
+                    var dataType = module.montageObject;
                     var dataExpression = "";
                     var dataParameters = queryParam;
 
                     var dataCriteria = new Criteria().initWithExpression(dataExpression, dataParameters);
-                    var dataQuery  = DataSelector.withTypeAndCriteria(dataType, dataCriteria);
+                    var dataQuery  = DataQuery.withTypeAndCriteria(dataType, dataCriteria);
              
                     return dataQuery;
                 
@@ -83,8 +83,8 @@ function createDataQueryFromParams(queryParam) {
 
 function getDataOperationFromData(data) {
     return getMontageRequire().then(function (mr) {
-        return mr.async("montage/data/service/data-selector").then(function (module) {
-            var DataSelector = module.DataSelector;
+        return mr.async("montage/data/model/data-query").then(function (module) {
+            var DataQuery = module.DataQuery;
             return mr.async("montage/core/criteria").then(function (module) {
                 var Criteria = module.Criteria;
                 return deserialize(data);
