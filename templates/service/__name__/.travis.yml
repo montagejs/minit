@@ -39,8 +39,8 @@ before_script:
   - export DOCKER_CLIENT_TIMEOUT=120
   - npm run build
 script:
-  - npm test
-  - docker ps | grep -q message-service  
+  - docker ps | grep -q {{name}}-service
+  - npm test  
 after_failure:
   - docker ps
   - docker-compose logs
@@ -48,4 +48,3 @@ after_success:
   - cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js
 after_script:
   - npm run stop
-  

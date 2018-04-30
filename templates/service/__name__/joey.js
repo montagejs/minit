@@ -15,7 +15,6 @@ var app = joey.log()
 	.cors()
 	.parseQuery();
 
-
 // Load service controller
 var main = require('./main');
 

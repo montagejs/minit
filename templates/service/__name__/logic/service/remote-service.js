@@ -10,20 +10,7 @@ var deserialize = require("montage/core/serialization/deserializer/montage-deser
  * @class
  * @extends external:HttpService
  */
-exports.RemoteService = HttpService.specialize(/** @lends MessageService.prototype */ {
-
-    // TODO
-    // Cause Can\'t fetch data of unknown type
-    // Need to me module not object
-    /*
-    types: {
-        value: [Message]
-    },
-
-    MessageMapping: {
-        value: null
-    },
-    */
+exports.RemoteService = HttpService.specialize(/** @lends RemoteService.prototype */ {
 
     _serialize: {
         value: function (dataObject) {
