@@ -48,3 +48,4 @@ after_success:
   - cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js
 after_script:
   - npm run stop
+  

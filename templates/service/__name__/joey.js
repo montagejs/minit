@@ -1,4 +1,7 @@
+/* jshint node: true */
+'use strict';
 
+// [START main_body]
 var joey = require("joey");
 
 const APP_PUBLIC_PATH = process.env.APP_PUBLIC_PATH || __dirname;
@@ -59,4 +62,5 @@ app.listen(APP_PORT)
 	.done();
 
 // Return app for composition
-module.exports = app;
+module.exports = app; // for testing
+// [END main_body]
