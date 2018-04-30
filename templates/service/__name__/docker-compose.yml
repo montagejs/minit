@@ -2,7 +2,7 @@ version: "3.1"
 
 services:
   {{name}}-service:
-    pports:
+    ports:
       - "8080:8080"
     networks:
       - frontend
