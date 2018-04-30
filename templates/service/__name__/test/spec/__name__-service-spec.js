@@ -14,8 +14,22 @@ describe('{{exportedName}} HTTP API', () => {
   });
   describe('/GET {{name}}', () => {
       it('it should GET all the {{name}}s', (done) => {
+        var query = {
+          "root": {
+            "prototype": "montage/data/model/data-query",
+            "values": {
+              "criteria": {},
+              "orderings": [],
+              "prefetchExpressions": null,
+              "typeModule": {
+                "%": "data/descriptors/{{name}}.mjson"
+              }
+            }
+          }
+        };
+
         chai.request(APP_TEST_URL)
-            .get('/api/data')
+            .get('/api/data?query=' + encodeURIComponent(JSON.stringify(query)))
             .end((err, res) => {
                 expect(err).to.be.null;
                 expect(res).to.have.status(200);
@@ -28,7 +42,7 @@ describe('{{exportedName}} HTTP API', () => {
                 expect(res.body.{{name}}).to.have.property('prototype');
                 expect(res.body.{{name}}).to.have.property('prototype');
                 expect(res.body.{{name}}).to.have.property('values');
-              done();
+                done();
             });
       });
   });
@@ -36,20 +50,29 @@ describe('{{exportedName}} HTTP API', () => {
   * Test the /POST route
   */
   describe('/POST {{name}}', () => {
-      it('it should not POST a {{name}} without pages field', (done) => {
-        var {{exportedName}} = {
+      it('it should POST a {{name}}', (done) => {
+        var {{name}} = {
+          "root": {
+            "prototype": "logic/model/{{name}}-model[{{exportedName}}]",
+            "values": {
+              "subject": "RE: You've got mail",
+              "identifier": null
+            }
+          }
         };
         chai.request(APP_TEST_URL)
-            .post('/api/data')
-            .send({{exportedName}})
+            .post('/api/data/save')
+            .send({
+              data: {{name}}
+            })
             .end((err, res) => {
                 expect(err).to.be.null;
                 expect(res).to.have.status(200);
                 expect(res.body).to.be.a('object');
                 expect(res.body).to.have.property('root');
                 expect(res.body.root).to.be.a('object');
-                expect(res.body.root).to.have.property('value');
-              done();
+                expect(res.body.root).to.have.property('values');
+                done();
             });
       });
   });
@@ -57,16 +80,29 @@ describe('{{exportedName}} HTTP API', () => {
   * Test the /POST route
   */
   describe('/DELETE {{name}}', () => {
-      it('it should not DELETE a {{name}} without pages field', (done) => {
-        var {{exportedName}} = {
+      it('it should DELETE a {{name}}', (done) => {
+        var {{name}} = {
+          "root": {
+            "prototype": "logic/model/{{name}}-model[{{exportedName}}]",
+            "values": {
+              "id": 46,
+              "subject": "RE: You've got mail",
+              "text": "Add missing text",
+              "created": 1525106537546,
+              "updated": 1525106537567,
+              "identifier": null
+            }
+          }
         };
         chai.request(APP_TEST_URL)
-            .delete('/api/data')
-            .send({{exportedName}})
+            .post('/api/data/delete')
+            .send({
+              data: {{name}}
+            })
             .end((err, res) => {
                 expect(err).to.be.null;
                 expect(res).to.have.status(200);
-              done();
+                done();
             });
       });
   });

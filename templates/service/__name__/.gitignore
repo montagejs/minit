@@ -10,6 +10,7 @@ tmp/
 *.tmp.*
 log.txt
 *.log
+coverage/
 
 ## jsdoc
 /doc

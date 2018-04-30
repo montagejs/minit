@@ -1,35 +1,26 @@
+/* jshint node: true */
+'use strict';
+
+// [START main_body]
+var Montage = require('montage');
+
 const PATH = require("path");
 const APP_PATH = process.env.APP_PATH || PATH.join(__dirname, ".");
 
-var Montage = require('montage');
-
-// TODO
-// In progress - Load Service/Model/Mapping programaticly 
-// Next - Load Via main.mjson
-
+// Get montage requie instance
 var montageRequire;
 function getMontageRequire() {
-    // Once only
-    if (montageRequire) {
-        return Promise.resolve(montageRequire);
-    }
-
-    return Montage.loadPackage(APP_PATH, {
+    // Next call will wait on same promise
+    return montageRequire ? montageRequire : (montageRequire = Montage.loadPackage(APP_PATH, {
         mainPackageLocation: APP_PATH
-    }).then(function (require) {
-        return (montageRequire = require);
-    });
+    }));
 }
 
+// Get main service instance
 var mainService;
 function getMainService() {
-    return getMontageRequire().then(function (mr) {
-
-        // Once only
-        if (mainService) {
-            return Promise.resolve(mainService);
-        }
-        
+    // Next call will wait on same promise
+    return mainService ? mainService : (mainService = getMontageRequire().then(function (mr) {
         return mr.async('montage/core/serialization/deserializer/montage-deserializer').then(function (module) {
             var Deserializer = module.MontageDeserializer;
             return mr.async('data/main.mjson').then(function (descriptor) {
@@ -37,17 +28,23 @@ function getMainService() {
                 return deserializer.deserializeObject();
             }); 
         });
-    });
+    }));
 }
 
+// Serialize Montage Object
 function serialize(object) {
     return getMontageRequire().then(function (mr) {
         return mr.async('montage/core/serialization/serializer/montage-serializer').then(function (module) {
+            // TODO allow serialize to return JSON Object not string
             return module.serialize(object, mr); 
+        }).then(function (result) {
+            // Preparse
+            return JSON.parse(result);
         });
     });
 }
 
+// Deserialize Montage Object
 function deserialize(data) {
     return getMontageRequire().then(function (mr) {
         return mr.async('montage/core/serialization/deserializer/montage-deserializer').then(function (module) {
@@ -56,82 +53,81 @@ function deserialize(data) {
     });
 }
 
-function createDataQueryFromParams(queryParam) {
-    return getMontageRequire().then(function (mr) {
-        return mr.async("montage/data/model/data-query").then(function (module) {
-            var DataQuery = module.DataQuery;
-            return mr.async("montage/core/criteria").then(function (module) {
-                var Criteria = module.Criteria;
-                return mr.async("data/descriptors/{{name}}.mjson").then(function (module) {
-                    
-                    // A Default Query
-                    var dataType = module.montageObject;
-                    var dataExpression = "";
-                    var dataParameters = queryParam;
+// Deserialize data to query or object
+// TODO wrap in operation or receive operation
+function getOperationFromData(data) {
+    return new Promise(function (resolve, reject) {
+        // Falsy data should fail
+        if (!data) {
+            reject('Missing Operation Data');
 
-                    var dataCriteria = new Criteria().initWithExpression(dataExpression, dataParameters);
-                    var dataQuery  = DataQuery.withTypeAndCriteria(dataType, dataCriteria);
-             
-                    return dataQuery;
-                
-                // Convert to serialized version
-                });
-            });
-        }); 
+        // Process data oterwise
+        } else {
+
+            // Handle bad JSON Operation and pre-decode for deserializer
+            try {
+            
+                // Resolve Data
+                resolve(deserialize(data));
+            } catch (error) {
+
+                // Handle error
+                reject(error);
+            }   
+        }
     });
 }
 
-function getDataOperationFromData(data) {
-    return getMontageRequire().then(function (mr) {
-        return mr.async("montage/data/model/data-query").then(function (module) {
-            var DataQuery = module.DataQuery;
-            return mr.async("montage/core/criteria").then(function (module) {
-                var Criteria = module.Criteria;
-                return deserialize(data);
-            });
-        }); 
-    });
+// Serialize data to query result or object
+// TODO wrap in operation or receive operation
+function getDataOperationResponse(queryResult) {
+    return serialize(queryResult);
 }
 
-function getDataOperationFromRequest(request) {
-    var queryParam = request && (request.query.query || request.params.query);
-    return queryParam ? 
-        getDataOperationFromData(queryParam) : 
-            createDataQueryFromParams(request);
-}
+// Initialize Main Service.
+console.time('MainService');
+getMainService().then(function () {
+    console.timeEnd('MainService');
+    console.log("MainService Ready!");  
+});
 
-function getDataOperationResponse(response, queryResult) {
-    return serialize(queryResult).then(function (queryJson) {
-        console.log('getDataOperationResponse (serialized)', queryJson);
-        return queryJson;
-    });
-}
-
-exports.fetchData = function (req, res) {
-    return getMainService().then(function (mainService) {
-        return getDataOperationFromRequest(req).then(function (dataQuery) {
+// Perform fetchData operation
+exports.fetchData = function (query) {
+    // Decode operation prior to get main service
+    return getOperationFromData(query).then(function (dataQuery) {
+        // Disptach Operation on main service
+        return getMainService().then(function (mainService) {
+            //console.log('mainService.fetchData', dataQuery);
             return mainService.fetchData(dataQuery).then(function (queryResult) {
-                return getDataOperationResponse(res, queryResult);
+                return getDataOperationResponse(queryResult);
             });
         });
     });
 };
 
-exports.deleteDataObject = function (req, res) {
-    return getMainService().then(function (mainService) {
-        return getDataOperationFromRequest(req).then(function (dataObject) {
+// Perform deleteDataObject operation
+exports.deleteDataObject = function (data) {
+    // Decode operation prior to get main service
+    return getOperationFromData(data).then(function (dataObject) {
+        // Disptach Operation on main service
+        return getMainService().then(function (mainService) {
+            //console.log('mainService.deleteDataObject', dataObject);
             return mainService.deleteDataObject(dataObject).then(function (result) {
-                return getDataOperationResponse(res, result);
+                return getDataOperationResponse(dataObject);
             });
         });
     });
 };
 
-exports.saveDataObject = function (req, res) {
-    return getMainService().then(function (mainService) {
-        return getDataOperationFromRequest(req).then(function (dataObject) {
+// Perform saveDataObject operation
+exports.saveDataObject = function (data) {
+    // Decode operation prior to get main service
+    return getOperationFromData(data).then(function (dataObject) {
+        // Disptach Operation on main service
+        return getMainService().then(function (mainService) {
+            //console.log('mainService.saveDataObject', dataObject);
             return mainService.saveDataObject(dataObject).then(function (result) {
-                return getDataOperationResponse(res, result);
+                return getDataOperationResponse(dataObject);
             });
         });
     });

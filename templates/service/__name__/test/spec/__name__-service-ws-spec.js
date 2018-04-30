@@ -37,14 +37,70 @@ describe('{{exportedName}} WS API', () => {
     });
     describe('fetchData', () => {
         it('it should GET all the {{name}}s', (done) => {
-            socket.once('fetchData', function(res) {     
+            var query = {
+              "root": {
+                "prototype": "montage/data/model/data-query",
+                "values": {
+                  "criteria": {},
+                  "orderings": [],
+                  "prefetchExpressions": null,
+                  "typeModule": {
+                    "%": "data/descriptors/{{name}}.mjson"
+                  }
+                }
+              }
+            };
+            socket.emit('fetchData', query, function(res) {     
                 expect(res).to.be.a('object');
                 expect(res).to.have.property('root');
                 expect(res.root).to.be.a('object');
                 expect(res.root).to.have.property('value');
                 done();
             });
-            socket.emit('fetchData');
+        });
+    });
+    describe('saveDataObject', () => {
+        it('it should POST a {{name}}', (done) => {
+            var {{name}} = {
+              "root": {
+                "prototype": "logic/model/{{name}}-model[{{exportedName}}]",
+                "values": {
+                  "subject": "RE: You've got mail",
+                  "identifier": null
+                }
+              }
+            };
+            socket.emit('saveDataObject', {{name}}, function(res) {     
+                expect(res).to.be.a('object');
+                expect(res).to.have.property('root');
+                expect(res.root).to.be.a('object');
+                expect(res.root).to.have.property('values');
+                done();
+            });
+        });
+    });
+    describe('deleteDataObject', () => {
+        it('it should DELETE a {{name}}', (done) => {
+            var {{name}} = {
+              "root": {
+                "prototype": "logic/model/{{name}}-model[{{exportedName}}]",
+                "values": {
+                  "id": 43,
+                  "subject": "RE: You've got mail",
+                  "text": "Add missing text",
+                  "created": 1525106537546,
+                  "updated": 1525106537567,
+                  "identifier": null
+                }
+              }
+            };
+            socket.emit('deleteDataObject', {{name}}, function(res) {  
+                expect(res).to.be.a('object');
+                expect(res).to.have.property('root');
+                expect(res.root).to.be.a('object');
+                expect(res.root).to.have.property('values');
+                done();
+            });
         });
     });
 });

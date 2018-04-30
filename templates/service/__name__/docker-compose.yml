@@ -2,9 +2,17 @@ version: "3.1"
 
 services:
   {{name}}-service:
-    ports:
+    pports:
       - "8080:8080"
+    networks:
+      - frontend
+      - backend
     build:
       context: ./
     volumes:
-      - ./public:/home/{{name}}-service/public/:ro
+      - ./ui:/usr/src/app/ui/:ro
+
+# Default network
+networks:
+  frontend:
+  backend:

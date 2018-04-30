@@ -13,6 +13,9 @@
             "exportName": "{{exportedName}}",
             "module": {
                 "%": "logic/model/{{name}}-model"
+            },
+            "objectDescriptorModule": {
+                "%": "data/descriptors/{{name}}.mjson"
             }
         }
     },
