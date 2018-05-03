@@ -5,13 +5,13 @@ var Component = require("montage/ui/component").Component;
 var DataQuery = require("montage/data/model/data-query").DataQuery;
 var Criteria = require("montage/core/criteria").Criteria;
 
-var {{exportedName}} = require("data/descriptors/{{name}}.mjson").montageObject;
-var mainService = require("data/main.mjson").montageObject;
-
-/*
 var serialize = require("montage/core/serialization/serializer/montage-serializer").serialize;
-var query = serialize(dataQuery, require);
-*/
+var deserialize = require('montage/core/serialization/deserializer/montage-deserializer').deserialize;
+
+var mainService = require("data/main.mjson").montageObject;
+//var mainService = require("data/main-remote.mjson").montageObject;
+
+var {{exportedName}} = require("data/descriptors/{{name}}.mjson").montageObject;
 
 function assert(msg, assertion, debug) {
     if (assertion) {

@@ -14,7 +14,6 @@ const APP_PUBLIC_PATH = process.env.APP_PUBLIC_PATH || __dirname;
 const APP_HOSTNAME = process.env.APP_HOSTNAME || 'localhost';
 const APP_PORT = process.env.APP_PORT || '8080';
 
-
 // Log uncaughtException and graceful shutdown once
 var uncaughtedException;
 process.on('uncaughtException', function (err) {
@@ -37,7 +36,6 @@ if (process.env.NODE_ENV !== 'test') {
 app.use(cors()); // support cross-origin
 app.use(bodyParser.json()); // support json encoded body
 app.use(bodyParser.urlencoded({extended: true})); // support encoded body
-
 
 // Should be placed before express.static
 // To ensure that all assets and data are compressed (utilize bandwidth)

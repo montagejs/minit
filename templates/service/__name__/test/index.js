@@ -3,14 +3,15 @@ process.env.NODE_ENV = 'test';
 
 var chai = require('chai');
 var chaiHttp = require('chai-http');
-chai.use(chaiHttp);
+var io = require('socket.io-client');
 
+// Configure Test ENV
+var global = eval("this");
+chai.use(chaiHttp);
+// Export Global
 global.chai = chai;
 global.should = chai.should();
 global.expect = chai.expect;
-
-
-var io = require('socket.io-client');
 global.io = io;
 
 require('./spec/{{name}}-service-spec');
