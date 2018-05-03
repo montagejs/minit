@@ -42,7 +42,7 @@
     "test": "npm run test:istanbul && npm run test:nsp",
     "test:nsp": "nsp check",
     "test:mocha": "mocha test/index.js --exit",
-    "test:istanbul": "istanbul cover _mocha -- test/index.js --exit",
+    "test:istanbul": "istanbul cover _mocha -- test/index.js index.js --exit",
     "integration": "concurrently \"npm run serve:test\" \"npm run open:test\"",
     "doc": "concurrently \"npm run serve:doc\" \"npm run open:doc\"",
     "start:node": "npm run serve",
