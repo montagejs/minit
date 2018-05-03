@@ -7,13 +7,22 @@ var npm = require("npm");
 var Q = require('q');
 var removeDiacritics = require("diacritics").remove;
 
+var ALPHA_UPPER_REG = /([A-Z])/g,
+    ALPHA_LOWER_REG = /-([a-z])/g,
+    SEPARATOR1_REG = /--/g,
+    SEPARATOR2_REG = /^-/;
+    
 var _fromCamelToDashes = function(name) {
-    var s1 = name.replace(/([A-Z])/g, function (g) { return "-"+g.toLowerCase(); });
-    s1 = s1.replace(/--/g, "-").replace(/^-/, "");
+    var s1 = name.replace(ALPHA_UPPER_REG, function (g) { 
+            return "-" + g.toLowerCase(); 
+    });
+    s1 = s1.replace(SEPARATOR1_REG, "-").replace(SEPARATOR2_REG, "");
     return s1;
 };
 var _fromDashesToCamel = function(name) {
-    var s1 = name.replace(/-([a-z])/g, function (g) { return g[1].toUpperCase(); });
+    var s1 = name.replace(ALPHA_LOWER_REG, function (g) { 
+        return g[1].toUpperCase(); 
+    });
     s1 = s1[0].toUpperCase() + s1.slice(1);
     return s1;
 };

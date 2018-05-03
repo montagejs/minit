@@ -6,7 +6,6 @@ var chaiHttp = require('chai-http');
 var io = require('socket.io-client');
 
 // Configure Test ENV
-var global = eval("this");
 chai.use(chaiHttp);
 // Export Global
 global.chai = chai;
