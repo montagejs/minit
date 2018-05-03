@@ -65,6 +65,9 @@
     "build:docker": "docker build . -t {{name}}:develop-SNAPSHOT",
     "build:compose": "docker-compose build",
     "start:compose": "docker-compose up -d",
-    "stop:compose": "docker-compose down"
+    "stop:compose": "docker-compose down",
+    "clean": "npm run clean:modules && npm run clean:compose",
+    "clean:modules": "rm -fr node_modules",
+    "clean:compose": "docker-compose rm"
   }
 }
