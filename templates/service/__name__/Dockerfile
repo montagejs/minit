@@ -1,5 +1,4 @@
 FROM node:4
-MAINTAINER Harold Thetiot <harold.thetiot@kaazing.com>
 
 ENV APPDIR /usr/src/app
 
