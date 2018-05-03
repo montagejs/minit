@@ -1,0 +1,28 @@
+{
+    "{{exportedName}}": {
+        "object": "data/descriptors/{{name}}.mjson"
+    },
+    "{{exportedName}}Mapping": {
+        "object": "data/mapping/{{name}}-mapping.mjson"
+    },
+    "root": {
+        "prototype": "logic/service/remote-service",
+        "values": {
+            "name": "HttpRemoteService",
+            "types": [
+                 {"@": "{{exportedName}}"}
+            ],
+            "mappings": [
+                 {"@": "{{exportedName}}Mapping"}
+            ],
+            "serviceReferences": [
+                 {
+                    "module": {"%": "logic/service/{{name}}-service.mjson"}, 
+                    "types": [
+                         {"@": "{{exportedName}}"}
+                    ]
+                 }
+            ]
+        }
+    }
+}
