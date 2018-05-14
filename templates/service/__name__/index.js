@@ -1,8 +1,18 @@
 /* jshint node: true */
 'use strict';
 
+
 // [START main_body]
-process.title = "{{name}}-service";
+var pkg = require('./package.json'),
+    semver = require('semver');
+
+if(!semver.satisfies(process.version, pkg.engines.node)) {
+  // Not sure if throw or process.exit is best.
+  throw new Error('Requires a node version matching ' + pkg.engines.node);
+}
+
+// [START main_body]
+process.title = pkg.name;
 
 // TODO work in progress
 // Will use minit template mustache to have param to choose joey vs express

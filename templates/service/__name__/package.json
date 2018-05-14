@@ -39,7 +39,7 @@
     "stop": "npm run stop:docker",
     "start:dev": "docker-compose -f docker-compose.yml -f docker-compose.dev.yml up",
     "pretest": "npm install",
-    "test": "npm run test:istanbul && npm run test:nsp",
+    "test": "npm run test:istanbul",
     "test:nsp": "nsp check",
     "test:mocha": "mocha test/index.js --exit",
     "test:istanbul": "istanbul cover _mocha -- test/index.js index.js --exit",

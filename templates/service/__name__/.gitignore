@@ -12,9 +12,6 @@ log.txt
 *.log
 coverage/
 
-## jsdoc
-/doc
- 
 ### SublimeText ###
 *.sublime-project
 *.sublime-workspace
