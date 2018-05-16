@@ -67,7 +67,7 @@ describe("template-base", function () {
             });
 
             osMock = {
-                tmpDir: function() {
+                tmpdir: function() {
                     return "/minit_home";
                 }
             };
