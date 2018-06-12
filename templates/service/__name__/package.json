@@ -14,7 +14,7 @@
     "cors": "^2.8.4",
     "express": "^4.16.3",
     "joey": "^1.5.3",
-    "montage": "montagejs/montage#tej/data-query-serialization",
+    "montage": "montagejs/montage#master",
     "morgan": "^1.9.0",
     "socket.io": "^2.1.0",
     "semver": "^5.5.0",
