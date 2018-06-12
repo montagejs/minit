@@ -61,7 +61,7 @@ describe('{{exportedName}} WS API', () => {
     });
     describe('saveDataObject', () => {
         it('it should POST a {{name}}', (done) => {
-            var {{name}} = {
+            var {{exportedName}} = {
               "root": {
                 "prototype": "logic/model/{{name}}-model[{{exportedName}}]",
                 "values": {
@@ -70,7 +70,7 @@ describe('{{exportedName}} WS API', () => {
                 }
               }
             };
-            socket.emit('saveDataObject', {{name}}, function(res) {     
+            socket.emit('saveDataObject', {{exportedName}}, function(res) {     
                 expect(res).to.be.a('object');
                 expect(res).to.have.property('root');
                 expect(res.root).to.be.a('object');
@@ -81,7 +81,7 @@ describe('{{exportedName}} WS API', () => {
     });
     describe('deleteDataObject', () => {
         it('it should DELETE a {{name}}', (done) => {
-            var {{name}} = {
+            var {{exportedName}} = {
               "root": {
                 "prototype": "logic/model/{{name}}-model[{{exportedName}}]",
                 "values": {
@@ -94,7 +94,7 @@ describe('{{exportedName}} WS API', () => {
                 }
               }
             };
-            socket.emit('deleteDataObject', {{name}}, function(res) {  
+            socket.emit('deleteDataObject', {{exportedName}}, function(res) {  
                 expect(res).to.be.a('object');
                 expect(res).to.have.property('root');
                 expect(res.root).to.be.a('object');

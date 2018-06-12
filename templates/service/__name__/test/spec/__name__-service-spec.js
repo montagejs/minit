@@ -51,7 +51,7 @@ describe('{{exportedName}} HTTP API', () => {
   */
   describe('/POST {{name}}', () => {
       it('it should POST a {{name}}', (done) => {
-        var {{name}} = {
+        var {{exportedName}} = {
           "root": {
             "prototype": "logic/model/{{name}}-model[{{exportedName}}]",
             "values": {
@@ -63,7 +63,7 @@ describe('{{exportedName}} HTTP API', () => {
         chai.request(APP_TEST_URL)
             .post('/api/data/save')
             .send({
-              data: {{name}}
+              data: {{exportedName}}
             })
             .end((err, res) => {
                 expect(err).to.be.null;
@@ -81,7 +81,7 @@ describe('{{exportedName}} HTTP API', () => {
   */
   describe('/DELETE {{name}}', () => {
       it('it should DELETE a {{name}}', (done) => {
-        var {{name}} = {
+        var {{exportedName}} = {
           "root": {
             "prototype": "logic/model/{{name}}-model[{{exportedName}}]",
             "values": {
@@ -97,7 +97,7 @@ describe('{{exportedName}} HTTP API', () => {
         chai.request(APP_TEST_URL)
             .post('/api/data/delete')
             .send({
-              data: {{name}}
+              data: {{exportedName}}
             })
             .end((err, res) => {
                 expect(err).to.be.null;
