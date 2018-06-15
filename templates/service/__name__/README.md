@@ -46,7 +46,7 @@ docker build . -t {{name}}:develop-SNAPSHOT
 docker swarm init
 
 # npm run start:stack
-docker stack deploy -c docker-compose.yml 'montage-auth'
+docker stack deploy -c docker-compose.yml '{{name}}'
 
 # npm run start:doc
 open https://localhost:8080/doc/swagger.html
