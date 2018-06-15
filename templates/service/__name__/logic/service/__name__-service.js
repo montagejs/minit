@@ -80,11 +80,15 @@ exports.{{exportedName}}Service = HttpService.specialize(/** @lends {{exportedNa
                 return dataStore.filterBy('id', parameters.id).then(function (rawData) {
                     self.addRawData(stream, rawData);
                     self.rawDataDone(stream); 
+                }).catch(function (err) {
+                    stream.dataError(err);
                 });
             } else {
                 return dataStore.all().then(function (rawData) {
                     self.addRawData(stream, rawData);
                     self.rawDataDone(stream);
+                }).catch(function (err) {
+                    stream.dataError(err);
                 });
             }
         }
