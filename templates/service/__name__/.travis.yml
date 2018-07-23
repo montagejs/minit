@@ -18,7 +18,6 @@ before_script:
 script:
   - npm run lint
   - npm run test
-  - npm run test:nsp
 after_failure:
   - docker ps
   - docker-compose logs

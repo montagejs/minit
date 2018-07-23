@@ -178,6 +178,8 @@ exports.AbstractRemoteService = {
                         });
                     }); 
                 });
+            }).catch(function (err) {
+                stream.dataError(err);
             }); 
         }
     },
