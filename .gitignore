@@ -26,8 +26,8 @@ out/
 atlassian-ide-plugin.xml
  
 ### VisualStudioCode ###
-.vscode/*
-.vscode-upload.json
+###.vscode/*
+###.vscode-upload.json
  
 ### TextMate ###
 *.tmproj
