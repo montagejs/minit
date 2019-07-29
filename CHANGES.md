@@ -1,3 +1,13 @@
+### v0.5.9
+
+- Fixes a regression that happens when an option is missisng a proper value
+
+### v0.5.8
+
+- Adds App manifest
+- Misc cleanups and improvements
+
+
 ### v0.5.5
 
  - Added backward compatible support for Montage use of the mr symbol instead of the montageRequire symbol.
