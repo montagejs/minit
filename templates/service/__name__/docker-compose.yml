@@ -1,0 +1,33 @@
+version: '2'
+services:
+  {{name}}-service:
+    container_name: {{name}}-service
+    image: {{name}}-service:develop-SNAPSHOT
+    # Exposed port
+    ports:
+      - "8080:8080"
+    networks:
+      - frontend
+      - backend
+    build:
+      context: ./
+    volumes:
+      - ./:/usr/src/app/:ro
+
+  {{name}}-service-cli:
+    container_name: {{name}}-service-cli
+    image: {{name}}-service:develop-SNAPSHOT
+    networks:
+      - frontend
+      - backend
+    build:
+      context: ./
+    volumes:
+      - ./:/usr/src/app/:ro
+    entrypoint: ["node"]
+    command: ["cli", "--fetchData", '{ "root": { "prototype": "montage/data/model/data-query", "values": { "criteria": {}, "orderings": [], "prefetchExpressions": null, "typeModule": { "%": "data/descriptors/{{name}}.mjson" } } } }']
+
+# Default network
+networks:
+  frontend:
+  backend:

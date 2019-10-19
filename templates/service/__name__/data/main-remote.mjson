@@ -1,0 +1,14 @@
+{
+    "root": {
+        "prototype": "montage/data/service/data-service",
+        "values": {
+            "name": "DataService",
+            "childServices": [
+                {"@": "remoteService"}
+            ]
+        }
+    },
+    "remoteService": {
+        "object": "data/remote-service.mjson"
+    }
+}

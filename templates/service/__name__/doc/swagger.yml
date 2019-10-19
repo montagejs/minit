@@ -1,0 +1,146 @@
+swagger: "3.0"
+info:
+  title: "{{exportedName}} Service API documentation"
+  description: "{{exportedName}} Service API documentation."
+  version: "0.0.1"
+host: "localhost:8080"
+#host: "xxx.ngrok.io"
+#host: "example.com"
+basePath: "/api"
+schemes:
+- "http"
+#- "ws"
+#- "https"
+#- "wss"
+paths:
+  /{{name}}:
+    get:
+      tags:
+        - "api"
+      operationId: "fetchData"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+        - name: "id"
+          in: "query"
+          description: "DataQuery Criteria 'id' parameter"
+          required: false
+          type: "string"
+          format: "string"
+        - in: query
+          name: query
+          description: Montage DataQuery
+          required: false
+          schema:
+            $ref: "#/definitions/DataQuery"
+      responses:
+        200:
+          description: "Successful operation"
+          schema:
+            $ref: "#/definitions/{{exportedName}}"
+        500:
+          $ref: '#/components/responses/InternalServerError'
+    delete:
+      tags:
+        - "api"
+      operationId: "deleteDataObject"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+        - in: body
+          name: query
+          description: Montage DataObject
+          required: false
+          schema:
+            $ref: "#/definitions/DataObject"
+      responses:
+        205:
+          description: "Successful operation"
+          schema:
+            $ref: "#/definitions/{{exportedName}}"
+        500:
+          $ref: '#/components/responses/InternalServerError'
+    post:
+      tags:
+        - "api"
+      operationId: "saveDataObject"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+        - in: body
+          name: query
+          description: Montage DataObject
+          required: false
+          schema:
+            $ref: "#/definitions/DataObject"
+      responses:
+        200:
+          description: "Successful operation"
+          schema:
+            $ref: "#/definitions/{{exportedName}}"
+        201:
+          description: "Successful operation"
+          schema:
+            $ref: "#/definitions/{{exportedName}}"
+        500:
+          $ref: '#/components/responses/InternalServerError'
+securityDefinitions:
+  bearerAuth:
+    type: apiKey
+    name: Authorization
+    in: header
+    description: Requests should pass an Authorization header with a Bearer token.
+security:
+  - bearerAuth: []
+definitions:
+  {{exportedName}}:
+    type: "object"
+    properties:
+      {{name}}:
+        type: object
+        properties:
+          prototype:
+            type: string
+          values:
+            type: object
+      root:
+        type: object
+        properties:
+          prototype:
+            type: string
+          value:
+            type: object
+  DataQuery:
+    type: object
+    required:
+      - root
+    properties:
+      root:
+        type: object
+        properties:
+          prototype:
+            type: string
+          value:
+            type: object
+  DataObject:
+    type: object
+    required:
+      - root
+    properties:
+      root:
+        type: object
+        properties:
+          prototype:
+            type: string
+          value:
+            type: object
+components:
+  responses:
+    InternalServerError:
+      description: Internal Server Error

@@ -1,0 +1,20 @@
+{
+    "{{exportedName}}": {
+        "object": "data/descriptors/{{name}}.mjson"
+    },
+    "{{exportedName}}Mapping": {
+        "object": "data/mapping/{{name}}-mapping.mjson"
+    },
+    "root": {
+        "prototype": "logic/service/{{name}}-service",
+        "values": {
+            "name": "{{exportedName}}Service",
+            "types": [
+                 {"@": "{{exportedName}}"}
+            ],
+            "mappings": [
+                 {"@": "{{exportedName}}Mapping"}
+            ]
+        }
+    }
+}
