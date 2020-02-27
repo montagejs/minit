@@ -1,0 +1,9 @@
+{
+    "name": "{{name}}-sample",
+    "version": "0.1.0",
+    "description": "{{description}}",
+    "mappings": {
+        "montage": "{{relativePackageLocation}}/../../node_modules/montage",
+        "{{packageName}}": "{{relativePackageLocation}}/../../"
+    }
+}
