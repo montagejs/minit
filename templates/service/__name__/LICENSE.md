@@ -1,0 +1,3 @@
+{{#copyright}}
+{{{copyright}}}
+{{/copyright}}

@@ -1,0 +1,16 @@
+<html>
+  <head>
+    <title>{{exportedName}} Worker Tests</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script>
+      onload = function(){
+        var myWorker = new Worker('./worker.js');
+      };
+    </script>
+  </head>
+  <body>
+    <h1>Open Console and select "worker.js" to see tests results.</h1>
+    <div id="mocha"></div>
+  </body>
+</html>

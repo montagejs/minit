@@ -1,16 +1,16 @@
 {
-    "name": "{{name}}",
-    "version": "0.1.0",
-    "dependencies": {
-        "montage": "~17.0.11"
-    },
-    "devDependencies": {
-        "montage-testing": "~0.5.1"
-    },
-    "exclude": [
-        "overview.html",
-        "overview",
-        "run-tests.html",
-        "test"
-    ]
+  "name": "{{name}}",
+  "version": "0.1.0",
+  "dependencies": {
+    "montage": "~17.0.11"
+  },
+  "devDependencies": {
+    "montage-testing": "~0.5.1"
+  },
+  "exclude": [
+    "overview.html",
+    "overview",
+    "run-tests.html",
+    "test"
+  ]
 }
